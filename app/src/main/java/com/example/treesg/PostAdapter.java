@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -44,6 +45,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 
         Post current = allPosts[position];
 
+        holder.post = current;
         holder.postImage.setImageResource(current.getPostImage());
         holder.postDescription.setText(Html.fromHtml(current.getDescriptionWithName()));
         holder.postCreator.setText(current.getFrom());
@@ -68,7 +70,9 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         ImageView postCreatorProfileImage;
         TextView postLikes;
         TextView postComments;
+        CardView likeButton;
 
+        Post post;
 
 
         public ViewHolder(@NonNull View itemView) {
@@ -80,11 +84,32 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             postCreatorProfileImage = itemView.findViewById(R.id.iv_post_profile_pic);
             postLikes = itemView.findViewById(R.id.tv_post_likes);
             postComments = itemView.findViewById(R.id.tv_post_view_comments);
+            likeButton = itemView.findViewById(R.id.cv_post_like);
+
+            likeButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ImageView iv = itemView.findViewById(R.id.iv_post_heart);
+                    if(post.isLiked()) {
+                        post.setLikes(post.getLikes()-1);
+                        iv.setImageResource(R.drawable.like);
+                    }
+                    else{
+                        post.setLikes(post.getLikes()+1);
+                        iv.setImageResource(R.drawable.heart);
+                    }
+
+                    String temp = post.getLikes()+" likes";
+                    postLikes.setText(temp);
+                    post.setLiked(!post.isLiked());
+
+
+                }
+            });
 
             postCreatorProfileImage.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    //Navigation.findNavController(v).navigate(R.id.profileFragment);
                     MainActivity.navigationController.navigate(R.id.profileFragment);
                     Log.println(Log.DEBUG,"debugging","hello!");
                 }

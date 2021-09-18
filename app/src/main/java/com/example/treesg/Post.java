@@ -9,6 +9,7 @@ public class Post {
     private Integer profilePic;
     private int likes;
     private int comments;
+    private boolean liked;
 
     public Post(String description, Integer postImage, String from, String location, Integer profilePic, int likes, int comments){
         this.description = description;
@@ -18,6 +19,15 @@ public class Post {
         this.profilePic = profilePic;
         this.likes = likes;
         this.comments = comments;
+
+    }
+
+    public boolean isLiked() {
+        return liked;
+    }
+
+    public void setLiked(boolean liked) {
+        this.liked = liked;
     }
 
     public int getLikes() {
