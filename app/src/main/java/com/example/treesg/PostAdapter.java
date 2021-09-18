@@ -40,6 +40,9 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
     public void onBindViewHolder(@NonNull @NotNull ViewHolder holder, int position) {
         holder.postImage.setImageResource(allPosts[position].getPostImage());
         holder.postDescription.setText(allPosts[position].getDescription());
+        holder.postCreator.setText(allPosts[position].getFrom());
+        holder.postLocation.setText(allPosts[position].getLocation());
+        holder.postCreatorProfileImage.setImageResource(allPosts[position].getProfilePic());
     }
 
     @Override
@@ -51,11 +54,19 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 
         ImageView postImage;
         TextView postDescription;
+        TextView postCreator;
+        TextView postLocation;
+        ImageView postCreatorProfileImage;
+
+
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            postImage = itemView.findViewById(R.id.imageView);
-            postDescription = itemView.findViewById(R.id.textView3);
+            postImage = itemView.findViewById(R.id.iv_post_image);
+            postDescription = itemView.findViewById(R.id.tv_post_description);
+            postCreator = itemView.findViewById(R.id.tv_post_profile_name);
+            postLocation = itemView.findViewById(R.id.tv_post_location);
+            postCreatorProfileImage = itemView.findViewById(R.id.iv_post_profile_pic);
 
         }
     }

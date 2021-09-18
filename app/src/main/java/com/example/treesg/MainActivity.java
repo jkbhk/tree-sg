@@ -36,27 +36,7 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(binding.navView, navController);
 
-        // testing
-        /*RecyclerView rview = findViewById(R.id.recyclerView1);
-        rview.setHasFixedSize(true);
-        rview.setLayoutManager(new LinearLayoutManager(this));
 
-        Post[] test = {
-                new Post("wowzers i love nature",R.drawable.placeholder),
-                new Post("wowzers i love nature",R.drawable.placeholder),
-                new Post("wowzers i love nature",R.drawable.placeholder),
-                new Post("wowzers i love nature",R.drawable.placeholder),
-                new Post("wowzers i love nature",R.drawable.placeholder),
-                new Post("wowzers i love nature",R.drawable.placeholder),
-                new Post("wowzers i love nature",R.drawable.placeholder),
-                new Post("wowzers i love nature",R.drawable.placeholder),
-                new Post("wowzers i love nature",R.drawable.placeholder)
-        };
-
-        PostAdapter pa = new PostAdapter(test,MainActivity.this);
-        rview.setAdapter(pa);
-
-         */
     }
 
 }

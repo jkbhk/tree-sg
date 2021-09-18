@@ -47,16 +47,13 @@ public class TrendingFragment extends Fragment {
         rview.setHasFixedSize(true);
         rview.setLayoutManager(new LinearLayoutManager(getContext()));
 
+        String m = "Look at nature! Isn't it pretty?";
+
         Post[] test = {
-                new Post("wowzers i love nature",R.drawable.placeholder),
-                new Post("wowzers i love nature",R.drawable.placeholder),
-                new Post("wowzers i love nature",R.drawable.placeholder),
-                new Post("wowzers i love nature",R.drawable.placeholder),
-                new Post("wowzers i love nature",R.drawable.placeholder),
-                new Post("wowzers i love nature",R.drawable.placeholder),
-                new Post("wowzers i love nature",R.drawable.placeholder),
-                new Post("wowzers i love nature",R.drawable.placeholder),
-                new Post("wowzers i love nature",R.drawable.placeholder)
+                new Post(m,R.drawable.nature_placeholder,"alice_rox","Whanganui River",R.drawable.profile_placeholder),
+                new Post("wowzers i love nature",R.drawable.nature_placeholder,"alice_rox","Whanganui River",R.drawable.profile_placeholder),
+                new Post("wowzers i love nature",R.drawable.nature_placeholder,"alice_rox","Whanganui River",R.drawable.profile_placeholder),
+                new Post("wowzers i love nature",R.drawable.nature_placeholder,"alice_rox","Whanganui River",R.drawable.profile_placeholder)
         };
 
         PostAdapter pa = new PostAdapter(test);
