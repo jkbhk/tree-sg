@@ -1,6 +1,8 @@
 package com.example.treesg;
 
 import android.content.Context;
+import android.text.Html;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import org.jetbrains.annotations.NotNull;
@@ -38,11 +41,17 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull @NotNull ViewHolder holder, int position) {
-        holder.postImage.setImageResource(allPosts[position].getPostImage());
-        holder.postDescription.setText(allPosts[position].getDescription());
-        holder.postCreator.setText(allPosts[position].getFrom());
-        holder.postLocation.setText(allPosts[position].getLocation());
-        holder.postCreatorProfileImage.setImageResource(allPosts[position].getProfilePic());
+
+        Post current = allPosts[position];
+
+        holder.postImage.setImageResource(current.getPostImage());
+        holder.postDescription.setText(Html.fromHtml(current.getDescriptionWithName()));
+        holder.postCreator.setText(current.getFrom());
+        holder.postLocation.setText(current.getLocation());
+        holder.postCreatorProfileImage.setImageResource(current.getProfilePic());
+        holder.postLikes.setText(current.getLikes()+" likes");
+        String commentTxt = current.getComments() <= 1 ? "View 1 comment" : "View all " + current.getComments() + " comments";
+        holder.postComments.setText(commentTxt);
     }
 
     @Override
@@ -57,6 +66,8 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         TextView postCreator;
         TextView postLocation;
         ImageView postCreatorProfileImage;
+        TextView postLikes;
+        TextView postComments;
 
 
 
@@ -67,6 +78,25 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             postCreator = itemView.findViewById(R.id.tv_post_profile_name);
             postLocation = itemView.findViewById(R.id.tv_post_location);
             postCreatorProfileImage = itemView.findViewById(R.id.iv_post_profile_pic);
+            postLikes = itemView.findViewById(R.id.tv_post_likes);
+            postComments = itemView.findViewById(R.id.tv_post_view_comments);
+
+            postCreatorProfileImage.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //Navigation.findNavController(v).navigate(R.id.profileFragment);
+                    MainActivity.navigationController.navigate(R.id.profileFragment);
+                    Log.println(Log.DEBUG,"debugging","hello!");
+                }
+            });
+
+            postImage.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    Log.println(Log.DEBUG,"debugging",postCreator.getText().toString());
+                }
+            });
 
         }
     }

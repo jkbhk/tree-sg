@@ -5,7 +5,8 @@
     android:layout_marginBottom="10dp"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:layout_marginTop="10dp">
 
 
     <androidx.cardview.widget.CardView
@@ -55,6 +56,7 @@
                         android:layout_height="22dp"
                         android:layout_weight="1"
                         android:text="someone"
+                        android:textColor="#292929"
                         android:textSize="22sp"
                         android:textStyle="bold" />
 
@@ -63,7 +65,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="some place" />
+                        android:text="some place"
+                        android:textColor="#0E0E0E" />
 
                 </LinearLayout>
 
@@ -76,22 +79,11 @@
                 android:layout_height="200dp"
                 tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
-            <TextView
-                android:id="@+id/tv_post_description"
-                android:padding="10dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="left"
-                android:text="zomg guys i just saw bug today zomg it was so cutteeeee!  cant believe grills actually eat thses creatures for food EWWWW!"
-
-                android:textStyle="bold" />
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
-                android:padding="5dp"
-                android:layout_marginBottom="10dp"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:padding="5dp">
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/cv_post_like"
@@ -137,6 +129,35 @@
                 </androidx.cardview.widget.CardView>
 
             </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_post_likes"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dp"
+                android:paddingBottom="0dp"
+                android:text="10 likes"
+                android:textColor="#000000"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_post_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:paddingTop="0dp"
+                android:paddingLeft="10dp"
+                android:layout_marginBottom="5dp"
+                android:text="zomg guys i just saw bug today zomg it was so cutteeeee!  cant believe grills actually eat thses creatures for food EWWWW!"
+
+                android:textColor="#2C2C2C" />
+
+            <TextView
+                android:id="@+id/tv_post_view_comments"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:text="View all comments" />
 
 
         </LinearLayout>

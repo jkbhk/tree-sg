@@ -7,13 +7,33 @@ public class Post {
     private String from;
     private String location;
     private Integer profilePic;
+    private int likes;
+    private int comments;
 
-    public Post(String description, Integer postImage, String from, String location, Integer profilePic){
+    public Post(String description, Integer postImage, String from, String location, Integer profilePic, int likes, int comments){
         this.description = description;
         this.postImage = postImage;
         this.from = from;
         this.location = location;
         this.profilePic = profilePic;
+        this.likes = likes;
+        this.comments = comments;
+    }
+
+    public int getLikes() {
+        return likes;
+    }
+
+    public void setLikes(int likes) {
+        this.likes = likes;
+    }
+
+    public int getComments() {
+        return comments;
+    }
+
+    public void setComments(int comments) {
+        this.comments = comments;
     }
 
     public String getFrom() {
@@ -44,6 +64,10 @@ public class Post {
         return description;
     }
 
+    public String getDescriptionWithName() {
+        return "<b>"+from+"</b>" +" "+ description;
+    }
+
     public void setDescription(String description) {
         this.description = description;
     }
@@ -55,4 +79,5 @@ public class Post {
     public void setPostImage(Integer postImage) {
         this.postImage = postImage;
     }
+
 }

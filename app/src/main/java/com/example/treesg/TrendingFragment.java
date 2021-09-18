@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +20,7 @@ import org.jetbrains.annotations.NotNull;
 public class TrendingFragment extends Fragment {
 
     private TrendingViewModel mViewModel;
+
 
     public static TrendingFragment newInstance() {
         return new TrendingFragment();
@@ -48,12 +50,11 @@ public class TrendingFragment extends Fragment {
         rview.setLayoutManager(new LinearLayoutManager(getContext()));
 
         String m = "Look at nature! Isn't it pretty?";
-
         Post[] test = {
-                new Post(m,R.drawable.nature_placeholder,"alice_rox","Whanganui River",R.drawable.profile_placeholder),
-                new Post("wowzers i love nature",R.drawable.nature_placeholder,"alice_rox","Whanganui River",R.drawable.profile_placeholder),
-                new Post("wowzers i love nature",R.drawable.nature_placeholder,"alice_rox","Whanganui River",R.drawable.profile_placeholder),
-                new Post("wowzers i love nature",R.drawable.nature_placeholder,"alice_rox","Whanganui River",R.drawable.profile_placeholder)
+                new Post(m,R.drawable.nature_placeholder,"alice_rox","Whanganui River",R.drawable.profile_placeholder,10,5),
+                new Post("wowzers i love nature",R.drawable.nature_placeholder,"alice_rox","Whanganui River",R.drawable.profile_placeholder,10,5),
+                new Post("wowzers i love nature",R.drawable.nature_placeholder,"alice_rox","Whanganui River",R.drawable.profile_placeholder,10,5),
+                new Post("wowzers i love nature",R.drawable.nature_placeholder,"alice_rox","Whanganui River",R.drawable.profile_placeholder,10,5)
         };
 
         PostAdapter pa = new PostAdapter(test);
