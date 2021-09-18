@@ -90,19 +90,10 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
                 @Override
                 public void onClick(View v) {
                     ImageView iv = itemView.findViewById(R.id.iv_post_heart);
-                    if(post.isLiked()) {
-                        post.setLikes(post.getLikes()-1);
-                        iv.setImageResource(R.drawable.like);
-                    }
-                    else{
-                        post.setLikes(post.getLikes()+1);
-                        iv.setImageResource(R.drawable.heart);
-                    }
-
-                    String temp = post.getLikes()+" likes";
-                    postLikes.setText(temp);
+                    post.setLikes(post.getLikes() + (post.isLiked() ? -1 : 1));
+                    iv.setImageResource(post.isLiked() ? R.drawable.like : R.drawable.heart);
+                    postLikes.setText(post.getLikes()+" likes");
                     post.setLiked(!post.isLiked());
-
 
                 }
             });
