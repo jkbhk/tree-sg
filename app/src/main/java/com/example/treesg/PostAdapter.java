@@ -51,8 +51,8 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         holder.postCreator.setText(current.getFrom());
         holder.postLocation.setText(current.getLocation());
         holder.postCreatorProfileImage.setImageResource(current.getProfilePic());
-        holder.postLikes.setText(current.getLikes()+" likes");
-        String commentTxt = current.getComments() <= 1 ? "View 1 comment" : "View all " + current.getComments() + " comments";
+        holder.postLikes.setText(String.format("%,d",current.getLikes())+" likes");
+        String commentTxt = current.getComments() <= 1 ? "View 1 comment" : "View all " + String.format("%,d",current.getComments()) + " comments";
         holder.postComments.setText(commentTxt);
     }
 
@@ -92,7 +92,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
                     ImageView iv = itemView.findViewById(R.id.iv_post_heart);
                     post.setLikes(post.getLikes() + (post.isLiked() ? -1 : 1));
                     iv.setImageResource(post.isLiked() ? R.drawable.like : R.drawable.heart);
-                    postLikes.setText(post.getLikes()+" likes");
+                    postLikes.setText(String.format("%,d",post.getLikes())+" likes");
                     post.setLiked(!post.isLiked());
 
                 }
