@@ -9,6 +9,8 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.treesg.databinding.ActivityMainBinding;
 
@@ -33,6 +35,28 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(binding.navView, navController);
+
+        // testing
+        /*RecyclerView rview = findViewById(R.id.recyclerView1);
+        rview.setHasFixedSize(true);
+        rview.setLayoutManager(new LinearLayoutManager(this));
+
+        Post[] test = {
+                new Post("wowzers i love nature",R.drawable.placeholder),
+                new Post("wowzers i love nature",R.drawable.placeholder),
+                new Post("wowzers i love nature",R.drawable.placeholder),
+                new Post("wowzers i love nature",R.drawable.placeholder),
+                new Post("wowzers i love nature",R.drawable.placeholder),
+                new Post("wowzers i love nature",R.drawable.placeholder),
+                new Post("wowzers i love nature",R.drawable.placeholder),
+                new Post("wowzers i love nature",R.drawable.placeholder),
+                new Post("wowzers i love nature",R.drawable.placeholder)
+        };
+
+        PostAdapter pa = new PostAdapter(test,MainActivity.this);
+        rview.setAdapter(pa);
+
+         */
     }
 
 }
