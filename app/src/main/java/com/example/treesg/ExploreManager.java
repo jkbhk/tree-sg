@@ -33,7 +33,6 @@ public class ExploreManager {
 
         Treedebugger.log("created dummy trending data");
 
-
     }
 
     public void addToTrending(String hashtag, Integer previewID){
