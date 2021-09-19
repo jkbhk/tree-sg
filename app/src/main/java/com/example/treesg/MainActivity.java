@@ -1,6 +1,7 @@
 package com.example.treesg;
 
 import android.os.Bundle;
+import android.util.Log;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -19,9 +20,15 @@ public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
     public static NavController navigationController;
 
+    private AppManager appManager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // intitialize app manager
+        appManager = new AppManager();
+        appManager.initialize();
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
