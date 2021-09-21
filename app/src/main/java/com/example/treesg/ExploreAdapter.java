@@ -52,9 +52,13 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.ViewHold
 
         ArrayList<Integer> currentBundle = ExploreManager.instance.getBundle(mostTrendingTags[position]);
 
-        holder.top.setImageResource(currentBundle.get(0));
-        holder.mid.setImageResource(currentBundle.get(1));
-        //holder.bot.setImageResource(currentBundle.get(2));
+        if(currentBundle.size() >= 1)
+            holder.top.setImageResource(currentBundle.get(0));
+        if(currentBundle.size() >= 2)
+            holder.mid.setImageResource(currentBundle.get(1));
+        if(currentBundle.size() >= 3)
+            holder.bot.setImageResource(currentBundle.get(2));
+
         holder.hashtag.setText(mostTrendingTags[position]);
 
     }

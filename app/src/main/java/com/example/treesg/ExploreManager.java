@@ -19,9 +19,6 @@ public class ExploreManager {
         trending = new HashMap<>();
 
         //---------- dummy data --------------------------------------//
-        ArrayList<Integer> dummyBundle = new ArrayList<Integer>();
-        dummyBundle.add(R.drawable.nature_placeholder_2);
-        dummyBundle.add(R.drawable.nature_placeholder);
 
         addToTrending("#nature", R.drawable.nature_placeholder);
         addToTrending("#nature", R.drawable.nature_placeholder_2);
@@ -50,6 +47,10 @@ public class ExploreManager {
     }
 
     public String getMostTrendingHashtag(){
+
+        if(trending.size() < 1)
+            return null;
+
         int most = 0;
         String ans = "";
 
@@ -68,9 +69,6 @@ public class ExploreManager {
         return trending.get(hashtag);
     }
 
-    public ArrayList<Integer> getBundlePreviewIds(String hashtag){
-        return trending.get(hashtag);
-    }
 
 
 
