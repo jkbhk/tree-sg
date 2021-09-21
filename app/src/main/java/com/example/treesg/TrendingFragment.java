@@ -49,15 +49,7 @@ public class TrendingFragment extends Fragment {
         rview.setHasFixedSize(true);
         rview.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        String m = "Look at nature! Isn't it pretty?";
-        Post[] test = {
-                new Post(m,R.drawable.nature_placeholder,"alice_rox","Whanganui River",R.drawable.profile_placeholder,10,5),
-                new Post("Dam, Singapore is pretty cool!",R.drawable.nature_placeholder_2,"simuliu","Marina Bay",R.drawable.simu_liu,1232338,52102),
-                new Post("wowzers i love nature",R.drawable.nature_placeholder,"alice_rox","Whanganui River",R.drawable.profile_placeholder,10,5),
-                new Post("wowzers i love nature",R.drawable.nature_placeholder,"alice_rox","Whanganui River",R.drawable.profile_placeholder,10,5)
-        };
-
-        PostAdapter pa = new PostAdapter(test);
+        PostAdapter pa = new PostAdapter(PostDataManager.instance.posts.toArray(new Post[PostDataManager.instance.posts.size()]));
         rview.setAdapter(pa);
 
     }
