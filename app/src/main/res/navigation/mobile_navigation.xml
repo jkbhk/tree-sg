@@ -23,13 +23,19 @@
         android:label="@string/title_notifications"
         tools:layout="@layout/fragment_notifications" />
     <fragment
-        android:id="@+id/profileFragment"
+        android:id="@+id/navigation_profile"
         android:name="com.example.treesg.ProfileFragment"
         android:label="Profile"
         tools:layout="@layout/fragment_profile" />
     <fragment
-        android:id="@+id/trendingFragment"
+        android:id="@+id/navigation_trending"
         android:name="com.example.treesg.TrendingFragment"
         android:label="Trending"
         tools:layout="@layout/trending_fragment" />
+
+    <fragment
+        android:id="@+id/navigation_explore"
+        android:name="com.example.treesg.ExploreFragment"
+        android:label="Explore"
+        tools:layout="@layout/fragment_explore" />
 </navigation>

@@ -3,6 +3,7 @@ package com.example.treesg;
 import android.util.Log;
 
 import java.lang.reflect.Array;
+import java.lang.reflect.GenericArrayType;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -46,6 +47,25 @@ public class ExploreManager {
             trending.put(hashtag,temp);
         }
 
+    }
+
+    public String getMostTrendingHashtag(){
+        int most = 0;
+        String ans = "";
+
+        for(String key : trending.keySet()){
+            int temp = trending.get(key).size();
+            if(temp > most){
+                ans = key;
+                most = temp;
+            }
+        }
+
+        return ans;
+    }
+
+    public ArrayList<Integer> getBundle(String hashtag){
+        return trending.get(hashtag);
     }
 
     public ArrayList<Integer> getBundlePreviewIds(String hashtag){

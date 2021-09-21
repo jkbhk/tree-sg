@@ -18,11 +18,11 @@
         android:title="@string/title_notifications" />
 
     <item
-        android:id="@+id/trendingFragment"
+        android:id="@+id/navigation_explore"
         android:icon="@android:drawable/ic_menu_view"
         android:title="Trending" />
     <item
-        android:id="@+id/profileFragment"
+        android:id="@+id/navigation_profile"
         android:icon="@android:drawable/ic_menu_myplaces"
         android:title="Profile" />
 
