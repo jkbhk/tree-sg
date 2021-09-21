@@ -46,12 +46,7 @@ public class ExploreFragment extends Fragment {
         GridLayoutManager glm = new GridLayoutManager(getContext(),2);
         rview.setLayoutManager(glm);
 
-
-        // dummy data
-        String temp = ExploreManager.instance.getMostTrendingHashtag();
-        String[] trendingTags = {temp,temp,temp,temp};
-
-        ExploreAdapter exploreAdapter = new ExploreAdapter(trendingTags);
+        ExploreAdapter exploreAdapter = new ExploreAdapter(ExploreManager.instance.getTopTrendingHashTags(4));
         rview.setAdapter(exploreAdapter);
 
     }

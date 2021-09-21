@@ -94,4 +94,6 @@ public class Post {
         this.postImage = postImage;
     }
 
+    public ArrayList<String> getHashtags(){return this.hashtags;}
+
 }
