@@ -1,5 +1,6 @@
 package com.example.treesg;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.os.Bundle;
@@ -53,4 +54,5 @@ public class TrendingFragment extends Fragment {
         rview.setAdapter(pa);
 
     }
+
 }

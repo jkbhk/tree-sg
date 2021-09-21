@@ -17,13 +17,13 @@ public class PostDataManager {
 
     private void retreiveAllPosts(){
         // replace with calls to DB Manager function here
-        Post p1 = new Post("Look at nature! Isn't it pretty?",R.drawable.nature_placeholder,"alice_rox","Whanganui River",R.drawable.profile_placeholder,10,5);
+        Post p1 = new Post("Look at nature! Isn't it pretty?\n#nature",R.drawable.nature_placeholder,"alice_rox","Whanganui River",R.drawable.profile_placeholder,10,5);
         p1.getHashtags().add("#nature");
-        Post p2 = new Post("Dam, Singapore is pretty cool!",R.drawable.nature_placeholder_2,"simuliu","Marina Bay",R.drawable.simu_liu,1232338,52102);
+        Post p2 = new Post("Dam, Singapore is pretty cool!\n#relax",R.drawable.nature_placeholder_2,"simuliu","Marina Bay",R.drawable.simu_liu,1232338,52102);
         p2.getHashtags().add("#relax");
-        Post p3 = new Post("This is my 2nd time posting on TreeSG!",R.drawable.nature_placeholder,"alice_rox","Whanganui River",R.drawable.profile_placeholder,30,2);
+        Post p3 = new Post("This is my 2nd time posting on TreeSG!\n#tree",R.drawable.nature_placeholder,"alice_rox","Whanganui River",R.drawable.profile_placeholder,30,2);
         p3.getHashtags().add("#tree");
-        Post p4 = new Post("This is my 3rd time posting on TreeSG!",R.drawable.nature_placeholder,"alice_rox","Whanganui River",R.drawable.profile_placeholder,10,11);
+        Post p4 = new Post("This is my 3rd time posting on TreeSG!\n#environment",R.drawable.nature_placeholder,"alice_rox","Whanganui River",R.drawable.profile_placeholder,10,11);
         p4.getHashtags().add("#environment");
 
         posts.add(p1);
