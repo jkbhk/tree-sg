@@ -46,7 +46,7 @@ public class ExploreFragment extends Fragment {
         GridLayoutManager glm = new GridLayoutManager(getContext(),2);
         rview.setLayoutManager(glm);
 
-        ExploreAdapter exploreAdapter = new ExploreAdapter(ExploreManager.instance.getTopTrendingHashTags(4));
+        ExploreAdapter exploreAdapter = new ExploreAdapter(ExploreManager.instance.getTopTrendingHashTags(NUMBER_OF_PREVIEW_BUNDLES));
         rview.setAdapter(exploreAdapter);
 
     }
