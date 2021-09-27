@@ -13,6 +13,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import org.jetbrains.annotations.NotNull;
@@ -50,16 +51,18 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.ViewHold
     public void onBindViewHolder(@NonNull @NotNull ViewHolder holder, int position) {
 
 
-        ArrayList<Integer> currentBundle = ExploreManager.instance.getBundle(mostTrendingTags[position]);
+            ArrayList<Post> currentBundle = ExploreManager.instance.getBundle(mostTrendingTags[position]);
 
-        if(currentBundle.size() >= 1)
-            holder.top.setImageResource(currentBundle.get(0));
-        if(currentBundle.size() >= 2)
-            holder.mid.setImageResource(currentBundle.get(1));
-        if(currentBundle.size() >= 3)
-            holder.bot.setImageResource(currentBundle.get(2));
+            if(currentBundle != null) {
+                if (currentBundle.size() >= 1)
+                    holder.top.setImageResource(currentBundle.get(0).getPostImage());
+                if (currentBundle.size() >= 2)
+                    holder.mid.setImageResource(currentBundle.get(1).getPostImage());
+                if (currentBundle.size() >= 3)
+                    holder.bot.setImageResource(currentBundle.get(2).getPostImage());
 
-        holder.hashtag.setText(mostTrendingTags[position]);
+                holder.hashtag.setText(mostTrendingTags[position]);
+            }
 
     }
 
@@ -81,6 +84,16 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.ViewHold
             mid = itemView.findViewById(R.id.iv_bundle_middle);
             bot = itemView.findViewById(R.id.iv_bundle_bot);
             hashtag = itemView.findViewById(R.id.tv_bundle_hashtag);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Treedebugger.log("clicked on "+ hashtag.getText());
+                    MainActivity.navigationController.navigate(R.id.navigation_trending);
+
+
+                }
+            });
 
         }
     }

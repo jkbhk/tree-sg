@@ -1,5 +1,7 @@
 package com.example.treesg;
 
+import java.util.ArrayList;
+
 public class Post {
 
     private String description;
@@ -10,6 +12,7 @@ public class Post {
     private int likes;
     private int comments;
     private boolean liked;
+    private ArrayList<String> hashtags;
 
     public Post(String description, Integer postImage, String from, String location, Integer profilePic, int likes, int comments){
         this.description = description;
@@ -19,6 +22,7 @@ public class Post {
         this.profilePic = profilePic;
         this.likes = likes;
         this.comments = comments;
+        this.hashtags = new ArrayList<>();
 
     }
 
@@ -89,5 +93,7 @@ public class Post {
     public void setPostImage(Integer postImage) {
         this.postImage = postImage;
     }
+
+    public ArrayList<String> getHashtags(){return this.hashtags;}
 
 }
