@@ -3,20 +3,105 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.home.HomeFragment">
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/ivTopBgRect"
+        android:layout_width="410dp"
+        android:layout_height="291dp"
+        android:contentDescription="topBg"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/top_bg_rect_green"
+        tools:ignore="ImageContrastCheck" />
+
+    <ImageView
+        android:id="@+id/ivTopBgCircle1"
+        android:layout_width="195dp"
+        android:layout_height="180dp"
+        android:layout_marginEnd="276dp"
+        android:layout_marginRight="276dp"
+        android:layout_marginBottom="204dp"
+        android:alpha="0.56"
+        app:layout_constraintBottom_toBottomOf="@+id/ivTopBgRect"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/circle_bg"
+        tools:ignore="ImageContrastCheck" />
+
+    <ImageView
+        android:id="@+id/ivTopBgCircle2"
+        android:layout_width="195dp"
+        android:layout_height="180dp"
+        android:layout_marginEnd="200dp"
+        android:layout_marginRight="200dp"
+        android:layout_marginBottom="228dp"
+        android:alpha="0.56"
+        app:layout_constraintBottom_toBottomOf="@+id/ivTopBgRect"
+        app:layout_constraintEnd_toEndOf="@+id/ivTopBgRect"
+        app:srcCompat="@drawable/circle_bg"
+        tools:ignore="ImageContrastCheck" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="60dp"
+        android:src="@drawable/rectangle_beige"
+        app:layout_constraintBottom_toBottomOf="@+id/ivTopBgRect"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/text_home"
-        android:layout_width="match_parent"
+        android:id="@+id/tvLeaderboardTitle"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:textAlignment="center"
+        android:layout_marginStart="136dp"
+        android:layout_marginLeft="136dp"
+        android:layout_marginBottom="20dp"
+        android:capitalize="none"
+        android:fontFamily="@font/roboto_medium"
+        android:text="Leaderboard"
+        android:textAllCaps="true"
+        android:textColor="#000000"
         android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/imageView"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="TouchTargetSizeCheck" />
+
+    <TextView
+        android:id="@+id/tvAnnouncementTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:fontFamily="@font/roboto_medium"
+        android:text="Announcment"
+        android:textAllCaps="true"
+        android:textColor="#000000"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.507"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ivTopBgRect" />
+
+    <ScrollView
+        android:id="@+id/announcementTab"
+        android:layout_width="320dp"
+        android:layout_height="180dp"
+        android:background="#90C99B"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/tvAnnouncementTitle"
+        app:layout_constraintVertical_bias="0.131">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
+    </ScrollView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
