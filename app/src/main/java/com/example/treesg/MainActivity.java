@@ -1,10 +1,13 @@
 package com.example.treesg;
 
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.os.Bundle;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -16,6 +19,7 @@ public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
     public static NavController navigationController;
+    public static FragmentManager fragmentManager;
 
     private AppManager appManager;
 
@@ -26,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
         // intitialize app manager
         appManager = new AppManager();
         appManager.initialize();
+        fragmentManager = getFragmentManager();
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
@@ -40,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(binding.navView, navController);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         navigationController = navController;
 
