@@ -92,9 +92,11 @@ public class Register extends AppCompatActivity {
                             userID = fAuth.getCurrentUser().getUid();
                             DocumentReference documentReference = fStore.collection("users").document(userID);
                             Map<String, Object> user = new HashMap<>();
+                            HashMap<String, Post> likedPosts = new HashMap<>();
                             user.put("fullName", fullName);
                             user.put("phone", phone);
                             user.put("email", email);
+                            user.put("likedPosts", likedPosts);
                             documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void unused) {
