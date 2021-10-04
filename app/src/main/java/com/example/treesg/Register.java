@@ -97,6 +97,8 @@ public class Register extends AppCompatActivity {
                             user.put("phone", phone);
                             user.put("email", email);
                             user.put("likedPosts", likedPosts);
+                            user.put("isUser", "1");
+
                             documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void unused) {
