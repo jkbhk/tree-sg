@@ -1,6 +1,8 @@
 package com.example.treesg;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,7 +15,15 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.FileDownloadTask;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+
 import org.jetbrains.annotations.NotNull;
+
+import java.io.File;
+import java.io.IOException;
 
 public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 
@@ -44,15 +54,37 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 
         Post current = allPosts[position];
 
+        //test
+
+
         holder.post = current;
-        holder.postImage.setImageResource(current.getPostImage());
+        loadImage(holder.postImage,current.getPostImage());
+        //holder.postImage.setImageResource(current.getPostImage());
         holder.postDescription.setText(Html.fromHtml(current.getDescriptionWithName()));
         holder.postCreator.setText(current.getFrom());
         holder.postLocation.setText(current.getLocation());
-        holder.postCreatorProfileImage.setImageResource(current.getProfilePic());
+        loadImage(holder.postCreatorProfileImage, current.getProfilePic());
+        //holder.postCreatorProfileImage.setImageResource(current.getProfilePic());
         holder.postLikes.setText(String.format("%,d",current.getLikes())+" likes");
         String commentTxt = current.getComments() <= 1 ? "View 1 comment" : "View all " + String.format("%,d",current.getComments()) + " comments";
         holder.postComments.setText(commentTxt);
+    }
+
+    private void loadImage(ImageView iv, String postfix){
+        String tempURL = "uploads/" + postfix + ".jpg";
+        StorageReference sr = FirebaseStorage.getInstance().getReference().child(tempURL);
+        try {
+            File localFile = File.createTempFile("treeretrievetest","jpg");
+            sr.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                    Bitmap bitmap = BitmapFactory.decodeFile(localFile.getAbsolutePath());
+                    iv.setImageBitmap(bitmap);
+                }
+            });
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
