@@ -41,7 +41,7 @@ public class UserDao {
 
     }
 
-    public static void storeCurrentUser(String userid){
+    public static void storeCurrentUser(String userid, Runnable callback){
         FirebaseFirestore.getInstance().collection(DatabaseManager.USERS_COLLECTION).document(userid).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot d) {
@@ -62,6 +62,7 @@ public class UserDao {
                 User u = new User(userid,email,fullname,phone,isAdmin,username,points,hs);
                 Treedebugger.log("stored");
                 UserManager.instance.setCurrentUser(u);
+                callback.run();
             }
         });
     }

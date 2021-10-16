@@ -14,8 +14,7 @@ public class UserManager {
     public UserManager(){
 
         instance = this;
-
-        UserDao.storeCurrentUser(current_user_id);
+        setupCurrentUser(current_user_id,()->{Treedebugger.log("current user stored!");});
     }
 
     public void cacheUser(User u){
@@ -30,12 +29,12 @@ public class UserManager {
         return userCache.get(userid);
     }
 
-    public void setCurrent_user_id(String current_user_id) {
-        this.current_user_id = current_user_id;
+    public void setupCurrentUser(String userid, Runnable callback){
+        UserDao.storeCurrentUser(userid,callback);
     }
 
     public void setCurrentUser(User u){
-        this.currentUser = u;
+        currentUser = u;
     }
 
     public User getCurrentUser(){
