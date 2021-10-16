@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.Image;
+import android.net.Uri;
 import android.os.Build;
 import android.text.Html;
 import android.util.Log;
@@ -18,7 +19,10 @@ import androidx.annotation.RequiresApi;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -65,9 +69,10 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             holder.postCreator.setText(u.getFullName());
             holder.postDescription.setText(Html.fromHtml("<b>"+u.getFullName()+"</b>" + " "+current.getDescription()));
         });
-        loadImage(holder.postImage,current.getPostImage());
+
+        Glide.with(context).load(current.getPostImage()).placeholder(R.drawable.nature_placeholder).into(holder.postImage);
         holder.postLocation.setText(current.getLocation());
-        loadImage(holder.postCreatorProfileImage, current.getProfilePic());
+        Glide.with(context).load(current.getProfilePic()).placeholder(R.drawable.simu_liu).into(holder.postCreatorProfileImage);
         holder.postLikes.setText(String.format("%,d",current.getLikes())+" likes");
         String commentTxt = current.getComments() <= 1 ? "View 1 comment" : "View all " + String.format("%,d",current.getComments()) + " comments";
         if(current.getComments()<1)
@@ -75,23 +80,6 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 
         holder.postComments.setText(commentTxt);
         holder.likeImage.setImageResource(current.isLiked() ? R.drawable.heart : R.drawable.like);
-    }
-
-    private void loadImage(ImageView iv, String postfix){
-        String tempURL = "uploads/" + postfix + ".jpg";
-        StorageReference sr = FirebaseStorage.getInstance().getReference().child(tempURL);
-        try {
-            File localFile = File.createTempFile("treeretrievetest","jpg");
-            sr.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
-                @Override
-                public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-                    Bitmap bitmap = BitmapFactory.decodeFile(localFile.getAbsolutePath());
-                    iv.setImageBitmap(bitmap);
-                }
-            });
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
     @Override
@@ -183,8 +171,22 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             shareButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+
                     Treedebugger.log("sharing this message");
+
+                    // keep for reference, use this implementation for creating posts
+                    FirebaseStorage.getInstance().getReference("uploads/simu_liu.png").getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Uri> task) {
+                            String m = task.getResult().toString();
+                            Treedebugger.log(m);
+                        }
+                    });
+
                 }
+
+
+
             });
 
 
