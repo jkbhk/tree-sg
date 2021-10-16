@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 
+
 public class PostDataManager {
 
     public static PostDataManager instance;
@@ -11,10 +12,12 @@ public class PostDataManager {
 
     // allow direct modification of posts
     public ArrayList<Post> posts;
+    private HashMap<String, ArrayList<Post>> hashtagMap;
 
     public PostDataManager(){
         instance = this;
         posts = new ArrayList<>();
+        hashtagMap = new HashMap<>();
         retreiveAllPosts();
     }
 
@@ -35,7 +38,11 @@ public class PostDataManager {
         posts.add(p3);
         posts.add(p4);
 */
-        PostDao.retrievePosts((ArrayList<Post> retrieved)->{this.posts = retrieved;Treedebugger.log("all posts retrieved");});
+        PostDao.retrievePosts((ArrayList<Post> retrieved)->{
+            this.posts = retrieved;
+            Treedebugger.log("all posts retrieved");
+            mapHashTagsToPosts();
+        });
     }
 
     public void incrementLikes(String postID, int increment){
@@ -52,5 +59,78 @@ public class PostDataManager {
             p.setLiked(UserManager.instance.getCurrentUser().getLikedPosts().contains(p.getPostID()));
         }
     }
+
+    public void createNewPost(User u, String post_description, String post_image, String post_location, Runnable callback){
+
+        Post p = new Post();
+        String[] words = post_description.split(" ");
+
+        for(String word : words) {
+            if(word.substring(0, 1).equals("#")) {
+                p.getHashtags().add(word);
+            }
+        }
+
+
+        p.setFrom(u.getUserID());
+        p.setPostImage(post_image);
+        p.setDescription(post_description);
+        p.setLikes(0);
+        p.setComments(0);
+        p.setProfilePic(u.getProfilePic());
+        p.setLocation(post_location);
+
+        PostDao.create(p,callback);
+
+    }
+
+
+    private void mapHashTagsToPosts(){
+        for(Post p : posts){
+            for(String tag : p.getHashtags()){
+                Treedebugger.log(tag);
+                addToMap(tag,p);
+            }
+        }
+    }
+
+    private void addToMap(String key, Post p){
+        ArrayList<Post> temp = hashtagMap.get(key);
+        if(temp != null){
+            temp.add(p);
+        }else{
+            ArrayList<Post> newList = new ArrayList<>();
+            newList.add(p);
+            hashtagMap.put(key,newList);
+        }
+    }
+
+    public String[] getTopTrendingHashTags(int n){
+
+        String[] top = new String[n];
+
+        //for now we return the first n results
+        if(hashtagMap.size() >= n){
+            int counter = 0;
+            for(String s : hashtagMap.keySet()){
+                top[counter] = s;
+                counter++;
+                if(counter == n)
+                    break;
+            }
+
+        }else{
+            for(int i =0 ;i<top.length;i++){
+                top[i] = "dummy";
+            }
+        }
+        return top;
+    }
+
+    public ArrayList<Post> getBundle(String hashtag){
+
+        return hashtagMap.get(hashtag);
+    }
+
 
 }

@@ -12,7 +12,6 @@ public class ExploreManager {
 
     public static ExploreManager instance;
     private HashMap<String, ArrayList<Post>> hashtagMap;
-    private String[] trendingHashTags;
 
     public ExploreManager(){
         instance = this;
@@ -22,6 +21,7 @@ public class ExploreManager {
 
     }
 
+
     public String[] getTopTrendingHashTags(int n){
 
         String[] top = new String[n];
@@ -30,7 +30,6 @@ public class ExploreManager {
         if(hashtagMap.size() >= n){
             int counter = 0;
             for(String s : hashtagMap.keySet()){
-                Treedebugger.log("hhh");
                 top[counter] = s;
                 counter++;
                 if(counter == n)
@@ -55,6 +54,7 @@ public class ExploreManager {
 
         for(Post p : list){
             for(String tag : p.getHashtags()){
+                Treedebugger.log(tag);
                 addToMap(tag,p);
             }
         }

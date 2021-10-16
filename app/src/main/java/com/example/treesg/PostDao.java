@@ -21,16 +21,38 @@ import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+import java.io.DataInput;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.function.Consumer;
 
 public class PostDao {
 
 
-    public void create(Post post) {
+    public static void create(Post post, Runnable r) {
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("post_creator", post.getFrom());
+        map.put("post_creator_pic", post.getProfilePic());
+        map.put("post_description", post.getDescription());
+        List<String> list = post.getHashtags().subList(0,post.getHashtags().size());
+        map.put("post_hashtags", list);
+        map.put("post_image", post.getPostImage());
+        map.put("post_likes", 0);
+        map.put("post_location", "");
+        map.put("post_num_comments", 0);
+
+        FirebaseFirestore.getInstance().collection(DatabaseManager.POSTS_COLLECTION).add(map).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+            @Override
+            public void onSuccess(DocumentReference documentReference) {
+                r.run();
+            }
+        });
+
 
     }
 
@@ -73,45 +95,6 @@ public class PostDao {
 
                     }
                 });
-    }
-
-    public List<Post> read(Post post) {
-        FirebaseFirestore.getInstance()
-                .collection("posts")
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-
-                            List<DocumentSnapshot> myListOfDocuments = task.getResult().getDocuments();
-                            Treedebugger.log("count is "+ myListOfDocuments.size());
-                            for(DocumentSnapshot d : myListOfDocuments){
-
-                                String description = d.getString("post_description");
-                                String postImage = d.getString("post_image");
-                                String from = d.getString("post_creator");
-                                String location = d.getString("post_location");
-                                String profilePic = d.getString("post_creator_pic");
-                                Long likes = (Long)d.get("post_likes");
-                                int postLikes = likes.intValue();
-                                Long comments = (long)d.get("post_num_comments");
-                                int postComments = comments.intValue();
-                                List<String> tags = (List<String>)d.get("post_hashtags");
-
-                                Post retrieved = new Post(d.getId(),description,postImage,from,location,profilePic,postLikes,postComments);
-                                for(String s : tags)
-                                    retrieved.getHashtags().add(s);
-
-                                //retrieved.setLiked(UserManager.instance.getCurrentUser().getLikedPosts().contains(d.getId()));
-                                PostDataManager.instance.posts.add(retrieved);
-                            }
-
-                        }
-                    }
-                });
-
-        return null;
     }
 
 

@@ -51,19 +51,34 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.ViewHold
     public void onBindViewHolder(@NonNull @NotNull ViewHolder holder, int position) {
 
 
-        ArrayList<Post> currentBundle = ExploreManager.instance.getBundle(mostTrendingTags[position]);
+        ArrayList<Post> currentBundle = PostDataManager.instance.getBundle(mostTrendingTags[position]);
+
+
 
         if(currentBundle != null) {
-            if (currentBundle.size() >= 1)
+            if (currentBundle.size() >=3){
                 ImageLoader.loadImage(holder.top,currentBundle.get(0).getPostImage());
-            if (currentBundle.size() >= 2)
-                ImageLoader.loadImage(holder.top,currentBundle.get(1).getPostImage());
-            if (currentBundle.size() >= 3)
-                ImageLoader.loadImage(holder.top,currentBundle.get(2).getPostImage());
+                ImageLoader.loadImage(holder.mid,currentBundle.get(1).getPostImage());
+                ImageLoader.loadImage(holder.bot,currentBundle.get(2).getPostImage());
+            }else if(currentBundle.size() == 2){
+                ImageLoader.loadImage(holder.top,currentBundle.get(0).getPostImage());
+                ImageLoader.loadImage(holder.mid,currentBundle.get(1).getPostImage());
+                ImageLoader.loadImage(holder.bot,currentBundle.get(0).getPostImage());
+            }else{
+                ImageLoader.loadImage(holder.top,currentBundle.get(0).getPostImage());
+                ImageLoader.loadImage(holder.mid,currentBundle.get(0).getPostImage());
+                ImageLoader.loadImage(holder.bot,currentBundle.get(0).getPostImage());
+            }
 
             holder.hashtag.setText(mostTrendingTags[position]);
         }
+/*
+        ImageLoader.loadImage(holder.top,PostDataManager.instance.posts.get(0).getPostImage());
+        ImageLoader.loadImage(holder.mid,PostDataManager.instance.posts.get(0).getPostImage());
+        ImageLoader.loadImage(holder.bot,PostDataManager.instance.posts.get(0).getPostImage());
+        holder.hashtag.setText(PostDataManager.instance.posts.get(0).getHashtags().get(0));
 
+*/
     }
 
     @Override
