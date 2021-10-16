@@ -35,12 +35,7 @@ public class PostDataManager {
         posts.add(p3);
         posts.add(p4);
 */
-
-        dao.read(null);
-    }
-
-    private void serializePosts(){
-        //insert call to DB manager here
+        PostDao.retrievePosts((ArrayList<Post> retrieved)->{this.posts = retrieved;Treedebugger.log("all posts retrieved");});
     }
 
     public void incrementLikes(String postID, int increment){

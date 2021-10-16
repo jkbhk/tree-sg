@@ -3,9 +3,11 @@ package com.example.treesg;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.Build;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -23,12 +25,54 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 
 public class PostDao {
 
 
     public void create(Post post) {
 
+    }
+
+    public static void retrievePosts(Consumer<ArrayList<Post>> c){
+        FirebaseFirestore.getInstance()
+                .collection("posts")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+
+                    @RequiresApi(api = Build.VERSION_CODES.N)
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            ArrayList<Post> posts = new ArrayList<>();
+                            List<DocumentSnapshot> myListOfDocuments = task.getResult().getDocuments();
+                            Treedebugger.log("count is "+ myListOfDocuments.size());
+                            for(DocumentSnapshot d : myListOfDocuments){
+
+                                String description = d.getString("post_description");
+                                String postImage = d.getString("post_image");
+                                String from = d.getString("post_creator");
+                                String location = d.getString("post_location");
+                                String profilePic = d.getString("post_creator_pic");
+                                Long likes = (Long)d.get("post_likes");
+                                int postLikes = likes.intValue();
+                                Long comments = (long)d.get("post_num_comments");
+                                int postComments = comments.intValue();
+                                List<String> tags = (List<String>)d.get("post_hashtags");
+
+                                Post retrieved = new Post(d.getId(),description,postImage,from,location,profilePic,postLikes,postComments);
+                                for(String s : tags)
+                                    retrieved.getHashtags().add(s);
+
+                                //retrieved.setLiked(UserManager.instance.getCurrentUser().getLikedPosts().contains(d.getId()));
+                                posts.add(retrieved);
+                            }
+
+                            c.accept(posts);
+
+                        }
+
+                    }
+                });
     }
 
     public List<Post> read(Post post) {
