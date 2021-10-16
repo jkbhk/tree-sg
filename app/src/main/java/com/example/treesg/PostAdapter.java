@@ -52,22 +52,22 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         return viewHolder;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void onBindViewHolder(@NonNull @NotNull ViewHolder holder, int position) {
 
         Post current = allPosts[position];
 
         //test
-
-
         holder.post = current;
+        UserManager.instance.getUserByID(current.getFrom(),(User u)->{
+            // elements that depend on user
+            holder.postCreator.setText(u.getFullName());
+            holder.postDescription.setText(Html.fromHtml("<b>"+u.getFullName()+"</b>" + " "+current.getDescription()));
+        });
         loadImage(holder.postImage,current.getPostImage());
-        //holder.postImage.setImageResource(current.getPostImage());
-        holder.postDescription.setText(Html.fromHtml(current.getDescriptionWithName()));
-        holder.postCreator.setText(current.getFrom());
         holder.postLocation.setText(current.getLocation());
         loadImage(holder.postCreatorProfileImage, current.getProfilePic());
-        //holder.postCreatorProfileImage.setImageResource(current.getProfilePic());
         holder.postLikes.setText(String.format("%,d",current.getLikes())+" likes");
         String commentTxt = current.getComments() <= 1 ? "View 1 comment" : "View all " + String.format("%,d",current.getComments()) + " comments";
         holder.postComments.setText(commentTxt);

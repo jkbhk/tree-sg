@@ -19,7 +19,7 @@ public class Post {
         this.postID = postID;
         this.description = description;
         this.postImage = postImage;
-        this.from = from;
+        this.from = from;//user ID
         this.location = location;
         this.profilePic = profilePic;
         this.likes = likes;

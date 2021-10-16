@@ -68,6 +68,25 @@ public class UserDao {
         });
     }
 
+    // doesnt deal with iterables
+    public static void updateUser(User u){
+        DocumentReference df = FirebaseFirestore.getInstance().collection(DatabaseManager.USERS_COLLECTION).document(u.getUserID());
+        df.update(
+                "email",u.getEmail(),
+                "fullName", u.getFullName(),
+                "isAdmin", u.isAdmin(),
+                "phone", u.getPhone(),
+                "phone", u.getPhone(),
+                "points", u.getPoints(),
+                "username", u.getUsername()
+        ).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void unused) {
+                Treedebugger.log("User "+ u.getFullName()+ " updated in firestore.");
+            }
+        });
+    }
+
 
     public static void read(String userid){
 

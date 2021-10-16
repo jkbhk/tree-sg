@@ -69,5 +69,10 @@ public class UserManager {
         UserDao.removeFromLikedPosts(currentUser.getUserID(),postID);
     }
 
+    public void updateUser(User u){
+        UserDao.updateUser(u);
+    }
+
+
 
 }

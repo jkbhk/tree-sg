@@ -1,12 +1,13 @@
 package com.example.treesg;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 
 public class PostDataManager {
 
     public static PostDataManager instance;
-    //private HashMap<String, ImageView> postImageCache;
+    //private HashMap<String, Post> local_posts_reference;
 
     // allow direct modification of posts
     public ArrayList<Post> posts;
