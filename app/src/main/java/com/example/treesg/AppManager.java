@@ -6,6 +6,7 @@ public class AppManager {
 
     private ExploreManager exploreManager;
     private PostDataManager postDataManager;
+    private UserManager userManager;
 
     public AppManager(){
         instance = this;
@@ -13,6 +14,7 @@ public class AppManager {
 
     public void initialize(){
         postDataManager = new PostDataManager();
+        userManager = new UserManager();
         exploreManager = new ExploreManager();
     }
 
