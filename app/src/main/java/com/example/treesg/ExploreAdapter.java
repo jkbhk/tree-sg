@@ -16,6 +16,8 @@ import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -57,17 +59,17 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.ViewHold
 
         if(currentBundle != null) {
             if (currentBundle.size() >=3){
-                ImageLoader.loadImage(holder.top,currentBundle.get(0).getPostImage());
-                ImageLoader.loadImage(holder.mid,currentBundle.get(1).getPostImage());
-                ImageLoader.loadImage(holder.bot,currentBundle.get(2).getPostImage());
+                Glide.with(context).load(currentBundle.get(0).getPostImage()).placeholder(R.drawable.nature_placeholder).into(holder.top);
+                Glide.with(context).load(currentBundle.get(1).getPostImage()).placeholder(R.drawable.nature_placeholder).into(holder.mid);
+                Glide.with(context).load(currentBundle.get(2).getPostImage()).placeholder(R.drawable.nature_placeholder).into(holder.bot);
             }else if(currentBundle.size() == 2){
-                ImageLoader.loadImage(holder.top,currentBundle.get(0).getPostImage());
-                ImageLoader.loadImage(holder.mid,currentBundle.get(1).getPostImage());
-                ImageLoader.loadImage(holder.bot,currentBundle.get(0).getPostImage());
+                Glide.with(context).load(currentBundle.get(0).getPostImage()).placeholder(R.drawable.nature_placeholder).into(holder.top);
+                Glide.with(context).load(currentBundle.get(1).getPostImage()).placeholder(R.drawable.nature_placeholder).into(holder.mid);
+                Glide.with(context).load(currentBundle.get(0).getPostImage()).placeholder(R.drawable.nature_placeholder).into(holder.bot);
             }else{
-                ImageLoader.loadImage(holder.top,currentBundle.get(0).getPostImage());
-                ImageLoader.loadImage(holder.mid,currentBundle.get(0).getPostImage());
-                ImageLoader.loadImage(holder.bot,currentBundle.get(0).getPostImage());
+                Glide.with(context).load(currentBundle.get(0).getPostImage()).placeholder(R.drawable.nature_placeholder).into(holder.top);
+                Glide.with(context).load(currentBundle.get(0).getPostImage()).placeholder(R.drawable.nature_placeholder).into(holder.mid);
+                Glide.with(context).load(currentBundle.get(0).getPostImage()).placeholder(R.drawable.nature_placeholder).into(holder.bot);
             }
 
             holder.hashtag.setText(mostTrendingTags[position]);
