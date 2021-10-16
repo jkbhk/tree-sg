@@ -4,26 +4,39 @@ import java.util.ArrayList;
 
 public class Post {
 
+    private String postID;
     private String description;
-    private Integer postImage;
+    private String postImage;
     private String from;
     private String location;
-    private Integer profilePic;
+    private String profilePic;
     private int likes;
     private int comments;
     private boolean liked;
     private ArrayList<String> hashtags;
 
-    public Post(String description, Integer postImage, String from, String location, Integer profilePic, int likes, int comments){
+    public Post(String postID,String description, String postImage, String from, String location, String profilePic, int likes, int comments){
+        this.postID = postID;
         this.description = description;
         this.postImage = postImage;
-        this.from = from;
+        this.from = from;//user ID
         this.location = location;
         this.profilePic = profilePic;
         this.likes = likes;
         this.comments = comments;
         this.hashtags = new ArrayList<>();
 
+    }
+
+    public Post(){
+    }
+
+    public String getPostID(){
+        return this.postID;
+    }
+
+    public void setPostID(String postID){
+        this.postID = postID;
     }
 
     public boolean isLiked() {
@@ -66,11 +79,11 @@ public class Post {
         this.location = location;
     }
 
-    public Integer getProfilePic() {
+    public String getProfilePic() {
         return profilePic;
     }
 
-    public void setProfilePic(Integer profilePic) {
+    public void setProfilePic(String profilePic) {
         this.profilePic = profilePic;
     }
 
@@ -86,11 +99,11 @@ public class Post {
         this.description = description;
     }
 
-    public Integer getPostImage() {
+    public String getPostImage() {
         return postImage;
     }
 
-    public void setPostImage(Integer postImage) {
+    public void setPostImage(String postImage) {
         this.postImage = postImage;
     }
 

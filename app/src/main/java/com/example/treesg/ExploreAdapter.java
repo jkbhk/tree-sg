@@ -51,18 +51,18 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.ViewHold
     public void onBindViewHolder(@NonNull @NotNull ViewHolder holder, int position) {
 
 
-            ArrayList<Post> currentBundle = ExploreManager.instance.getBundle(mostTrendingTags[position]);
+        ArrayList<Post> currentBundle = ExploreManager.instance.getBundle(mostTrendingTags[position]);
 
-            if(currentBundle != null) {
-                if (currentBundle.size() >= 1)
-                    holder.top.setImageResource(currentBundle.get(0).getPostImage());
-                if (currentBundle.size() >= 2)
-                    holder.mid.setImageResource(currentBundle.get(1).getPostImage());
-                if (currentBundle.size() >= 3)
-                    holder.bot.setImageResource(currentBundle.get(2).getPostImage());
+        if(currentBundle != null) {
+            if (currentBundle.size() >= 1)
+                ImageLoader.loadImage(holder.top,currentBundle.get(0).getPostImage());
+            if (currentBundle.size() >= 2)
+                ImageLoader.loadImage(holder.top,currentBundle.get(1).getPostImage());
+            if (currentBundle.size() >= 3)
+                ImageLoader.loadImage(holder.top,currentBundle.get(2).getPostImage());
 
-                holder.hashtag.setText(mostTrendingTags[position]);
-            }
+            holder.hashtag.setText(mostTrendingTags[position]);
+        }
 
     }
 
