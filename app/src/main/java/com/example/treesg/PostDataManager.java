@@ -33,6 +33,7 @@ public class PostDataManager {
         posts.add(p3);
         posts.add(p4);
 */
+
         dao.read(null);
     }
 

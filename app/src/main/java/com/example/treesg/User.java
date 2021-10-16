@@ -10,17 +10,19 @@ public class User {
     private String phone;
     private boolean isAdmin;
     private String username;
+    private int points;
     private HashSet<String> likedPosts;
 
     public User(){}
 
-    public User(String userID, String email, String fullName, String phone, Boolean isAdmin, String username, HashSet<String> likedPosts){
+    public User(String userID, String email, String fullName, String phone, Boolean isAdmin, String username, int points,HashSet<String> likedPosts){
         this.userID = userID;
         this.email = email;
         this.fullName = fullName;
         this.phone = phone;
         this.isAdmin = isAdmin;
         this.username = username;
+        this.points = points;
         this.likedPosts = likedPosts;
     }
 
@@ -72,6 +74,13 @@ public class User {
         this.username = username;
     }
 
+    public int getPoints() {
+        return points;
+    }
+
+    public void setPoints(int points) {
+        this.points = points;
+    }
     public HashSet<String> getLikedPosts() {
         return likedPosts;
     }
