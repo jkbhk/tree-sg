@@ -12,6 +12,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FileDownloadTask;
@@ -23,15 +24,13 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PostDao implements Dao<Post> {
+public class PostDao {
 
 
-    @Override
     public void create(Post post) {
 
     }
 
-    @Override
     public List<Post> read(Post post) {
         FirebaseFirestore.getInstance()
                 .collection("posts")
@@ -44,6 +43,7 @@ public class PostDao implements Dao<Post> {
                             List<DocumentSnapshot> myListOfDocuments = task.getResult().getDocuments();
                             Treedebugger.log("count is "+ myListOfDocuments.size());
                             for(DocumentSnapshot d : myListOfDocuments){
+
                                 String description = d.getString("post_description");
                                 String postImage = d.getString("post_image");
                                 String from = d.getString("post_creator");
@@ -55,10 +55,11 @@ public class PostDao implements Dao<Post> {
                                 int postComments = comments.intValue();
                                 List<String> tags = (List<String>)d.get("post_hashtags");
 
-                                Post retrieved = new Post(description,postImage,from,location,profilePic,postLikes,postComments);
+                                Post retrieved = new Post(d.getId(),description,postImage,from,location,profilePic,postLikes,postComments);
                                 for(String s : tags)
                                     retrieved.getHashtags().add(s);
 
+                                //retrieved.setLiked(UserManager.instance.getCurrentUser().getLikedPosts().contains(d.getId()));
                                 PostDataManager.instance.posts.add(retrieved);
                             }
 
@@ -69,12 +70,12 @@ public class PostDao implements Dao<Post> {
         return null;
     }
 
-    @Override
-    public void update(Post post) {
-
+    public void update(String postID, int increment) {
+        FirebaseFirestore.getInstance().collection(DatabaseManager.POSTS_COLLECTION)
+                .document(postID).update("post_likes",FieldValue.increment(increment));
     }
 
-    @Override
+
     public void delete(Post post) {
 
     }

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 public class Post {
 
+    private String postID;
     private String description;
     private String postImage;
     private String from;
@@ -14,7 +15,8 @@ public class Post {
     private boolean liked;
     private ArrayList<String> hashtags;
 
-    public Post(String description, String postImage, String from, String location, String profilePic, int likes, int comments){
+    public Post(String postID,String description, String postImage, String from, String location, String profilePic, int likes, int comments){
+        this.postID = postID;
         this.description = description;
         this.postImage = postImage;
         this.from = from;
@@ -27,6 +29,14 @@ public class Post {
     }
 
     public Post(){
+    }
+
+    public String getPostID(){
+        return this.postID;
+    }
+
+    public void setPostID(String postID){
+        this.postID = postID;
     }
 
     public boolean isLiked() {

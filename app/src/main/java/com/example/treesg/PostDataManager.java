@@ -1,11 +1,13 @@
 package com.example.treesg;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 
 public class PostDataManager {
 
     public static PostDataManager instance;
     private PostDao dao = new PostDao();
+    //private HashMap<String, ImageView> postImageCache;
 
     // allow direct modification of posts
     public ArrayList<Post> posts;
@@ -39,6 +41,21 @@ public class PostDataManager {
 
     private void serializePosts(){
         //insert call to DB manager here
+    }
+
+    public void incrementLikes(String postID, int increment){
+        dao.update(postID,increment);
+    }
+
+    public void loadPreliked(){
+        if(UserManager.instance.getCurrentUser() == null){
+            Treedebugger.log("current user not loaded yet");
+            return;
+        }
+
+        for(Post p : posts){
+            p.setLiked(UserManager.instance.getCurrentUser().getLikedPosts().contains(p.getPostID()));
+        }
     }
 
 }

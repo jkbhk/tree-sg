@@ -4,12 +4,18 @@ import java.util.HashMap;
 
 public class UserManager {
 
+    private static String current_user_id = "BO3xSIaihJjyxr3xvlPn";
+    private static User currentUser;
+
     private HashMap<String,User> userCache = new HashMap<String, User>();
 
     public static UserManager instance;
 
     public UserManager(){
+
         instance = this;
+
+        UserDao.storeCurrentUser(current_user_id);
     }
 
     public void cacheUser(User u){
@@ -24,7 +30,33 @@ public class UserManager {
         return userCache.get(userid);
     }
 
+    public void setCurrent_user_id(String current_user_id) {
+        this.current_user_id = current_user_id;
+    }
 
+    public void setCurrentUser(User u){
+        this.currentUser = u;
+    }
+
+    public User getCurrentUser(){
+        return currentUser;
+    }
+
+    public void updateCurrentUser(){
+        UserDao.updateUser(currentUser);
+    }
+
+    public void addToLikes(String postID){
+        currentUser.getLikedPosts().add(postID);
+        //update server
+        UserDao.addToLikedPosts(currentUser.getUserID(),postID);
+    }
+
+    public void removeFromLikes(String postID){
+        currentUser.getLikedPosts().remove(postID);
+        // update server
+        UserDao.removeFromLikedPosts(currentUser.getUserID(),postID);
+    }
 
 
 }

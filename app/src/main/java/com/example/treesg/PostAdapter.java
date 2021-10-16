@@ -3,6 +3,7 @@ package com.example.treesg;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.media.Image;
 import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -68,6 +69,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         holder.postLikes.setText(String.format("%,d",current.getLikes())+" likes");
         String commentTxt = current.getComments() <= 1 ? "View 1 comment" : "View all " + String.format("%,d",current.getComments()) + " comments";
         holder.postComments.setText(commentTxt);
+        holder.likeImage.setImageResource(current.isLiked() ? R.drawable.heart : R.drawable.like);
     }
 
     private void loadImage(ImageView iv, String postfix){
@@ -102,6 +104,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         TextView postLikes;
         TextView postComments;
         CardView likeButton;
+        ImageView likeImage;
 
         Post post;
 
@@ -116,16 +119,29 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             postLikes = itemView.findViewById(R.id.tv_post_likes);
             postComments = itemView.findViewById(R.id.tv_post_view_comments);
             likeButton = itemView.findViewById(R.id.cv_post_like);
+            likeImage = itemView.findViewById(R.id.iv_post_heart);
 
             likeButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    ImageView iv = itemView.findViewById(R.id.iv_post_heart);
-                    post.setLikes(post.getLikes() + (post.isLiked() ? -1 : 1));
-                    iv.setImageResource(post.isLiked() ? R.drawable.like : R.drawable.heart);
-                    postLikes.setText(String.format("%,d",post.getLikes())+" likes");
-                    post.setLiked(!post.isLiked());
+                    if(!post.isLiked()){
+                        likeImage.setImageResource(R.drawable.heart);
+                        post.setLiked(true);
+                        UserManager.instance.addToLikes(post.getPostID());
 
+                        postLikes.setText(String.format("%,d",post.getLikes()+1)+" likes");
+                        post.setLikes(post.getLikes()+1);
+                        PostDataManager.instance.incrementLikes(post.getPostID(),1);
+                    }else{
+                        likeImage.setImageResource(R.drawable.like);
+                        post.setLiked(false);
+                        UserManager.instance.removeFromLikes(post.getPostID());
+
+                        postLikes.setText(String.format("%,d",post.getLikes()-1)+" likes");
+                        post.setLikes(post.getLikes()-1);
+                        PostDataManager.instance.incrementLikes(post.getPostID(),-1);
+
+                    }
                 }
             });
 

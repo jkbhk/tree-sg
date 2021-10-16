@@ -13,8 +13,8 @@ public class AppManager {
     }
 
     public void initialize(){
-        postDataManager = new PostDataManager();
         userManager = new UserManager();
+        postDataManager = new PostDataManager();
         exploreManager = new ExploreManager();
     }
 
