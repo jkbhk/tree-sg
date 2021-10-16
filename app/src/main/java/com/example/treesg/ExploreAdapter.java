@@ -53,6 +53,8 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.ViewHold
 
         ArrayList<Post> currentBundle = ExploreManager.instance.getBundle(mostTrendingTags[position]);
 
+
+/*
         if(currentBundle != null) {
             if (currentBundle.size() >= 1)
                 ImageLoader.loadImage(holder.top,currentBundle.get(0).getPostImage());
@@ -63,6 +65,12 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.ViewHold
 
             holder.hashtag.setText(mostTrendingTags[position]);
         }
+*/
+        ImageLoader.loadImage(holder.top,PostDataManager.instance.posts.get(0).getPostImage());
+        ImageLoader.loadImage(holder.mid,PostDataManager.instance.posts.get(0).getPostImage());
+        ImageLoader.loadImage(holder.bot,PostDataManager.instance.posts.get(0).getPostImage());
+        holder.hashtag.setText(PostDataManager.instance.posts.get(0).getHashtags().get(0));
+
 
     }
 

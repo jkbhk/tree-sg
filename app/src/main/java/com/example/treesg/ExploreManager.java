@@ -30,7 +30,6 @@ public class ExploreManager {
         if(hashtagMap.size() >= n){
             int counter = 0;
             for(String s : hashtagMap.keySet()){
-                Treedebugger.log("hhh");
                 top[counter] = s;
                 counter++;
                 if(counter == n)
@@ -55,6 +54,7 @@ public class ExploreManager {
 
         for(Post p : list){
             for(String tag : p.getHashtags()){
+                Treedebugger.log(tag);
                 addToMap(tag,p);
             }
         }
