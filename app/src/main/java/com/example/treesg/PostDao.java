@@ -114,11 +114,11 @@ public class PostDao {
         return null;
     }
 
-    public void update(String postID, int increment) {
+
+    public static void incrementPostLikes(String postID, int increment) {
         FirebaseFirestore.getInstance().collection(DatabaseManager.POSTS_COLLECTION)
                 .document(postID).update("post_likes",FieldValue.increment(increment));
     }
-
 
     public void delete(Post post) {
 

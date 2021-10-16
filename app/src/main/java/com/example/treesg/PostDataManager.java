@@ -6,7 +6,6 @@ import java.util.HashSet;
 public class PostDataManager {
 
     public static PostDataManager instance;
-    private PostDao dao = new PostDao();
     //private HashMap<String, ImageView> postImageCache;
 
     // allow direct modification of posts
@@ -39,7 +38,7 @@ public class PostDataManager {
     }
 
     public void incrementLikes(String postID, int increment){
-        dao.update(postID,increment);
+        PostDao.incrementPostLikes(postID,increment);
     }
 
     public void loadPreliked(){
