@@ -1,8 +1,11 @@
 package com.example.treesg;
 
 import android.content.Intent;
+import android.os.Build;
 import android.provider.ContactsContract;
 import android.util.Log;
+
+import androidx.annotation.RequiresApi;
 
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentReference;
@@ -12,6 +15,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.function.Consumer;
 
 public class UserDao {
 
@@ -26,6 +30,33 @@ public class UserDao {
         });
     }
 
+    public static void retrieveUser(String userid, Consumer<User> c){
+        FirebaseFirestore.getInstance().collection(DatabaseManager.USERS_COLLECTION).document(userid).get()
+                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @RequiresApi(api = Build.VERSION_CODES.N)
+                    @Override
+                    public void onSuccess(DocumentSnapshot d) {
+
+                        String email = d.getString("email");
+                        String fullname = d.getString("fullName");
+                        String phone = d.getString("phone");
+                        Boolean isAdmin = d.getBoolean("isAdmin");
+                        String username = "";
+                        int points = d.getLong("points").intValue();
+
+                        HashSet hs = new HashSet();
+                        List<String> group = (List<String>) d.get("likedPosts");
+                        for(String s : group){
+                            hs.add(s);
+                        }
+
+                        User u = new User(userid,email,fullname,phone,isAdmin,username,points,hs);
+                        c.accept(u);
+                    }
+                });
+
+    }
+
     public static void removeFromLikedPosts(String userid, String post ){
 
         FirebaseFirestore.getInstance().collection(DatabaseManager.USERS_COLLECTION).document(userid)
@@ -37,35 +68,6 @@ public class UserDao {
         });
     }
 
-    public static void updateUser(User u){
-
-    }
-
-    public static void storeCurrentUser(String userid, Runnable callback){
-        FirebaseFirestore.getInstance().collection(DatabaseManager.USERS_COLLECTION).document(userid).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-            @Override
-            public void onSuccess(DocumentSnapshot d) {
-
-                String email = d.getString("email");
-                String fullname = d.getString("fullName");
-                String phone = d.getString("phone");
-                Boolean isAdmin = d.getBoolean("isAdmin");
-                String username = "";
-                int points = d.getLong("points").intValue();
-
-                HashSet hs = new HashSet();
-                List<String> group = (List<String>) d.get("likedPosts");
-                for(String s : group){
-                    hs.add(s);
-                }
-
-                User u = new User(userid,email,fullname,phone,isAdmin,username,points,hs);
-                Treedebugger.log("stored");
-                UserManager.instance.setCurrentUser(u);
-                callback.run();
-            }
-        });
-    }
 
     public static void read(String userid){
 

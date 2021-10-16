@@ -1,9 +1,15 @@
 package com.example.treesg;
 
+import android.os.Build;
+
+import androidx.annotation.RequiresApi;
+
 import java.util.HashMap;
+import java.util.function.Consumer;
 
 public class UserManager {
 
+    //for testing
     private static String current_user_id = "BO3xSIaihJjyxr3xvlPn";
     private static User currentUser;
 
@@ -11,38 +17,44 @@ public class UserManager {
 
     public static UserManager instance;
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     public UserManager(){
 
         instance = this;
-        setupCurrentUser(current_user_id,()->{Treedebugger.log("current user stored!");});
+
+        //for solo testing, this will migrate to Login
+        setCurrentUser(current_user_id,()->{ Treedebugger.log("current user stored successfully.");});
     }
 
     public void cacheUser(User u){
         this.userCache.put(u.getUserID(),u);
     }
 
-    public User getUser(String userid){
-
-        if(!userCache.containsKey(userid))
-            UserDao.read(userid);
-
-        return userCache.get(userid);
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    public void getUserByID(String userid, Consumer<User> callback){
+        UserDao.retrieveUser(userid,callback);
     }
 
-    public void setupCurrentUser(String userid, Runnable callback){
-        UserDao.storeCurrentUser(userid,callback);
+    // meant to be called from Login
+    // after user is successfully retrieved, callback() will be called
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    public void setCurrentUser(String userid, Runnable callback){
+
+        // consumer is what this class needs to do
+        Consumer<User> consumer = (User u)->{
+            currentUser=u;
+            //callback is what the caller needs to do
+            callback.run();
+        };
+
+
+        getUserByID(userid, consumer);
     }
 
-    public void setCurrentUser(User u){
-        currentUser = u;
-    }
 
+    // MAY not be updated
     public User getCurrentUser(){
         return currentUser;
-    }
-
-    public void updateCurrentUser(){
-        UserDao.updateUser(currentUser);
     }
 
     public void addToLikes(String postID){
