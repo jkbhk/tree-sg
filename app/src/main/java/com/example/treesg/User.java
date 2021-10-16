@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.HashSet;
 
 public class User {
+
+    private String profilePic;
     private String email;
     private String fullName;
     private String userID;
@@ -15,7 +17,8 @@ public class User {
 
     public User(){}
 
-    public User(String userID, String email, String fullName, String phone, Boolean isAdmin, String username, int points,HashSet<String> likedPosts){
+    public User(String profilePic, String userID, String email, String fullName, String phone, Boolean isAdmin, String username, int points,HashSet<String> likedPosts){
+        this.profilePic = profilePic;
         this.userID = userID;
         this.email = email;
         this.fullName = fullName;
@@ -26,6 +29,13 @@ public class User {
         this.likedPosts = likedPosts;
     }
 
+    public String getProfilePic() {
+        return profilePic;
+    }
+
+    public void setProfilePic(String profilePic) {
+        this.profilePic = profilePic;
+    }
     public String getEmail() {
         return email;
     }

@@ -37,6 +37,7 @@ public class UserDao {
                     @Override
                     public void onSuccess(DocumentSnapshot d) {
 
+                        String profilePic = d.getString("profilePic");
                         String email = d.getString("email");
                         String fullname = d.getString("fullName");
                         String phone = d.getString("phone");
@@ -50,7 +51,7 @@ public class UserDao {
                             hs.add(s);
                         }
 
-                        User u = new User(userid,email,fullname,phone,isAdmin,username,points,hs);
+                        User u = new User(profilePic,userid,email,fullname,phone,isAdmin,username,points,hs);
                         c.accept(u);
                     }
                 });
@@ -87,34 +88,5 @@ public class UserDao {
         });
     }
 
-
-    public static void read(String userid){
-
-        DocumentReference df = FirebaseFirestore.getInstance().collection(DatabaseManager.USERS_COLLECTION).document(userid);
-        df.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-            @Override
-            public void onSuccess(DocumentSnapshot d) {
-
-                //(String userID, String email, String fullName, String phone, Boolean isAdmin, String username, int points,HashSet<String> likedPosts)
-                String email = d.getString("email");
-                String fullname = d.getString("fullName");
-                String phone = d.getString("phone");
-                Boolean isAdmin = d.getBoolean("isAdmin");
-                String username = "";
-                int points = d.getLong("points").intValue();
-
-                HashSet hs = new HashSet();
-                List<String> group = (List<String>) d.get("likedPosts");
-                for(String s : group){
-                    hs.add(s);
-                }
-
-                User u = new User(userid,email,fullname,phone,isAdmin,username,points,hs);
-                Treedebugger.log("hey i got em :" + fullname);
-                UserManager.instance.cacheUser(u);
-
-            }
-        });
-    }
 
 }

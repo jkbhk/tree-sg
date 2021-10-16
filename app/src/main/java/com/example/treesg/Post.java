@@ -29,6 +29,7 @@ public class Post {
     }
 
     public Post(){
+        hashtags =  new ArrayList<>();
     }
 
     public String getPostID(){
@@ -105,6 +106,10 @@ public class Post {
 
     public void setPostImage(String postImage) {
         this.postImage = postImage;
+    }
+
+    public void setHashtags(ArrayList<String> hashtags){
+        this.hashtags = hashtags;
     }
 
     public ArrayList<String> getHashtags(){return this.hashtags;}

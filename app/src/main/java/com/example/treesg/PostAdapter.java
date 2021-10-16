@@ -107,6 +107,8 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         TextView postComments;
         CardView likeButton;
         ImageView likeImage;
+        CardView messageButton;
+        CardView shareButton;
 
         Post post;
 
@@ -122,6 +124,8 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             postComments = itemView.findViewById(R.id.tv_post_view_comments);
             likeButton = itemView.findViewById(R.id.cv_post_like);
             likeImage = itemView.findViewById(R.id.iv_post_heart);
+            messageButton = itemView.findViewById(R.id.cv_post_message);
+            shareButton = itemView.findViewById(R.id.cv_post_share);
 
             likeButton.setOnClickListener(new View.OnClickListener() {
                 @RequiresApi(api = Build.VERSION_CODES.N)
@@ -164,6 +168,23 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
                     Log.println(Log.DEBUG,"debugging",postCreator.getText().toString());
                 }
             });
+
+            messageButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Treedebugger.log("looking at message");
+                    //PostDataManager.instance.createNewPost(UserManager.instance.getCurrentUser(),"test post #nosleep #dead","1634408739998","HQ",()->{Treedebugger.log("post created.");});
+                }
+            });
+
+            shareButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Treedebugger.log("sharing this message");
+                }
+            });
+
+
 
         }
     }
