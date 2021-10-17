@@ -88,7 +88,7 @@ public class PostDao {
                                 //retrieved.setLiked(UserManager.instance.getCurrentUser().getLikedPosts().contains(d.getId()));
                                 posts.add(retrieved);
                             }
-
+                            Treedebugger.log("all posts retrieved successfully.");
                             c.accept(posts);
 
                         }

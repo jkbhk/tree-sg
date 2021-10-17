@@ -26,8 +26,10 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.ViewHold
 
     Context context;
     String[] mostTrendingTags;
+    ArrayList<Post> currentBundle;
 
     public ExploreAdapter(String[] trendingTags){
+
         mostTrendingTags = trendingTags;
     }
 
@@ -45,16 +47,14 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.ViewHold
         // our adapter creates these layouts for each item we pass into our array of choice in the contructor
         View view = layoutInflater.inflate(R.layout.trending_bundle_layout,parent,false);
         ViewHolder viewHolder = new ViewHolder(view);
-
+        Treedebugger.log("inside adapt");
         return viewHolder;
     }
 
     @Override
     public void onBindViewHolder(@NonNull @NotNull ViewHolder holder, int position) {
 
-
-        ArrayList<Post> currentBundle = PostDataManager.instance.getBundle(mostTrendingTags[position]);
-
+        currentBundle = ExploreController.instance.getBundle(mostTrendingTags[position]);
 
 
         if(currentBundle != null) {
@@ -74,13 +74,7 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.ViewHold
 
             holder.hashtag.setText(mostTrendingTags[position]);
         }
-/*
-        ImageLoader.loadImage(holder.top,PostDataManager.instance.posts.get(0).getPostImage());
-        ImageLoader.loadImage(holder.mid,PostDataManager.instance.posts.get(0).getPostImage());
-        ImageLoader.loadImage(holder.bot,PostDataManager.instance.posts.get(0).getPostImage());
-        holder.hashtag.setText(PostDataManager.instance.posts.get(0).getHashtags().get(0));
 
-*/
     }
 
     @Override
@@ -105,9 +99,7 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.ViewHold
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Treedebugger.log("clicked on "+ hashtag.getText());
                     MainActivity.navigationController.navigate(R.id.navigation_trending);
-
 
                 }
             });

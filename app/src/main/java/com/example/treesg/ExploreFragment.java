@@ -34,8 +34,6 @@ public class ExploreFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
-        // fetch all posts
-        PostDataManager.instance.retreiveAllPosts();
 
         return inflater.inflate(R.layout.fragment_explore, container, false);
     }
@@ -50,9 +48,19 @@ public class ExploreFragment extends Fragment {
         GridLayoutManager glm = new GridLayoutManager(getContext(),2);
         rview.setLayoutManager(glm);
 
-        //ExploreAdapter exploreAdapter = new ExploreAdapter(ExploreManager.instance.getTopTrendingHashTags(NUMBER_OF_PREVIEW_BUNDLES));
-        ExploreAdapter exploreAdapter = new ExploreAdapter(PostDataManager.instance.getTopTrendingHashTags(NUMBER_OF_PREVIEW_BUNDLES));
-        rview.setAdapter(exploreAdapter);
+
+        // fetch all posts and prep all the posts for rendering
+        PostDataManager.instance.retreiveAllPosts(()->{
+            ExploreController.instance.mapHashTagsToPosts();
+            ExploreController.instance.loadPreliked();
+
+            String[] trendingTags = ExploreController.instance.getTopTrendingHashTags(NUMBER_OF_PREVIEW_BUNDLES);
+            ExploreAdapter exploreAdapter = new ExploreAdapter(trendingTags);
+            rview.setAdapter(exploreAdapter);
+
+            Treedebugger.log("loaded prelikes");
+        });
+
 
     }
 }
