@@ -5,14 +5,21 @@ import android.os.Build;
 import android.provider.ContactsContract;
 import android.util.Log;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.function.Consumer;
@@ -52,10 +59,64 @@ public class UserDao {
                         }
 
                         User u = new User(profilePic,userid,email,fullname,phone,isAdmin,username,points,hs);
+                        Treedebugger.log("user " + fullname + " retrieved.");
                         c.accept(u);
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Treedebugger.log("failed to retrieve user.");
                     }
                 });
 
+    }
+
+    public static void retrieveUsers(Consumer<HashMap<String,User>> callback){
+        FirebaseFirestore.getInstance()
+                .collection(DatabaseManager.USERS_COLLECTION)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+
+                    @RequiresApi(api = Build.VERSION_CODES.N)
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+
+                            HashMap<String, User> users = new HashMap<>();
+                            List<DocumentSnapshot> myListOfDocuments = task.getResult().getDocuments();
+
+                            for(DocumentSnapshot d : myListOfDocuments){
+
+                                String profilePic = d.getString("profilePic");
+                                String email = d.getString("email");
+                                String fullname = d.getString("fullName");
+                                String phone = d.getString("phone");
+                                Boolean isAdmin = d.getBoolean("isAdmin");
+                                String username = "";
+                                int points = d.getLong("points").intValue();
+
+                                HashSet hs = new HashSet();
+                                List<String> group = (List<String>) d.get("likedPosts");
+                                for(String s : group){
+                                    hs.add(s);
+                                }
+
+                                User u = new User(profilePic,d.getId(),email,fullname,phone,isAdmin,username,points,hs);
+                                users.put(d.getId(),u);
+
+                            }
+
+                            callback.accept(users);
+
+                        }
+
+                        Treedebugger.log("all users retrieved.");
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Treedebugger.log("failed to retrieve all users");
+                    }
+                });
     }
 
     public static void removeFromLikedPosts(String userid, String post ){

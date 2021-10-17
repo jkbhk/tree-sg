@@ -50,7 +50,6 @@ public class TrendingFragment extends Fragment {
         rview.setHasFixedSize(true);
         rview.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        PostDataManager.instance.loadPreliked();
         PostAdapter pa = new PostAdapter(PostDataManager.instance.posts.toArray(new Post[PostDataManager.instance.posts.size()]));
         rview.setAdapter(pa);
 

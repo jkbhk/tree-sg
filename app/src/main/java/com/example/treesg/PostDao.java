@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
@@ -33,7 +34,7 @@ import java.util.function.Consumer;
 public class PostDao {
 
 
-    public static void create(Post post, Runnable r) {
+    public static void create(Post post, Runnable callback) {
 
         Map<String, Object> map = new HashMap<>();
         map.put("post_creator", post.getFrom());
@@ -43,14 +44,16 @@ public class PostDao {
         map.put("post_hashtags", list);
         map.put("post_image", post.getPostImage());
         map.put("post_likes", 0);
-        map.put("post_location", "");
+        map.put("post_location", post.getLocation());
         map.put("post_num_comments", 0);
 
         FirebaseFirestore.getInstance().collection(DatabaseManager.POSTS_COLLECTION).add(map).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
             @Override
             public void onSuccess(DocumentReference documentReference) {
-                r.run();
+                Treedebugger.log("post created in server.");
+                callback.run();
             }
+
         });
 
 
@@ -58,7 +61,7 @@ public class PostDao {
 
     public static void retrievePosts(Consumer<ArrayList<Post>> c){
         FirebaseFirestore.getInstance()
-                .collection("posts")
+                .collection(DatabaseManager.POSTS_COLLECTION)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
 
@@ -88,11 +91,16 @@ public class PostDao {
                                 //retrieved.setLiked(UserManager.instance.getCurrentUser().getLikedPosts().contains(d.getId()));
                                 posts.add(retrieved);
                             }
-
+                            Treedebugger.log("all posts retrieved successfully.");
                             c.accept(posts);
 
                         }
 
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                       Treedebugger.log("failed to retrieve all posts.");
                     }
                 });
     }

@@ -31,6 +31,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.function.Consumer;
 
 public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 
@@ -164,7 +165,10 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
                 @Override
                 public void onClick(View v) {
                     Treedebugger.log("looking at message");
-                    //PostDataManager.instance.createNewPost(UserManager.instance.getCurrentUser(),"test post #nosleep #dead","1634408739998","HQ",()->{Treedebugger.log("post created.");});
+                   /* UserManager.instance.getUserByID("c4ilwKbubFGTOQB6J86W",(User u)->{
+                        PostDataManager.instance.createNewPost(u,"testing fake post","cannot find","You will never know",()->{Treedebugger.log("created a fake post.");});
+                    });
+                    */
                 }
             });
 
@@ -175,14 +179,14 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
                     Treedebugger.log("sharing this message");
 
                     // keep for reference, use this implementation for creating posts
-                    FirebaseStorage.getInstance().getReference("uploads/simu_liu.png").getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
+                    /*FirebaseStorage.getInstance().getReference("uploads/simu_liu.png").getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
                         @Override
                         public void onComplete(@NonNull Task<Uri> task) {
                             String m = task.getResult().toString();
                             Treedebugger.log(m);
                         }
                     });
-
+                    */
                 }
 
 
