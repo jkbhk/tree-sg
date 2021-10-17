@@ -58,7 +58,7 @@ public class PostDao {
 
     public static void retrievePosts(Consumer<ArrayList<Post>> c){
         FirebaseFirestore.getInstance()
-                .collection("posts")
+                .collection(DatabaseManager.POSTS_COLLECTION)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
 

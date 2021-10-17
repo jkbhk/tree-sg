@@ -22,8 +22,9 @@ public class UserManager {
 
         instance = this;
 
-        //for solo testing, this will migrate to Login
-        setCurrentUser(current_user_id,()->{ Treedebugger.log("current user stored successfully.");});
+        //for solo testing, login will call setCurrentUser, which will start populating the userCache
+        setCurrentUser(current_user_id,null);
+        //setCurrentUser(current_user_id,()->{ Treedebugger.log("current user stored successfully.");});
     }
 
     public void cacheUser(User u){
@@ -32,7 +33,12 @@ public class UserManager {
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     public void getUserByID(String userid, Consumer<User> callback){
-        UserDao.retrieveUser(userid,callback);
+
+        if(userCache.containsKey(userid)){
+            callback.accept(userCache.get(userid));
+        }else{
+            UserDao.retrieveUser(userid,callback);
+        }
     }
 
     // meant to be called from Login
@@ -40,15 +46,21 @@ public class UserManager {
     @RequiresApi(api = Build.VERSION_CODES.N)
     public void setCurrentUser(String userid, Runnable callback){
 
-        // consumer is what this class needs to do
-        Consumer<User> consumer = (User u)->{
-            currentUser=u;
-            //callback is what the caller needs to do
-            callback.run();
-        };
+        retrieveAllUsers(()->{
 
+            //after retrieving
+            if(userCache.containsKey(userid)){
+                currentUser = userCache.get(userid);
+                Treedebugger.log("current user set successfully.");
 
-        getUserByID(userid, consumer);
+                if(callback != null)
+                    callback.run();
+            }else{
+                Treedebugger.log("invalid userid ,could not set current user");
+            }
+
+        });
+
     }
 
 
@@ -56,6 +68,17 @@ public class UserManager {
     public User getCurrentUser(){
         return currentUser;
     }
+
+    // can be called when searching for users, to get all the latest users from firebase
+    public void retrieveAllUsers(Runnable callback){
+        UserDao.retrieveUsers((HashMap<String,User> hm)->{
+            userCache = hm;
+            Treedebugger.log("UserManager cache updated.");
+            if(callback != null)
+                callback.run();
+        });
+    }
+
 
     public void addToLikes(String postID){
         currentUser.getLikedPosts().add(postID);
@@ -69,6 +92,7 @@ public class UserManager {
         UserDao.removeFromLikedPosts(currentUser.getUserID(),postID);
     }
 
+    // called to update a singler user object in firebase
     public void updateUser(User u){
         UserDao.updateUser(u);
     }
