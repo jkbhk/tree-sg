@@ -33,6 +33,10 @@ public class ExploreFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+
+        // fetch all posts
+        PostDataManager.instance.retreiveAllPosts();
+
         return inflater.inflate(R.layout.fragment_explore, container, false);
     }
 

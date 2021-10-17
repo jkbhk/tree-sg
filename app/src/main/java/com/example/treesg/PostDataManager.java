@@ -21,7 +21,7 @@ public class PostDataManager {
         retreiveAllPosts();
     }
 
-    private void retreiveAllPosts(){
+    public void retreiveAllPosts(){
         // replace with calls to DB Manager function here
         /*
         Post p1 = new Post("Look at nature! Isn't it pretty?\n#nature","1634046393420","alice_rox","Whanganui River",R.drawable.profile_placeholder,10,5);
@@ -38,9 +38,13 @@ public class PostDataManager {
         posts.add(p3);
         posts.add(p4);
 */
+        posts.clear();
+
+
         PostDao.retrievePosts((ArrayList<Post> retrieved)->{
             this.posts = retrieved;
             Treedebugger.log("all posts retrieved");
+            // seperate this later
             mapHashTagsToPosts();
         });
     }
