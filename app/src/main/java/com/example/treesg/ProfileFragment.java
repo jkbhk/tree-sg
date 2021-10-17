@@ -49,22 +49,4 @@ public class ProfileFragment extends Fragment {
         });
 
     }
-
-    private void replaceFragment(Fragment fragment)
-    {
-        FragmentManager fragmentManager = getChildFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.setReorderingAllowed(true);
-        fragmentTransaction.replace(R.id.rewardLayout, fragment);
-        fragmentTransaction.addToBackStack(null);
-        fragmentTransaction.commit();
-
-        //this.getChildFragmentManager().beginTransaction().replace(R.id.rewardLayout, fragment).commit();
-
-        //FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-        //fragmentManager.beginTransaction().replace(R.id.rewardLayout,fragment).commit();
-        //FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        //fragmentTransaction.replace(R.id.rewardLayout,fragment);
-        //fragmentTransaction.commit();
-    }
 }
