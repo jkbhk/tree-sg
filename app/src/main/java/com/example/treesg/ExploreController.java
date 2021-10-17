@@ -1,26 +1,29 @@
 package com.example.treesg;
 
-import android.util.Log;
-
-import java.lang.reflect.Array;
-import java.lang.reflect.GenericArrayType;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 
-public class ExploreManager {
+public class ExploreController {
 
-    public static ExploreManager instance;
+    public static ExploreController instance;
     private HashMap<String, ArrayList<Post>> hashtagMap;
-    private String[] trendingHashTags;
 
-    public ExploreManager(){
+    public ExploreController(){
         instance = this;
         hashtagMap = new HashMap<>();
-        mapHashTagsToPosts();
-        Treedebugger.log(hashtagMap.size()+"");
-
     }
+
+    public void loadPreliked(){
+        if(UserManager.instance.getCurrentUser() == null){
+            Treedebugger.log("current user not loaded yet");
+            return;
+        }
+
+        for(Post p : PostDataManager.instance.posts){
+            p.setLiked(UserManager.instance.getCurrentUser().getLikedPosts().contains(p.getPostID()));
+        }
+    }
+
 
     public String[] getTopTrendingHashTags(int n){
 
@@ -30,7 +33,6 @@ public class ExploreManager {
         if(hashtagMap.size() >= n){
             int counter = 0;
             for(String s : hashtagMap.keySet()){
-                Treedebugger.log("hhh");
                 top[counter] = s;
                 counter++;
                 if(counter == n)
@@ -50,7 +52,7 @@ public class ExploreManager {
         return hashtagMap.get(hashtag);
     }
 
-    private void mapHashTagsToPosts(){
+    public void mapHashTagsToPosts(){
         ArrayList<Post> list = PostDataManager.instance.posts;
 
         for(Post p : list){

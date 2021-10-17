@@ -1,6 +1,11 @@
 package com.example.treesg;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.media.Image;
+import android.net.Uri;
+import android.os.Build;
 import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -10,10 +15,23 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.storage.FileDownloadTask;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+
 import org.jetbrains.annotations.NotNull;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.function.Consumer;
 
 public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 
@@ -39,20 +57,30 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         return viewHolder;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void onBindViewHolder(@NonNull @NotNull ViewHolder holder, int position) {
 
         Post current = allPosts[position];
 
+        //test
         holder.post = current;
-        holder.postImage.setImageResource(current.getPostImage());
-        holder.postDescription.setText(Html.fromHtml(current.getDescriptionWithName()));
-        holder.postCreator.setText(current.getFrom());
+        UserManager.instance.getUserByID(current.getFrom(),(User u)->{
+            // elements that depend on user
+            holder.postCreator.setText(u.getFullName());
+            holder.postDescription.setText(Html.fromHtml("<b>"+u.getFullName()+"</b>" + " "+current.getDescription()));
+        });
+
+        Glide.with(context).load(current.getPostImage()).placeholder(R.drawable.nature_placeholder).into(holder.postImage);
         holder.postLocation.setText(current.getLocation());
-        holder.postCreatorProfileImage.setImageResource(current.getProfilePic());
+        Glide.with(context).load(current.getProfilePic()).placeholder(R.drawable.simu_liu).into(holder.postCreatorProfileImage);
         holder.postLikes.setText(String.format("%,d",current.getLikes())+" likes");
         String commentTxt = current.getComments() <= 1 ? "View 1 comment" : "View all " + String.format("%,d",current.getComments()) + " comments";
+        if(current.getComments()<1)
+            commentTxt = "";
+
         holder.postComments.setText(commentTxt);
+        holder.likeImage.setImageResource(current.isLiked() ? R.drawable.heart : R.drawable.like);
     }
 
     @Override
@@ -70,6 +98,9 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         TextView postLikes;
         TextView postComments;
         CardView likeButton;
+        ImageView likeImage;
+        CardView messageButton;
+        CardView shareButton;
 
         Post post;
 
@@ -84,16 +115,33 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             postLikes = itemView.findViewById(R.id.tv_post_likes);
             postComments = itemView.findViewById(R.id.tv_post_view_comments);
             likeButton = itemView.findViewById(R.id.cv_post_like);
+            likeImage = itemView.findViewById(R.id.iv_post_heart);
+            messageButton = itemView.findViewById(R.id.cv_post_message);
+            shareButton = itemView.findViewById(R.id.cv_post_share);
 
             likeButton.setOnClickListener(new View.OnClickListener() {
+                @RequiresApi(api = Build.VERSION_CODES.N)
                 @Override
                 public void onClick(View v) {
-                    ImageView iv = itemView.findViewById(R.id.iv_post_heart);
-                    post.setLikes(post.getLikes() + (post.isLiked() ? -1 : 1));
-                    iv.setImageResource(post.isLiked() ? R.drawable.like : R.drawable.heart);
-                    postLikes.setText(String.format("%,d",post.getLikes())+" likes");
-                    post.setLiked(!post.isLiked());
 
+                    if(!post.isLiked()){
+                        likeImage.setImageResource(R.drawable.heart);
+                        post.setLiked(true);
+                        UserManager.instance.addToLikes(post.getPostID());
+
+                        postLikes.setText(String.format("%,d",post.getLikes()+1)+" likes");
+                        post.setLikes(post.getLikes()+1);
+                        PostDataManager.instance.incrementLikes(post.getPostID(),1);
+                    }else{
+                        likeImage.setImageResource(R.drawable.like);
+                        post.setLiked(false);
+                        UserManager.instance.removeFromLikes(post.getPostID());
+
+                        postLikes.setText(String.format("%,d",post.getLikes()-1)+" likes");
+                        post.setLikes(post.getLikes()-1);
+                        PostDataManager.instance.incrementLikes(post.getPostID(),-1);
+
+                    }
                 }
             });
 
@@ -112,6 +160,40 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
                     Log.println(Log.DEBUG,"debugging",postCreator.getText().toString());
                 }
             });
+
+            messageButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Treedebugger.log("looking at message");
+                   /* UserManager.instance.getUserByID("c4ilwKbubFGTOQB6J86W",(User u)->{
+                        PostDataManager.instance.createNewPost(u,"testing fake post","cannot find","You will never know",()->{Treedebugger.log("created a fake post.");});
+                    });
+                    */
+                }
+            });
+
+            shareButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    Treedebugger.log("sharing this message");
+
+                    // keep for reference, use this implementation for creating posts
+                    /*FirebaseStorage.getInstance().getReference("uploads/simu_liu.png").getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Uri> task) {
+                            String m = task.getResult().toString();
+                            Treedebugger.log(m);
+                        }
+                    });
+                    */
+                }
+
+
+
+            });
+
+
 
         }
     }

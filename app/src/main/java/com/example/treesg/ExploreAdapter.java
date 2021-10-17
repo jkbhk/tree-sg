@@ -16,6 +16,8 @@ import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -24,8 +26,10 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.ViewHold
 
     Context context;
     String[] mostTrendingTags;
+    ArrayList<Post> currentBundle;
 
     public ExploreAdapter(String[] trendingTags){
+
         mostTrendingTags = trendingTags;
     }
 
@@ -43,26 +47,33 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.ViewHold
         // our adapter creates these layouts for each item we pass into our array of choice in the contructor
         View view = layoutInflater.inflate(R.layout.trending_bundle_layout,parent,false);
         ViewHolder viewHolder = new ViewHolder(view);
-
+        Treedebugger.log("inside adapt");
         return viewHolder;
     }
 
     @Override
     public void onBindViewHolder(@NonNull @NotNull ViewHolder holder, int position) {
 
+        currentBundle = ExploreController.instance.getBundle(mostTrendingTags[position]);
 
-            ArrayList<Post> currentBundle = ExploreManager.instance.getBundle(mostTrendingTags[position]);
 
-            if(currentBundle != null) {
-                if (currentBundle.size() >= 1)
-                    holder.top.setImageResource(currentBundle.get(0).getPostImage());
-                if (currentBundle.size() >= 2)
-                    holder.mid.setImageResource(currentBundle.get(1).getPostImage());
-                if (currentBundle.size() >= 3)
-                    holder.bot.setImageResource(currentBundle.get(2).getPostImage());
-
-                holder.hashtag.setText(mostTrendingTags[position]);
+        if(currentBundle != null) {
+            if (currentBundle.size() >=3){
+                Glide.with(context).load(currentBundle.get(0).getPostImage()).placeholder(R.drawable.nature_placeholder).into(holder.top);
+                Glide.with(context).load(currentBundle.get(1).getPostImage()).placeholder(R.drawable.nature_placeholder).into(holder.mid);
+                Glide.with(context).load(currentBundle.get(2).getPostImage()).placeholder(R.drawable.nature_placeholder).into(holder.bot);
+            }else if(currentBundle.size() == 2){
+                Glide.with(context).load(currentBundle.get(0).getPostImage()).placeholder(R.drawable.nature_placeholder).into(holder.top);
+                Glide.with(context).load(currentBundle.get(1).getPostImage()).placeholder(R.drawable.nature_placeholder).into(holder.mid);
+                Glide.with(context).load(currentBundle.get(0).getPostImage()).placeholder(R.drawable.nature_placeholder).into(holder.bot);
+            }else{
+                Glide.with(context).load(currentBundle.get(0).getPostImage()).placeholder(R.drawable.nature_placeholder).into(holder.top);
+                Glide.with(context).load(currentBundle.get(0).getPostImage()).placeholder(R.drawable.nature_placeholder).into(holder.mid);
+                Glide.with(context).load(currentBundle.get(0).getPostImage()).placeholder(R.drawable.nature_placeholder).into(holder.bot);
             }
+
+            holder.hashtag.setText(mostTrendingTags[position]);
+        }
 
     }
 
@@ -88,9 +99,7 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.ViewHold
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Treedebugger.log("clicked on "+ hashtag.getText());
                     MainActivity.navigationController.navigate(R.id.navigation_trending);
-
 
                 }
             });
