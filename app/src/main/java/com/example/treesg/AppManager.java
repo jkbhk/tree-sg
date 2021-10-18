@@ -1,5 +1,7 @@
 package com.example.treesg;
 
+import android.provider.ContactsContract;
+
 public class AppManager {
 
     public static AppManager instance;

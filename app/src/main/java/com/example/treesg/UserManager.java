@@ -97,6 +97,10 @@ public class UserManager {
         UserDao.updateUser(u);
     }
 
+    //(String profilePic, String userID, String email, String fullName, String phone, Boolean isAdmin, String username, int points,HashSet<String> likedPosts)
+    public void createUser(String email, String fullName, String phone, Boolean isAdmin, Runnable callback){
+        //UserDao.create(email,fullName,phone,isAdmin,callback);
+    }
 
 
 }

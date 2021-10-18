@@ -93,7 +93,7 @@ public class login extends AppCompatActivity {
     }
 
     private void checkUserAccessLevel(String uid) {
-        DocumentReference df = fStore.collection("users").document(uid);
+        DocumentReference df = fStore.collection(DatabaseManager.USERS_COLLECTION).document(uid);
         df.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {

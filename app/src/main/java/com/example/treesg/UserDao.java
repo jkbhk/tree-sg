@@ -22,9 +22,54 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.function.Consumer;
 
 public class UserDao {
+
+    //(String profilePic, String userID, String email, String fullName, String phone, Boolean isAdmin, String username, int points,HashSet<String> likedPosts)
+    public static void create(String fAuthID,String email, String fullName, String phone, Boolean isAdmin, Runnable callback) {
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("profilePic", "https://firebasestorage.googleapis.com/v0/b/treesg-5aca9.appspot.com/o/uploads%2Fdefault_profile.png?alt=media&token=3f1d0c1d-96a9-4738-9167-ea2a17fefa84");
+        map.put("email", email);
+        map.put("fullName", fullName);
+        map.put("phone", phone);
+        map.put("isAdmin", isAdmin);
+
+        map.put("username", "your_default_username");
+        map.put("points", 0);
+        ArrayList<String> empty = new ArrayList<>();
+        map.put("likedPosts", empty.subList(0,empty.size()));
+
+        // create the actual user object in the collection, using the fAuthID as the userID
+       FirebaseFirestore.getInstance().collection(DatabaseManager.USERS_COLLECTION).document(fAuthID).set(map).addOnSuccessListener(new OnSuccessListener<Void>() {
+           @Override
+           public void onSuccess(Void unused) {
+               callback.run();
+           }
+       }).addOnFailureListener(new OnFailureListener() {
+           @Override
+           public void onFailure(@NonNull Exception e) {
+               Treedebugger.log("FAILLL");
+           }
+       });
+    }
+
+    public static void addNewProperties(String userid, Runnable callback){
+        DocumentReference df = FirebaseFirestore.getInstance().collection(DatabaseManager.USERS_COLLECTION).document(userid);
+        df.update(
+                "isAdmin", false,
+                "points", 0,
+                "username", "your_default_username"
+        ).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void unused) {
+                Treedebugger.log("Initial properties added to new user.");
+                callback.run();
+            }
+        });
+    }
 
     public static void addToLikedPosts(String userid, String post){
 
@@ -129,6 +174,8 @@ public class UserDao {
             }
         });
     }
+
+
 
     // doesnt deal with iterables
     public static void updateUser(User u){
