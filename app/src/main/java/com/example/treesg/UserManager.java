@@ -9,8 +9,12 @@ import java.util.function.Consumer;
 
 public class UserManager {
 
+
+    //login will call setCurrentUser, which will start populating the userCache
     //for testing
     private static String current_user_id = "BO3xSIaihJjyxr3xvlPn";
+
+
     private static User currentUser;
 
     private HashMap<String,User> userCache = new HashMap<String, User>();
@@ -22,9 +26,6 @@ public class UserManager {
 
         instance = this;
 
-        //for solo testing, login will call setCurrentUser, which will start populating the userCache
-        setCurrentUser(current_user_id,null);
-        //setCurrentUser(current_user_id,()->{ Treedebugger.log("current user stored successfully.");});
     }
 
     public void cacheUser(User u){
@@ -46,6 +47,7 @@ public class UserManager {
     @RequiresApi(api = Build.VERSION_CODES.N)
     public void setCurrentUser(String userid, Runnable callback){
 
+
         retrieveAllUsers(()->{
 
             //after retrieving
@@ -60,9 +62,7 @@ public class UserManager {
             }
 
         });
-
     }
-
 
     // MAY not be updated
     public User getCurrentUser(){
@@ -92,7 +92,7 @@ public class UserManager {
         UserDao.removeFromLikedPosts(currentUser.getUserID(),postID);
     }
 
-    // called to update a singler user object in firebase
+    // called to update a single user object in firebase
     public void updateUser(User u){
         UserDao.updateUser(u);
     }

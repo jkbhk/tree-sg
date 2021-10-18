@@ -58,7 +58,6 @@ public class ExploreFragment extends Fragment {
             ExploreAdapter exploreAdapter = new ExploreAdapter(trendingTags);
             rview.setAdapter(exploreAdapter);
 
-            Treedebugger.log("loaded prelikes");
         });
 
 

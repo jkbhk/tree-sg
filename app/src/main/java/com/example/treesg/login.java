@@ -1,9 +1,11 @@
 package com.example.treesg;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -19,6 +21,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.core.utilities.Tree;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -95,19 +98,26 @@ public class login extends AppCompatActivity {
     private void checkUserAccessLevel(String uid) {
         DocumentReference df = fStore.collection(DatabaseManager.USERS_COLLECTION).document(uid);
         df.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 Log.d("TAG", "onSuccess: " + documentSnapshot.getData());
                 //identify User access level
 
-                if(documentSnapshot.getString("isAdmin") != null){
+                if(documentSnapshot.getBoolean("isAdmin") == true){
                     //user is admin
 
                     startActivity(new Intent(getApplicationContext(), com.example.treesg.Admin.class));
                     finish();
                 }else{
-                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                    finish();
+
+                    // fetch all the data and wait for setup to finish before proceeding
+                    UserManager.instance.setCurrentUser(uid,()->{
+                        Treedebugger.log("all fetch complete, safe to proceed to homepage.");
+                        Treedebugger.log("Welcome " + UserManager.instance.getCurrentUser().getFullName());
+                        startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                        finish();
+                    });
                 }
 
 

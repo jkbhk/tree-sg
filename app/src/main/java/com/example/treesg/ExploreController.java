@@ -15,7 +15,7 @@ public class ExploreController {
 
     public void loadPreliked(){
         if(UserManager.instance.getCurrentUser() == null){
-            Treedebugger.log("current user not loaded yet");
+            Treedebugger.log("current user not loaded yet, could not load preliked posts");
             return;
         }
 

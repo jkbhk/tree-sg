@@ -47,7 +47,7 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.ViewHold
         // our adapter creates these layouts for each item we pass into our array of choice in the contructor
         View view = layoutInflater.inflate(R.layout.trending_bundle_layout,parent,false);
         ViewHolder viewHolder = new ViewHolder(view);
-        Treedebugger.log("inside adapt");
+
         return viewHolder;
     }
 
