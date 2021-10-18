@@ -112,7 +112,7 @@ public class login extends AppCompatActivity {
                 }else{
 
                     // fetch all the data and wait for setup to finish before proceeding
-                    UserManager.instance.setCurrentUser(uid,()->{
+                    UserManager.instance.setCurrentUserAsync(uid,()->{
                         Treedebugger.log("all fetch complete, safe to proceed to homepage.");
                         Treedebugger.log("Welcome " + UserManager.instance.getCurrentUser().getFullName());
                         startActivity(new Intent(getApplicationContext(), MainActivity.class));

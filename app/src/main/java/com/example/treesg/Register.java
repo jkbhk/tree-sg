@@ -91,7 +91,7 @@ public class Register extends AppCompatActivity {
                         if(task.isSuccessful()){
                             Toast.makeText(Register.this, "User Created.", Toast.LENGTH_SHORT).show();
 
-                            UserDao.createUser(fAuth.getCurrentUser().getUid(),email,fullName,phone,false,()->{
+                            UserManager.instance.createUserAsync(fAuth.getCurrentUser().getUid(),email,fullName,phone,false,()->{
                                 startActivity(new Intent(getApplicationContext(), login.class));
                             });
 /*

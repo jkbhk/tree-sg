@@ -65,15 +65,16 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 
         //test
         holder.post = current;
-        UserManager.instance.getUserByID(current.getFrom(),(User u)->{
-            // elements that depend on user
-            holder.postCreator.setText(u.getFullName());
-            holder.postDescription.setText(Html.fromHtml("<b>"+u.getFullName()+"</b>" + " "+current.getDescription()));
-        });
+
+        User referenceUser = UserManager.instance.getUserByID(current.getFrom());
+        if(referenceUser != null){
+            holder.postCreator.setText(referenceUser.getFullName());
+            holder.postDescription.setText(Html.fromHtml("<b>"+referenceUser.getFullName()+"</b>" + " "+current.getDescription()));
+            Glide.with(context).load(referenceUser.getProfilePic()).placeholder(R.drawable.default_profile).into(holder.postCreatorProfileImage);
+        }
 
         Glide.with(context).load(current.getPostImage()).placeholder(R.drawable.nature_placeholder).into(holder.postImage);
         holder.postLocation.setText(current.getLocation());
-        Glide.with(context).load(current.getProfilePic()).placeholder(R.drawable.simu_liu).into(holder.postCreatorProfileImage);
         holder.postLikes.setText(String.format("%,d",current.getLikes())+" likes");
         String commentTxt = current.getComments() <= 1 ? "View 1 comment" : "View all " + String.format("%,d",current.getComments()) + " comments";
         if(current.getComments()<1)
@@ -127,7 +128,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
                     if(!post.isLiked()){
                         likeImage.setImageResource(R.drawable.heart);
                         post.setLiked(true);
-                        UserManager.instance.addToLikes(post.getPostID());
+                        UserManager.instance.addToLikesAsync(post.getPostID());
 
                         postLikes.setText(String.format("%,d",post.getLikes()+1)+" likes");
                         post.setLikes(post.getLikes()+1);
@@ -135,7 +136,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
                     }else{
                         likeImage.setImageResource(R.drawable.like);
                         post.setLiked(false);
-                        UserManager.instance.removeFromLikes(post.getPostID());
+                        UserManager.instance.removeFromLikesAsync(post.getPostID());
 
                         postLikes.setText(String.format("%,d",post.getLikes()-1)+" likes");
                         post.setLikes(post.getLikes()-1);

@@ -28,12 +28,8 @@ public class UserManager {
 
     }
 
-    public void cacheUser(User u){
-        this.userCache.put(u.getUserID(),u);
-    }
-
     @RequiresApi(api = Build.VERSION_CODES.N)
-    public void getUserByID(String userid, Consumer<User> callback){
+    public void getUserByIDAsync(String userid, Consumer<User> callback){
 
         if(userCache.containsKey(userid)){
             callback.accept(userCache.get(userid));
@@ -42,21 +38,29 @@ public class UserManager {
         }
     }
 
+    public User getUserByID(String userid){
+
+        return userCache.get(userid);
+    }
+
+
     // meant to be called from Login
     // after user is successfully retrieved, callback() will be called
     @RequiresApi(api = Build.VERSION_CODES.N)
-    public void setCurrentUser(String userid, Runnable callback){
+    public void setCurrentUserAsync(String userid, Runnable callback){
 
 
-        retrieveAllUsers(()->{
+        retrieveAllUsersAsync(()->{
 
             //after retrieving
-            if(userCache.containsKey(userid)){
-                currentUser = userCache.get(userid);
+            currentUser = userCache.get(userid);
+            if(currentUser != null){
+
                 Treedebugger.log("current user set successfully.");
 
                 if(callback != null)
                     callback.run();
+
             }else{
                 Treedebugger.log("invalid userid ,could not set current user");
             }
@@ -64,43 +68,52 @@ public class UserManager {
         });
     }
 
-    // MAY not be updated
+
     public User getCurrentUser(){
         return currentUser;
     }
 
     // can be called when searching for users, to get all the latest users from firebase
-    public void retrieveAllUsers(Runnable callback){
+    public void retrieveAllUsersAsync(Runnable callback){
+        userCache = null;
         UserDao.retrieveUsers((HashMap<String,User> hm)->{
             userCache = hm;
-            Treedebugger.log("UserManager cache updated.");
+
+            Treedebugger.log("Fetched "+hm.size()+" total users. UserManager cache updated.");
             if(callback != null)
                 callback.run();
         });
     }
 
+    public HashMap<String, User> getAllUsers(Runnable callback){
+        return userCache;
+    }
 
-    public void addToLikes(String postID){
+
+    public void addToLikesAsync(String postID){
         currentUser.getLikedPosts().add(postID);
         //update server
         UserDao.addToLikedPosts(currentUser.getUserID(),postID);
     }
 
-    public void removeFromLikes(String postID){
+    public void removeFromLikesAsync(String postID){
         currentUser.getLikedPosts().remove(postID);
         // update server
         UserDao.removeFromLikedPosts(currentUser.getUserID(),postID);
     }
 
     // called to update a single user object in firebase
-    public void updateUser(User u){
-        UserDao.updateUser(u);
+    public void updateUserAsync(String userid){
+        User u = userCache.get(userid);
+        if(u != null)
+            UserDao.updateUser(u);
     }
 
-    //(String profilePic, String userID, String email, String fullName, String phone, Boolean isAdmin, String username, int points,HashSet<String> likedPosts)
-    public void createUser(String email, String fullName, String phone, Boolean isAdmin, Runnable callback){
-        //UserDao.create(email,fullName,phone,isAdmin,callback);
+    public void createUserAsync(String userid, String email, String fullName, String phone, Boolean isAdmin, Runnable callback){
+        UserDao.createUser(userid, email,fullName,phone,isAdmin,callback);
     }
+
+
 
 
 }
