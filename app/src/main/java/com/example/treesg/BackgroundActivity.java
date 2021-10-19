@@ -35,7 +35,6 @@ public class BackgroundActivity extends AppCompatActivity {
 
             //if logged in or returning user
             FirebaseUser u = FirebaseAuth.getInstance().getCurrentUser();
-
             if(u != null){
                 appManager.initialize();
                 UserManager.instance.setCurrentUserAsync(u.getUid(),()->{
@@ -44,6 +43,10 @@ public class BackgroundActivity extends AppCompatActivity {
                     startActivity(new Intent(getApplicationContext(), MainActivity.class));
                 });
             }else{
+
+                // This is where the app starts.
+                // For now we will start at login activity.
+                // Change login.class to the your desired starting activity here.
                 startActivity(new Intent(getApplicationContext(), login.class));
             }
         }else{
