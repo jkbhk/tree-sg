@@ -179,6 +179,8 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 
                     Treedebugger.log("sharing this message");
 
+                    ExploreController.instance.printMap();
+
                     // keep for reference, use this implementation for creating posts
                     /*FirebaseStorage.getInstance().getReference("uploads/simu_liu.png").getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
                         @Override
