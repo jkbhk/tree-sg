@@ -19,6 +19,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.core.utilities.Tree;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -89,6 +90,11 @@ public class Register extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
                             Toast.makeText(Register.this, "User Created.", Toast.LENGTH_SHORT).show();
+
+                            UserManager.instance.createUserAsync(fAuth.getCurrentUser().getUid(),email,fullName,phone,false,()->{
+                                startActivity(new Intent(getApplicationContext(), login.class));
+                            });
+/*
                             userID = fAuth.getCurrentUser().getUid();
                             DocumentReference documentReference = fStore.collection("users").document(userID);
                             Map<String, Object> user = new HashMap<>();
@@ -106,7 +112,7 @@ public class Register extends AppCompatActivity {
                                 }
                             });
                             startActivity(new Intent(getApplicationContext(), MainActivity.class));
-
+*/
                         }else {
                             Toast.makeText(Register.this, "Error! " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                         }

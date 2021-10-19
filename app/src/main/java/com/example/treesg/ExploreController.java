@@ -3,6 +3,9 @@ package com.example.treesg;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+
+// controller for the explore page
+
 public class ExploreController {
 
     public static ExploreController instance;
@@ -12,18 +15,6 @@ public class ExploreController {
         instance = this;
         hashtagMap = new HashMap<>();
     }
-
-    public void loadPreliked(){
-        if(UserManager.instance.getCurrentUser() == null){
-            Treedebugger.log("current user not loaded yet");
-            return;
-        }
-
-        for(Post p : PostDataManager.instance.posts){
-            p.setLiked(UserManager.instance.getCurrentUser().getLikedPosts().contains(p.getPostID()));
-        }
-    }
-
 
     public String[] getTopTrendingHashTags(int n){
 
