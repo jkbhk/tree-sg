@@ -14,30 +14,12 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 public class BackgroundActivity extends AppCompatActivity {
 
-    AppManager appm;
+    AppManager appManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        /*Treedebugger.log("brb");
-        FirebaseFirestore.getInstance().collection(DatabaseManager.USERS_COLLECTION).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-            @Override
-            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                Treedebugger.log("back");
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Treedebugger.log("failed");
-            }
-        });
-        */
-
-        appm = new AppManager();
-        appm.initialize();
-
+        appManager = new AppManager();
         startActivity(new Intent(getApplicationContext(), login.class));
-
-
     }
 }

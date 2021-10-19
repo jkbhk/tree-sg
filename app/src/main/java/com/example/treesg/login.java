@@ -77,6 +77,10 @@ public class login extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
                             Toast.makeText(login.this, "Logged in successfully.", Toast.LENGTH_SHORT).show();
+
+                            // start all controller entities
+                            AppManager.instance.initialize();
+
                             checkUserAccessLevel(fAuth.getCurrentUser().getUid());
                         }else{
                             Toast.makeText(login.this, "Error! " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
@@ -113,7 +117,7 @@ public class login extends AppCompatActivity {
 
                     // fetch all the data and wait for setup to finish before proceeding
                     UserManager.instance.setCurrentUserAsync(uid,()->{
-                        Treedebugger.log("all fetch complete, safe to proceed to homepage.");
+                        Treedebugger.log("user fetching complete, safe to proceed to homepage.");
                         Treedebugger.log("Welcome " + UserManager.instance.getCurrentUser().getFullName());
                         startActivity(new Intent(getApplicationContext(), MainActivity.class));
                         finish();

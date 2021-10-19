@@ -46,6 +46,9 @@ public class TrendingFragment extends Fragment {
     public void onViewCreated(@NonNull @NotNull View view, @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        // set the like status of all posts before rendering them
+        loadPreliked();
+
         RecyclerView rview = (RecyclerView) (view.findViewById(R.id.recyclerView1));
         rview.setHasFixedSize(true);
         rview.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -53,6 +56,17 @@ public class TrendingFragment extends Fragment {
         PostAdapter pa = new PostAdapter(PostDataManager.instance.posts.toArray(new Post[PostDataManager.instance.posts.size()]));
         rview.setAdapter(pa);
 
+    }
+
+    private void loadPreliked(){
+        if(UserManager.instance.getCurrentUser() == null){
+            Treedebugger.log("current user not loaded yet, could not load preliked posts");
+            return;
+        }
+
+        for(Post p : PostDataManager.instance.posts){
+            p.setLiked(UserManager.instance.getCurrentUser().getLikedPosts().contains(p.getPostID()));
+        }
     }
 
 }

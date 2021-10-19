@@ -45,10 +45,10 @@ public class UserManager {
 
 
     // meant to be called from Login
-    // after user is successfully retrieved, callback() will be called
+    // will fetch all users from firestore first, then set current user from our local user cache
+    // after current user is set, callback() will be called
     @RequiresApi(api = Build.VERSION_CODES.N)
     public void setCurrentUserAsync(String userid, Runnable callback){
-
 
         retrieveAllUsersAsync(()->{
 

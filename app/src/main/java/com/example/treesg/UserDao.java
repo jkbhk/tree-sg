@@ -140,11 +140,10 @@ public class UserDao {
 
                             }
 
+                            Treedebugger.log("all users retrieved.");
                             callback.accept(users);
 
                         }
-
-                        Treedebugger.log("all users retrieved.");
                     }
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override

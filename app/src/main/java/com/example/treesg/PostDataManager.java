@@ -16,7 +16,7 @@ public class PostDataManager {
     public PostDataManager(){
         instance = this;
         posts = new ArrayList<>();
-        retreiveAllPosts(null);
+        //retreiveAllPosts(null);
     }
 
     public void retreiveAllPosts(Runnable callback){
