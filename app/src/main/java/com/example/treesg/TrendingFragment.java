@@ -16,12 +16,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.firebase.database.core.utilities.Tree;
+
 import org.jetbrains.annotations.NotNull;
+
+import java.util.ArrayList;
 
 public class TrendingFragment extends Fragment {
 
     private TrendingViewModel mViewModel;
 
+    public static String filterBy = "";
 
     public static TrendingFragment newInstance() {
         return new TrendingFragment();
@@ -53,7 +58,14 @@ public class TrendingFragment extends Fragment {
         rview.setHasFixedSize(true);
         rview.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        PostAdapter pa = new PostAdapter(PostDataManager.instance.posts.toArray(new Post[PostDataManager.instance.posts.size()]));
+        PostAdapter pa;
+        ArrayList<Post> postsToRender = ExploreController.instance.getBundle(filterBy);
+        if(postsToRender == null)//no filter, show all posts
+            pa = new PostAdapter(PostDataManager.instance.posts.toArray(new Post[PostDataManager.instance.posts.size()]));
+        else{
+            pa = new PostAdapter(postsToRender.toArray(new Post[postsToRender.size()]));
+        }
+
         rview.setAdapter(pa);
 
     }

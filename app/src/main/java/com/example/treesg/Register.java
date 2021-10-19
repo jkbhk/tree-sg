@@ -53,11 +53,6 @@ public class Register extends AppCompatActivity {
         fStore = FirebaseFirestore.getInstance();
         progressBar = findViewById(R.id.progressBar);
 
-        //if logged in or returning user
-        if(fAuth.getCurrentUser() != null){
-            startActivity(new Intent(getApplicationContext(), MainActivity.class));
-            finish();
-        }
 
         //the code to actl register user into firebase lol
         mRegisterBtn.setOnClickListener(new View.OnClickListener(){
@@ -91,7 +86,7 @@ public class Register extends AppCompatActivity {
                         if(task.isSuccessful()){
                             Toast.makeText(Register.this, "User Created.", Toast.LENGTH_SHORT).show();
 
-                            UserManager.instance.createUserAsync(fAuth.getCurrentUser().getUid(),email,fullName,phone,false,()->{
+                            UserDao.createUser(fAuth.getCurrentUser().getUid(),email,fullName,phone,false,()->{
                                 startActivity(new Intent(getApplicationContext(), login.class));
                             });
 /*

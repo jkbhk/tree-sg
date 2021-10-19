@@ -1,7 +1,10 @@
 package com.example.treesg;
 
+import com.google.firebase.database.core.utilities.Tree;
+
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 
 // controller for the explore page
@@ -45,11 +48,25 @@ public class ExploreController {
 
     public void mapHashTagsToPosts(){
         ArrayList<Post> list = PostDataManager.instance.posts;
+        hashtagMap = new HashMap<>();
 
         for(Post p : list){
             for(String tag : p.getHashtags()){
                 addToMap(tag,p);
             }
+        }
+    }
+
+    public void printMap(){
+        for (String hashtag : hashtagMap.keySet()) {
+            Treedebugger.log("Tag: " + hashtag);
+
+            ArrayList<Post> temp = hashtagMap.get(hashtag);
+            for(Post p : temp){
+                Treedebugger.log("" + p.getDescription());
+            }
+
+            Treedebugger.log("\n");
         }
     }
 

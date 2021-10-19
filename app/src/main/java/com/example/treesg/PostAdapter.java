@@ -42,6 +42,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         allPosts = p;
     }
 
+
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull @NotNull ViewGroup parent, int viewType) {
@@ -178,6 +179,8 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
                 public void onClick(View v) {
 
                     Treedebugger.log("sharing this message");
+
+                    ExploreController.instance.printMap();
 
                     // keep for reference, use this implementation for creating posts
                     /*FirebaseStorage.getInstance().getReference("uploads/simu_liu.png").getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
