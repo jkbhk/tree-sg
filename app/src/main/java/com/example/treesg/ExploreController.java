@@ -48,6 +48,7 @@ public class ExploreController {
 
     public void mapHashTagsToPosts(){
         ArrayList<Post> list = PostDataManager.instance.posts;
+        hashtagMap = new HashMap<>();
 
         for(Post p : list){
             for(String tag : p.getHashtags()){
