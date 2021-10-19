@@ -12,10 +12,10 @@
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/navigation_dashboard"
-        android:name="com.example.treesg.ui.dashboard.DashboardFragment"
+        android:id="@+id/navigation_map"
+        android:name="com.example.treesg.MapFragment"
         android:label="Map"
-        tools:layout="@layout/fragment_dashboard" />
+        tools:layout="@layout/fragment_map" />
 
     <fragment
         android:id="@+id/navigation_notifications"
