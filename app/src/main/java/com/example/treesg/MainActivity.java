@@ -24,15 +24,15 @@ public class MainActivity extends AppCompatActivity {
     public static NavController navigationController;
     public static FragmentManager fragmentManager;
 
-    private AppManager appManager;
+    //private AppManager appManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         // intitialize app manager
-        appManager = new AppManager();
-        appManager.initialize();
+        //appManager = new AppManager();
+        //appManager.initialize();
         fragmentManager = getFragmentManager();
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
