@@ -44,6 +44,8 @@ public class UserDao {
         map.put("points", 0);
         ArrayList<String> empty = new ArrayList<>();
         map.put("likedPosts", empty.subList(0,empty.size()));
+        map.put("userDescription", "");
+        map.put("isNew", true);
 
         // create the actual user object in the collection, using the fAuthID as the userID
        FirebaseFirestore.getInstance().collection(DatabaseManager.USERS_COLLECTION).document(fAuthID).set(map).addOnSuccessListener(new OnSuccessListener<Void>() {
