@@ -69,7 +69,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 
         User referenceUser = UserManager.instance.getUserByID(current.getFrom());
         if(referenceUser != null){
-            holder.postCreator.setText(referenceUser.getFullName());
+            holder.postCreator.setText(referenceUser.getUsername() == "" ? referenceUser.getFullName() : referenceUser.getUsername());
             holder.postDescription.setText(Html.fromHtml("<b>"+referenceUser.getFullName()+"</b>" + " "+current.getDescription()));
             Glide.with(context).load(referenceUser.getProfilePic()).placeholder(R.drawable.default_profile).into(holder.postCreatorProfileImage);
         }

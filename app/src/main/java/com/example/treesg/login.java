@@ -158,16 +158,22 @@ public class login extends AppCompatActivity {
                     startActivity(new Intent(getApplicationContext(), com.example.treesg.Admin.class));
                     finish();
                 }else{
-                    if(UserManager.instance.getCurrentUser().isNew()){
-                        startActivity(new Intent(getApplicationContext(), com.example.treesg.setUser.class));
-                        finish();
-                    }
+
                     // fetch all the data and wait for setup to finish before proceeding
                     UserManager.instance.setCurrentUserAsync(uid,()->{
+
+                        // UserManager now has all the users
                         Treedebugger.log("user fetching complete, safe to proceed to homepage.");
                         Treedebugger.log("Welcome " + UserManager.instance.getCurrentUser().getFullName());
-                        startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                        finish();
+
+                        if(UserManager.instance.getCurrentUser().isNew()){
+                            startActivity(new Intent(getApplicationContext(), com.example.treesg.setUser.class));
+                            finish();
+                        }else{
+                            startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                            finish();
+                        }
+
                     });
                 }
 
