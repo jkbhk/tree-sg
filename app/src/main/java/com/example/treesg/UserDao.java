@@ -190,6 +190,11 @@ public class UserDao {
             public void onSuccess(Void unused) {
                 Treedebugger.log("User "+ u.getFullName()+ " updated in firestore.");
             }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Treedebugger.log("failed to update user in firestore");
+            }
         });
     }
 
