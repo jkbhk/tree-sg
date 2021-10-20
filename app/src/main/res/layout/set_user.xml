@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/ivTopBgRect"
+        android:layout_width="match_parent"
+        android:layout_height="320dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/top_bg_rect_green" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.110000014"
+        app:srcCompat="@drawable/logo" />
+
+    <ImageView
+        android:id="@+id/ivTopBgCircle1"
+        android:layout_width="195dp"
+        android:layout_height="180dp"
+        android:layout_marginEnd="276dp"
+        android:layout_marginRight="276dp"
+        android:layout_marginBottom="204dp"
+        android:alpha="0.56"
+        app:layout_constraintBottom_toBottomOf="@+id/ivTopBgRect"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/circle_bg" />
+
+    <ImageView
+        android:id="@+id/ivTopBgCircle2"
+        android:layout_width="195dp"
+        android:layout_height="180dp"
+        android:layout_marginEnd="200dp"
+        android:layout_marginRight="200dp"
+        android:layout_marginBottom="228dp"
+        android:alpha="0.56"
+        app:layout_constraintBottom_toBottomOf="@+id/ivTopBgRect"
+        app:layout_constraintEnd_toEndOf="@+id/ivTopBgRect"
+        app:srcCompat="@drawable/circle_bg" />
+
+    <Button
+        android:id="@+id/confirmBtn"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/registerbut"
+        android:text="Confirm"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/setUser" />
+
+    <TextView
+        android:id="@+id/promtText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:fontFamily="casual"
+        android:text="Looks like you are new here! Enter your preferred username and welcome to TREESG :)"
+        android:textColor="@color/green_back"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView"
+        app:layout_constraintVertical_bias="0.07999998" />
+
+    <EditText
+        android:id="@+id/setUser"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:background="@color/white"
+        android:ems="10"
+        android:hint="Enter your preferred Username"
+        android:inputType="textPersonName"
+        android:padding="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/promtText"
+        app:layout_constraintVertical_bias="0.19999999" />
+</androidx.constraintlayout.widget.ConstraintLayout>
