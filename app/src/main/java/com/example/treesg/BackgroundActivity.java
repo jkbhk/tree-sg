@@ -57,9 +57,15 @@ public class BackgroundActivity extends AppCompatActivity {
                 @Override
                 public void onSuccess(AuthResult authResult) {
 
-                    UserManager.instance.getUserByIDAsync("Z0BfmUgAmoaxm9DIMH0gAO15dzX2",(User u)->{
-                        PostDataManager.instance.createNewPost(u,"Anyone still awake?! #nosleep","cannot find","TreeSG HQ",()->{Treedebugger.log("created a fake post.");});
-                    });
+
+                    UserDao.updatePropertiesForAll();
+
+                    //UserManager.instance.getUserByIDAsync("Z0BfmUgAmoaxm9DIMH0gAO15dzX2",(User u)->{
+                        //UserDao.updatePropertiesForAll();
+                        //PostDataManager.instance.createNewPost(u,"Anyone still awake?! #nosleep","cannot find","TreeSG HQ",()->{Treedebugger.log("created a fake post.");});
+                    //});
+
+
 
                 }
             });
