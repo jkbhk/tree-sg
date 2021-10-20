@@ -24,15 +24,15 @@ public class MainActivity extends AppCompatActivity {
     public static NavController navigationController;
     public static FragmentManager fragmentManager;
 
-    private AppManager appManager;
+    //private AppManager appManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         // intitialize app manager
-        appManager = new AppManager();
-        appManager.initialize();
+        //appManager = new AppManager();
+        //appManager.initialize();
         fragmentManager = getFragmentManager();
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_notifications,
+                R.id.navigation_home, R.id.navigation_map, R.id.navigation_notifications,
                 R.id.navigation_explore, R.id.navigation_profile)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);

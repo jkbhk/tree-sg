@@ -19,6 +19,14 @@ import org.jetbrains.annotations.NotNull;
  * A simple {@link Fragment} subclass.
  * Use the {@link ExploreFragment#newInstance} factory method to
  * create an instance of this fragment.
+ *
+ *
+ * Everytime we visit this page we will do a fresh retrieval of all posts from PostDataManager.
+ * A manual refresh for retrieving all posts can also be triggered from here.
+ *
+ * In order for this page to show the trending hashtags, it will call the ExploreController to start mapping
+ * hashtags as soon as the posts are retrieved via callback.
+ *
  */
 public class ExploreFragment extends Fragment {
 
@@ -49,16 +57,15 @@ public class ExploreFragment extends Fragment {
         rview.setLayoutManager(glm);
 
 
-        // fetch all posts and prep all the posts for rendering
+        // do a clean fetch for all posts
         PostDataManager.instance.retreiveAllPosts(()->{
+
             ExploreController.instance.mapHashTagsToPosts();
-            ExploreController.instance.loadPreliked();
 
             String[] trendingTags = ExploreController.instance.getTopTrendingHashTags(NUMBER_OF_PREVIEW_BUNDLES);
             ExploreAdapter exploreAdapter = new ExploreAdapter(trendingTags);
             rview.setAdapter(exploreAdapter);
 
-            Treedebugger.log("loaded prelikes");
         });
 
 

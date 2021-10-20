@@ -1,5 +1,7 @@
 package com.example.treesg;
 
+import android.provider.ContactsContract;
+
 public class AppManager {
 
     public static AppManager instance;
@@ -13,9 +15,13 @@ public class AppManager {
     }
 
     public void initialize(){
+        Treedebugger.log("starting all controller entities...");
+
         userManager = new UserManager();
         postDataManager = new PostDataManager();
         exploreController = new ExploreController();
+
+        Treedebugger.log("All controller entities started.");
     }
 
 

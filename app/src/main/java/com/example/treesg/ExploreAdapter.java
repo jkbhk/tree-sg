@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.google.firebase.database.core.utilities.Tree;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -41,7 +42,7 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.ViewHold
         // our adapter creates these layouts for each item we pass into our array of choice in the contructor
         View view = layoutInflater.inflate(R.layout.trending_bundle_layout,parent,false);
         ViewHolder viewHolder = new ViewHolder(view);
-        Treedebugger.log("inside adapt");
+
         return viewHolder;
     }
 
@@ -93,6 +94,11 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.ViewHold
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+
+                    //show only posts with our hashtag
+                    Treedebugger.log("showing all posts under " + hashtag.getText());
+                    TrendingFragment.filterBy = hashtag.getText().toString();
+
                     MainActivity.navigationController.navigate(R.id.navigation_trending);
 
                 }

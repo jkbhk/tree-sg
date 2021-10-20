@@ -65,15 +65,6 @@
                             <option name="y" value="8" />
                           </Point>
                         </option>
-                        <option name="myPositions">
-                          <map>
-                            <entry key="action_navigation_profile_to_settingsManager">
-                              <value>
-                                <LayoutPositions />
-                              </value>
-                            </entry>
-                          </map>
-                        </option>
                       </LayoutPositions>
                     </value>
                   </entry>
@@ -84,18 +75,6 @@
                           <Point>
                             <option name="x" value="256" />
                             <option name="y" value="12" />
-                          </Point>
-                        </option>
-                      </LayoutPositions>
-                    </value>
-                  </entry>
-                  <entry key="settingsManager">
-                    <value>
-                      <LayoutPositions>
-                        <option name="myPosition">
-                          <Point>
-                            <option name="x" value="-522" />
-                            <option name="y" value="-119" />
                           </Point>
                         </option>
                       </LayoutPositions>
