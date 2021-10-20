@@ -113,7 +113,4 @@ public class UserManager {
         UserDao.createUser(userid, email,fullName,phone,isAdmin,callback);
     }
 
-
-
-
 }

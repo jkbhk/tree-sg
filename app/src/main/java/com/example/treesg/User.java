@@ -14,10 +14,12 @@ public class User {
     private String username;
     private int points;
     private HashSet<String> likedPosts;
+    private boolean isNew;
+    private String userDescription;
 
     public User(){}
 
-    public User(String profilePic, String userID, String email, String fullName, String phone, Boolean isAdmin, String username, int points,HashSet<String> likedPosts){
+    public User(String profilePic, String userID, String email, String fullName, String phone, Boolean isAdmin, String username, int points,HashSet<String> likedPosts, boolean isNew, String description){
         this.profilePic = profilePic;
         this.userID = userID;
         this.email = email;
@@ -27,6 +29,8 @@ public class User {
         this.username = username;
         this.points = points;
         this.likedPosts = likedPosts;
+        this.isNew = isNew;
+        this.userDescription = description;
     }
 
     public String getProfilePic() {
@@ -97,6 +101,22 @@ public class User {
 
     public void setLikedPosts(HashSet<String> likedPosts) {
         this.likedPosts = likedPosts;
+    }
+
+    public boolean isNew(){
+        return this.isNew;
+    }
+
+    public void setIsNew(boolean val){
+        this.isNew = val;
+    }
+
+    public String getUserDescription(){
+        return this.userDescription;
+    }
+
+    public void setUserDescription(String description){
+        this.userDescription = description;
     }
 
 

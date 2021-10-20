@@ -93,7 +93,10 @@ public class UserDao {
                             hs.add(s);
                         }
 
-                        User u = new User(profilePic,userid,email,fullname,phone,isAdmin,username,points,hs);
+                        Boolean isNew = d.getBoolean("isNew");
+                        String userDescription = d.getString("userDescription");
+
+                        User u = new User(profilePic,userid,email,fullname,phone,isAdmin,username,points,hs,isNew,userDescription);
                         Treedebugger.log("user " + fullname + " retrieved.");
                         c.accept(u);
                     }
@@ -135,7 +138,11 @@ public class UserDao {
                                     hs.add(s);
                                 }
 
-                                User u = new User(profilePic,d.getId(),email,fullname,phone,isAdmin,username,points,hs);
+                                Boolean isNew = d.getBoolean("isNew");
+                                String userDescription = d.getString("userDescription");
+
+
+                                User u = new User(profilePic,d.getId(),email,fullname,phone,isAdmin,username,points,hs,isNew,userDescription);
                                 users.put(d.getId(),u);
 
                             }
@@ -165,18 +172,75 @@ public class UserDao {
     }
 
 
-
     // doesnt deal with iterables
     public static void updateUser(User u){
         DocumentReference df = FirebaseFirestore.getInstance().collection(DatabaseManager.USERS_COLLECTION).document(u.getUserID());
         df.update(
+                "profilePic", u.getProfilePic(),
                 "email",u.getEmail(),
                 "fullName", u.getFullName(),
                 "isAdmin", u.isAdmin(),
                 "phone", u.getPhone(),
-                "phone", u.getPhone(),
                 "points", u.getPoints(),
-                "username", u.getUsername()
+                "username", u.getUsername(),
+                "userDescription", u.getUserDescription(),
+                "isNew", u.isNew()
+        ).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void unused) {
+                Treedebugger.log("User "+ u.getFullName()+ " updated in firestore.");
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Treedebugger.log("failed to update user in firestore");
+            }
+        });
+    }
+
+    //=========================== ONLY USE THESE IN COMMAND MODE =================================//
+
+    public static void updatePropertiesForAll(){
+        FirebaseFirestore.getInstance()
+                .collection(DatabaseManager.USERS_COLLECTION)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+
+                    @RequiresApi(api = Build.VERSION_CODES.N)
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+
+                            //HashMap<String, User> users = new HashMap<>();
+                            List<DocumentSnapshot> myListOfDocuments = task.getResult().getDocuments();
+
+                            for(DocumentSnapshot d : myListOfDocuments){
+
+                                // add new properties here
+                                d.getReference().update(
+                                        "userDescription", "",
+                                        "isNew", true
+                                );
+
+                            }
+
+                            Treedebugger.log("updated user properties for all.");
+
+
+                        }
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Treedebugger.log("failed to update properties for all users.");
+            }
+        });
+    }
+
+    public static void updateProperties(User u){
+        DocumentReference df = FirebaseFirestore.getInstance().collection(DatabaseManager.USERS_COLLECTION).document(u.getUserID());
+        df.update(
+                "userDescription", "",
+                "isNew", true
         ).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void unused) {
