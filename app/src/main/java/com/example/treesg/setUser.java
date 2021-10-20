@@ -35,6 +35,8 @@ public class setUser extends AppCompatActivity {
                 }
 
                 UserManager.instance.getCurrentUser().setUsername(username);
+                UserManager.instance.getCurrentUser().setIsNew(false);
+                UserManager.instance.updateUserAsync(UserManager.instance.getCurrentUser().getUserID());
                 startActivity(new Intent(getApplicationContext(), MainActivity.class));
                 finish();
 
