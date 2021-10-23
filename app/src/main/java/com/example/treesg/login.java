@@ -150,30 +150,33 @@ public class login extends AppCompatActivity {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 Log.d("TAG", "onSuccess: " + documentSnapshot.getData());
-                //identify User access level
 
-                if(documentSnapshot.getBoolean("isAdmin") == true){
-                    //user is admin
+                // fetch all the data and wait for setup to finish before proceeding
+                UserManager.instance.setCurrentUserAsync(uid,()->{
 
-                    startActivity(new Intent(getApplicationContext(), com.example.treesg.Admin.class));
-                    finish();
-                }else{
-                    if(UserManager.instance.getCurrentUser().isNew()){
-                        startActivity(new Intent(getApplicationContext(), com.example.treesg.setUser.class));
+                    Treedebugger.log("user fetching complete, safe to proceed to homepage.");
+                    Treedebugger.log("Current user: " + UserManager.instance.getCurrentUser().getFullName());
+                    // UserManager's user cache is now populated.
+                    // Can now use UserManager freely.
+
+                    //identify User access level
+                    if(UserManager.instance.getCurrentUser().isAdmin()){
+
+                        //user is admin
+                        startActivity(new Intent(getApplicationContext(), com.example.treesg.Admin.class));
                         finish();
+                    }else{
+
+                        if(UserManager.instance.getCurrentUser().isNew()){
+                            startActivity(new Intent(getApplicationContext(), com.example.treesg.setUser.class));
+                            finish();
+                        }else{
+                            startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                            finish();
+                        }
                     }
-                    // fetch all the data and wait for setup to finish before proceeding
-                    UserManager.instance.setCurrentUserAsync(uid,()->{
-                        Treedebugger.log("user fetching complete, safe to proceed to homepage.");
-                        Treedebugger.log("Welcome " + UserManager.instance.getCurrentUser().getFullName());
-                        startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                        finish();
-                    });
-                }
-
-
+                });
             }
         });
     }
-
 }

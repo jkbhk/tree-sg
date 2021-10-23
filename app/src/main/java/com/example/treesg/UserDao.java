@@ -131,7 +131,7 @@ public class UserDao {
                                 String fullname = d.getString("fullName");
                                 String phone = d.getString("phone");
                                 Boolean isAdmin = d.getBoolean("isAdmin");
-                                String username = "";
+                                String username = d.getString("username");
                                 int points = d.getLong("points").intValue();
 
                                 HashSet hs = new HashSet();
