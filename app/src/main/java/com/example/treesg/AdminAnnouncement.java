@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
@@ -23,6 +24,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
@@ -30,6 +32,7 @@ import com.google.firebase.storage.StorageTask;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
+import java.util.HashMap;
 
 
 public class AdminAnnouncement extends AppCompatActivity {
@@ -128,7 +131,27 @@ public class AdminAnnouncement extends AppCompatActivity {
                             Announcement announcement = new Announcement(post_text.getText().toString().trim(),
                                     taskSnapshot.getStorage().getDownloadUrl().toString());
                             String uploadId = databaseRef.push().getKey();
-                            databaseRef.child(uploadId).setValue(announcement);
+                            String getAnnouncement = announcement.getAnnouncementPost().toString();
+                            String getUrl = announcement.getImageURL().toString();
+
+                            HashMap<String, Object> hashMap =  new HashMap<>();
+                            hashMap.put("Announcement", getAnnouncement);
+                            hashMap.put("Image URL", getUrl);
+                            FirebaseFirestore.getInstance().collection("Announcement")
+                                    .document(uploadId)
+                                    .set(hashMap)
+                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void unused) {
+                                            Log.d("databaseAUploadS", "Successful upload");
+                                        }
+                                    })
+                                    .addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            Log.d("databaseAUploadF", "Unsuccessful upload");
+                                        }
+                                    });
                             final Handler handler = new Handler();
                             handler.postDelayed(new Runnable() {
                                 @Override
