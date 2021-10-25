@@ -43,7 +43,7 @@ public class BackgroundActivity extends AppCompatActivity {
                 UserManager.instance.setCurrentUserAsync(u.getUid(),()->{
                     Treedebugger.log("user fetching complete, safe to proceed to homepage.");
                     Treedebugger.log("Welcome back " + UserManager.instance.getCurrentUser().getFullName());
-                    startActivity(new Intent(getApplicationContext(), SettingsManager.class));
+                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
                     //startActivity(new Intent(getApplicationContext(), MainActivity.class));
                 });
             }else{
