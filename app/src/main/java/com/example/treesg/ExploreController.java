@@ -14,9 +14,40 @@ public class ExploreController {
     public static ExploreController instance;
     private HashMap<String, ArrayList<Post>> hashtagMap;
 
+    public ExploreAdapter exploreAdapterInstance;
+
     public ExploreController(){
         instance = this;
         hashtagMap = new HashMap<>();
+    }
+
+    public String[] getMostRelatedHashTags(String test){
+
+        if(test == "")
+            return getTopTrendingHashTags(ExploreFragment.NUMBER_OF_PREVIEW_BUNDLES);
+        else{
+
+            String[] top = new String[ExploreFragment.NUMBER_OF_PREVIEW_BUNDLES];
+
+            if(hashtagMap.size() >= ExploreFragment.NUMBER_OF_PREVIEW_BUNDLES){
+                int counter = 0;
+                for(String s : hashtagMap.keySet()){
+
+                    if(s.toLowerCase().contains(test.toLowerCase())){
+                        top[counter] = s;
+                        counter++;
+                    }
+
+
+                    if(counter == ExploreFragment.NUMBER_OF_PREVIEW_BUNDLES)
+                        break;
+                }
+
+            }
+
+            return top;
+        }
+
     }
 
     public String[] getTopTrendingHashTags(int n){
