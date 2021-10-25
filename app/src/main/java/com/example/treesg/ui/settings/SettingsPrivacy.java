@@ -11,14 +11,18 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.treesg.AppManager;
 import com.example.treesg.R;
+import com.example.treesg.Treedebugger;
 import com.example.treesg.UserManager;
 import com.example.treesg.login;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.core.utilities.Tree;
 
 public class SettingsPrivacy extends AppCompatActivity {
     EditText Curr, New, Confirm;
@@ -29,6 +33,9 @@ public class SettingsPrivacy extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // u forgot to set the instance
+        fAuth = FirebaseAuth.getInstance();
 
         setContentView(R.layout.settings_privacy);
         Curr = findViewById(R.id.CurrentPassword);
@@ -42,9 +49,18 @@ public class SettingsPrivacy extends AppCompatActivity {
         ConfirmButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String currentPassword = Curr.getText().toString().trim();
-                String newPassword = New.getText().toString().trim();
-                String confirmPassword = Confirm.getText().toString().trim();
+
+                // u cannot trim their password without telling them
+                // otherwise they would think their password works with spaces
+
+                //String currentPassword = Curr.getText().toString().trim();
+                //String newPassword = New.getText().toString().trim();
+                //String confirmPassword = Confirm.getText().toString().trim();
+
+                String currentPassword = Curr.getText().toString();
+                String newPassword = New.getText().toString();
+                String confirmPassword = Confirm.getText().toString();
+
 
                 if(TextUtils.isEmpty(currentPassword)){
                     Curr.setError("Current Password is required");
@@ -67,6 +83,12 @@ public class SettingsPrivacy extends AppCompatActivity {
                     return;
                 }
 
+
+                // your code was broken
+                // for some reason it had something to do with referencing 'task'
+                // in your code, there are 2 instances of this "task", the reference was ambiguous, might be why it crashed
+
+/*
                 fAuth.signInWithEmailAndPassword(email, currentPassword) . addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
@@ -74,19 +96,65 @@ public class SettingsPrivacy extends AppCompatActivity {
                             user.updatePassword(newPassword).addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
+
                                     if (!task.isSuccessful()) {
-                                        Toast.makeText(SettingsPrivacy.this, "Password Changed successfully.", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(getApplicationContext(), "Password Changed successfully.", Toast.LENGTH_SHORT).show();
                                     } else {
-                                        Toast.makeText(SettingsPrivacy.this, "Error! " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(getApplicationContext(), "Error! " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                                     }
+
+                                }
+                            }).addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+
                                 }
                             });
 
-                        }else{
-                            Toast.makeText(SettingsPrivacy.this, "Password entered incorrectly" + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                        else{
+                            Toast.makeText(getApplicationContext(), "Password entered incorrectly" + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
+*/
+
+                ConfirmButton.setEnabled(false);
+
+                fAuth.signInWithEmailAndPassword(email, currentPassword) . addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if(task.isSuccessful()){
+
+                            Treedebugger.log("can sign in");
+
+                            fAuth.getCurrentUser().updatePassword(newPassword).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> t) {
+                                    if(t.isSuccessful()){
+                                        Treedebugger.log("password updated.");
+                                        Toast.makeText(getApplicationContext(), "Password changed successfully." , Toast.LENGTH_SHORT).show();
+                                    } else{
+                                        Treedebugger.log("fail to change password.");
+                                        Toast.makeText(getApplicationContext(), "Failed to change password.", Toast.LENGTH_SHORT).show();
+                                    }
+
+
+                                    ConfirmButton.setEnabled(true);
+                                }
+                            });
+
+
+                        }else{
+                            ConfirmButton.setEnabled(true);
+                            Treedebugger.log("current password is wrong.");
+                            Toast.makeText(getApplicationContext(), "Current password is wrong!." , Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+
+
+
             }
         });
     }

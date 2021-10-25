@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.treesg.R;
 import com.example.treesg.login;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class SettingsLogOut extends AppCompatActivity {
     Button confirmLogOut;
@@ -21,7 +22,9 @@ public class SettingsLogOut extends AppCompatActivity {
         confirmLogOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                FirebaseAuth.getInstance().signOut();
                 startActivity(new Intent(getApplicationContext(), login.class));
+                finish();
             }
         });
     }
