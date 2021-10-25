@@ -141,7 +141,7 @@ public class UserDao {
 
 
     // doesnt deal with iterables
-    public static void updateUser(User u){
+    public static void updateUser(User u, Runnable r){
         DocumentReference df = FirebaseFirestore.getInstance().collection(DatabaseManager.USERS_COLLECTION).document(u.getUserID());
         df.update(
                 "profilePic", u.getProfilePic(),
@@ -156,6 +156,9 @@ public class UserDao {
         ).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void unused) {
+                if(r != null)
+                    r.run();
+
                 Treedebugger.log("User "+ u.getFullName()+ " updated in firestore.");
             }
         }).addOnFailureListener(new OnFailureListener() {

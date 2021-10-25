@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.treesg.R;
+import com.example.treesg.UserManager;
 import com.example.treesg.login;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -34,8 +35,9 @@ public class SettingsPrivacy extends AppCompatActivity {
         New = findViewById(R.id.NewPassword);
         Confirm = findViewById(R.id.ConfirmPassword);
         ConfirmButton = findViewById(R.id.button8);
-        user = fAuth.getCurrentUser();
-        final String email = user.getEmail();
+        String email = UserManager.instance.getCurrentUser().getEmail();
+        //user = fAuth.getCurrentUser();
+        //final String email = user.getEmail();
 
         ConfirmButton.setOnClickListener(new View.OnClickListener() {
             @Override

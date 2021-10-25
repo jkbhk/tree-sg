@@ -93,7 +93,14 @@ public class UserManager {
     public void updateUserAsync(String userid){
         User u = userCache.get(userid);
         if(u != null)
-            UserDao.updateUser(u);
+            UserDao.updateUser(u, null);
+    }
+
+    // called to update a single user object in firebase
+    public void updateUserAsync(String userid, Runnable r){
+        User u = userCache.get(userid);
+        if(u != null)
+            UserDao.updateUser(u,  r);
     }
 
     public void createUserAsync(String userid, String email, String fullName, String phone, Boolean isAdmin, Runnable callback){

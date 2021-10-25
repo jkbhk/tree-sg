@@ -1,6 +1,9 @@
 package com.example.treesg;
 
+import static androidx.core.content.ContextCompat.startActivity;
+
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.Image;
@@ -20,6 +23,7 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.treesg.ui.settings.SettingsPrivacy;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -86,6 +90,9 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         holder.postComments.setVisibility(View.INVISIBLE);
 
         holder.likeImage.setImageResource(current.isLiked() ? R.drawable.heart : R.drawable.like);
+
+        holder.messageButton.setVisibility(View.INVISIBLE);
+        holder.shareButton.setVisibility(View.INVISIBLE);
     }
 
     @Override
@@ -182,8 +189,6 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
                 public void onClick(View v) {
 
                     Treedebugger.log("sharing this message");
-
-                    ExploreController.instance.printMap();
 
                     // keep for reference, use this implementation for creating posts
                     /*FirebaseStorage.getInstance().getReference("uploads/simu_liu.png").getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {

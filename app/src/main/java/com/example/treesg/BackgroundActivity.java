@@ -8,6 +8,8 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 
+import com.example.treesg.ui.settings.SettingsManager;
+import com.example.treesg.ui.settings.SettingsPrivacy;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.AuthResult;
@@ -41,7 +43,8 @@ public class BackgroundActivity extends AppCompatActivity {
                 UserManager.instance.setCurrentUserAsync(u.getUid(),()->{
                     Treedebugger.log("user fetching complete, safe to proceed to homepage.");
                     Treedebugger.log("Welcome back " + UserManager.instance.getCurrentUser().getFullName());
-                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                    startActivity(new Intent(getApplicationContext(), SettingsManager.class));
+                    //startActivity(new Intent(getApplicationContext(), MainActivity.class));
                 });
             }else{
 
@@ -59,7 +62,8 @@ public class BackgroundActivity extends AppCompatActivity {
                 public void onSuccess(AuthResult authResult) {
 
 
-                    UserDao.updatePropertiesForAll();
+                    //UserDao.updatePropertiesForAll();
+
 
                     //UserManager.instance.getUserByIDAsync("Z0BfmUgAmoaxm9DIMH0gAO15dzX2",(User u)->{
                         //UserDao.updatePropertiesForAll();
