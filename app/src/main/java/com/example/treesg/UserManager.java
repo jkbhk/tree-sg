@@ -11,9 +11,6 @@ public class UserManager {
 
 
     //login will call setCurrentUser, which will start populating the userCache
-    //for testing
-    private static String current_user_id = "BO3xSIaihJjyxr3xvlPn";
-
 
     private static User currentUser;
 
@@ -26,16 +23,6 @@ public class UserManager {
 
         instance = this;
 
-    }
-
-    @RequiresApi(api = Build.VERSION_CODES.N)
-    public void getUserByIDAsync(String userid, Consumer<User> callback){
-
-        if(userCache.containsKey(userid)){
-            callback.accept(userCache.get(userid));
-        }else{
-            UserDao.retrieveUser(userid,callback);
-        }
     }
 
     public User getUserByID(String userid){

@@ -37,9 +37,10 @@ public class BackgroundActivity extends AppCompatActivity {
             FirebaseUser u = FirebaseAuth.getInstance().getCurrentUser();
             if(u != null){
                 appManager.initialize();
+                Treedebugger.log("previous session detected.");
                 UserManager.instance.setCurrentUserAsync(u.getUid(),()->{
                     Treedebugger.log("user fetching complete, safe to proceed to homepage.");
-                    Treedebugger.log("Welcome " + UserManager.instance.getCurrentUser().getFullName());
+                    Treedebugger.log("Welcome back " + UserManager.instance.getCurrentUser().getFullName());
                     startActivity(new Intent(getApplicationContext(), MainActivity.class));
                 });
             }else{

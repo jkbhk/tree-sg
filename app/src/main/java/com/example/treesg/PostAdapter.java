@@ -77,11 +77,14 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         Glide.with(context).load(current.getPostImage()).placeholder(R.drawable.nature_placeholder).into(holder.postImage);
         holder.postLocation.setText(current.getLocation());
         holder.postLikes.setText(String.format("%,d",current.getLikes())+" likes");
+
         String commentTxt = current.getComments() <= 1 ? "View 1 comment" : "View all " + String.format("%,d",current.getComments()) + " comments";
         if(current.getComments()<1)
             commentTxt = "";
 
         holder.postComments.setText(commentTxt);
+        holder.postComments.setVisibility(View.INVISIBLE);
+
         holder.likeImage.setImageResource(current.isLiked() ? R.drawable.heart : R.drawable.like);
     }
 

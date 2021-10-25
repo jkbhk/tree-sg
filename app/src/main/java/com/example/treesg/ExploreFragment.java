@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -13,7 +14,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.firebase.database.core.utilities.Tree;
+
 import org.jetbrains.annotations.NotNull;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -30,7 +35,7 @@ import org.jetbrains.annotations.NotNull;
  */
 public class ExploreFragment extends Fragment {
 
-    private static final int NUMBER_OF_PREVIEW_BUNDLES = 4;
+    public static final int NUMBER_OF_PREVIEW_BUNDLES = 4;
 
 
     public static ExploreFragment newInstance() {
@@ -42,13 +47,47 @@ public class ExploreFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
-
         return inflater.inflate(R.layout.fragment_explore, container, false);
+    }
+
+    private void rerenderBundles(String t){
+        String[] temp = ExploreController.instance.getMostRelatedHashTags(t);
+        ExploreAdapter adapter = ExploreController.instance.exploreAdapterInstance;
+        if(adapter != null)
+        {
+            adapter.mostTrendingTags = temp;
+            adapter.notifyDataSetChanged();
+        }
     }
 
     @Override
     public void onViewCreated(@NonNull @NotNull View view, @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        androidx.appcompat.widget.SearchView sview = (androidx.appcompat.widget.SearchView)(view.findViewById(R.id.sv_explore));
+        sview.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                rerenderBundles(query);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                rerenderBundles(newText);
+                return false;
+            }
+        });
+
+
+        sview.setOnCloseListener(new SearchView.OnCloseListener() {
+            @Override
+            public boolean onClose() {
+                rerenderBundles("");
+                return false;
+            }
+        });
+
 
 
         RecyclerView rview = (RecyclerView) (view.findViewById(R.id.rv_explore_fragment));
@@ -63,7 +102,9 @@ public class ExploreFragment extends Fragment {
             ExploreController.instance.mapHashTagsToPosts();
 
             String[] trendingTags = ExploreController.instance.getTopTrendingHashTags(NUMBER_OF_PREVIEW_BUNDLES);
+
             ExploreAdapter exploreAdapter = new ExploreAdapter(trendingTags);
+            ExploreController.instance.exploreAdapterInstance = exploreAdapter;
             rview.setAdapter(exploreAdapter);
 
         });
