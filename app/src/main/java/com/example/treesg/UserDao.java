@@ -28,6 +28,9 @@ import java.util.function.Consumer;
 
 public class UserDao {
 
+    // updated properties structure for user
+
+
     // for registering new users into the system
     // sign up with fAuth first, then use the generated fAuth ID to create this user data wrapper
     // meant to be called after successful fAuthentication register***
@@ -72,43 +75,6 @@ public class UserDao {
                 Treedebugger.log("added to likes!");
             }
         });
-    }
-
-    public static void retrieveUser(String userid, Consumer<User> c){
-        FirebaseFirestore.getInstance().collection(DatabaseManager.USERS_COLLECTION).document(userid).get()
-                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                    @RequiresApi(api = Build.VERSION_CODES.N)
-                    @Override
-                    public void onSuccess(DocumentSnapshot d) {
-
-                        String profilePic = d.getString("profilePic");
-                        String email = d.getString("email");
-                        String fullname = d.getString("fullName");
-                        String phone = d.getString("phone");
-                        Boolean isAdmin = d.getBoolean("isAdmin");
-                        String username = "";
-                        int points = d.getLong("points").intValue();
-
-                        HashSet hs = new HashSet();
-                        List<String> group = (List<String>) d.get("likedPosts");
-                        for(String s : group){
-                            hs.add(s);
-                        }
-
-                        Boolean isNew = d.getBoolean("isNew");
-                        String userDescription = d.getString("userDescription");
-
-                        User u = new User(profilePic,userid,email,fullname,phone,isAdmin,username,points,hs,isNew,userDescription);
-                        Treedebugger.log("user " + fullname + " retrieved.");
-                        c.accept(u);
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Treedebugger.log("failed to retrieve user.");
-                    }
-                });
-
     }
 
     public static void retrieveUsers(Consumer<HashMap<String,User>> callback){
