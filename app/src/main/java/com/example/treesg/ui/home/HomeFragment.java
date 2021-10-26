@@ -1,25 +1,26 @@
 package com.example.treesg.ui.home;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+import android.widget.Button;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.treesg.R;
+import com.example.treesg.UserAnnouncement;
 import com.example.treesg.databinding.FragmentHomeBinding;
 
 public class HomeFragment extends Fragment {
 
     private HomeViewModel homeViewModel;
     private FragmentHomeBinding binding;
-
+    private Button annButton;
+    @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         homeViewModel =
@@ -27,6 +28,7 @@ public class HomeFragment extends Fragment {
 
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
+
 
         /*
         final TextView textView = binding.textHome;
@@ -38,7 +40,18 @@ public class HomeFragment extends Fragment {
         });*/
         return root;
     }
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState){
+        super.onViewCreated(view, savedInstanceState);
+        annButton = view.findViewById(R.id.annPostButton);
 
+        annButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getActivity(), UserAnnouncement.class));
+            }
+        });
+    }
     @Override
     public void onDestroyView() {
         super.onDestroyView();

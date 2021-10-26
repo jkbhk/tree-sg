@@ -70,38 +70,30 @@
         app:layout_constraintStart_toStartOf="parent"
         tools:ignore="TouchTargetSizeCheck" />
 
-    <TextView
-        android:id="@+id/tvAnnouncementTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:fontFamily="@font/roboto_medium"
-        android:text="Announcment"
-        android:textAllCaps="true"
-        android:textColor="#000000"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.507"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ivTopBgRect" />
-
-    <ScrollView
-        android:id="@+id/announcementTab"
-        android:layout_width="320dp"
-        android:layout_height="180dp"
-        android:background="#90C99B"
+    <ImageView
+        android:id="@+id/imageView7"
+        android:layout_width="255dp"
+        android:layout_height="184dp"
+        android:layout_marginBottom="4dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintHorizontal_bias="0.512"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvAnnouncementTitle"
-        app:layout_constraintVertical_bias="0.131">
+        app:layout_constraintTop_toBottomOf="@+id/ivTopBgRect"
+        app:layout_constraintVertical_bias="0.325"
+        app:srcCompat="@drawable/main_page_announcement" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" />
-    </ScrollView>
+    <Button
+        android:id="@+id/annPostButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="228dp"
+        android:text="Announcements"
+        android:textColor="#000000"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ivTopBgRect"
+        app:layout_constraintVertical_bias="0.109" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
