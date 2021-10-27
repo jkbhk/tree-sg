@@ -1,21 +1,23 @@
 package com.example.treesg.ui.settings;
 
+import android.app.FragmentManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.example.treesg.Register;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 
 import com.example.treesg.R;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class SettingsManager extends AppCompatActivity {
     Button mPrivacy, mProDetails, mNotification, mLogOut;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
