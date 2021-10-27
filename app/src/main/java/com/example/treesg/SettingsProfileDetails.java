@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.treesg.Treedebugger;
@@ -27,6 +28,7 @@ import org.jetbrains.annotations.NotNull;
 public class SettingsProfileDetails extends Fragment {
     Button Save;
     EditText textName, textUsername, textDescription;
+    ImageView ProfilePic;
     private User user;
 
     @Override
@@ -46,6 +48,9 @@ public class SettingsProfileDetails extends Fragment {
         textName = getView().findViewById(R.id.Name);
         textUsername = getView().findViewById(R.id.Username);
         textDescription = getView().findViewById(R.id.Description);
+        ProfilePic = getView().findViewById(R.id.pp);
+
+        //ProfilePic = user.getProfilePic();
         textName.setText(user.getFullName());
         textUsername.setText(user.getUsername());
         textDescription.setText(user.getUserDescription());
