@@ -1,8 +1,11 @@
-package com.example.treesg.ui.settings;
+package com.example.treesg;
 
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -11,34 +14,38 @@ import com.example.treesg.Treedebugger;
 import com.example.treesg.User;
 import com.example.treesg.UserManager;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
 import com.example.treesg.R;
 import com.example.treesg.login;
 
-public class SettingsProfileDetails extends AppCompatActivity {
+import org.jetbrains.annotations.NotNull;
+
+public class SettingsProfileDetails extends Fragment {
     Button Save;
     EditText textName, textUsername, textDescription;
     private User user;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.settings_profiledetails);
-
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View v;
+        v = inflater.inflate(R.layout.fragment_settings_profiledetails, container, false);
+        getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
+        return v;
+    }
+    @Override
+    public void onViewCreated(@NonNull @NotNull View view, @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
         user = UserManager.instance.getCurrentUser();
 
-        Save = findViewById(R.id.button9);
-        textName = findViewById(R.id.Name);
-        textUsername = findViewById(R.id.Username);
-        textDescription = findViewById(R.id.Description);
-
-        // this does nothing btw
-        //String Name = textName.getText().toString();
-        //String Username = textUsername.getText().toString().trim();
-        //String Description = textDescription.getText().toString();
-
-        // load the existing values into the views
+        Save = getView().findViewById(R.id.button9);
+        textName = getView().findViewById(R.id.Name);
+        textUsername = getView().findViewById(R.id.Username);
+        textDescription = getView().findViewById(R.id.Description);
         textName.setText(user.getFullName());
         textUsername.setText(user.getUsername());
         textDescription.setText(user.getUserDescription());
@@ -75,7 +82,7 @@ public class SettingsProfileDetails extends AppCompatActivity {
                 // then enable it back on callback
                 Save.setEnabled(false);
                 UserManager.instance.updateUserAsync(user.getUserID(), ()->{
-                    Toast.makeText(getApplicationContext(), "profile updated", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "profile updated", Toast.LENGTH_SHORT).show();
                     Save.setEnabled(true);});
             }
         });
