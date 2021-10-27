@@ -36,11 +36,9 @@ public class BackgroundActivity extends AppCompatActivity {
                 UserManager.instance.setCurrentUserAsync(u.getUid(),()->{
                     Treedebugger.log("user fetching complete, safe to proceed to homepage.");
                     Treedebugger.log("Welcome back " + UserManager.instance.getCurrentUser().getFullName());
-                    startActivity(new Intent(getApplicationContext(),Notification.class));
                     startActivity(new Intent(getApplicationContext(), MainActivity.class));
                 });
             }else{
-
                 // This is where the app starts.
                 // For now we will start at login activity.
                 // Change login.class to the your desired starting activity here.

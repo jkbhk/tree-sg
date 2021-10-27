@@ -6,12 +6,16 @@
     tools:context=".ProfileFragment">
 
     <!-- TODO: Update blank fragment layout -->
+
+    <!-- Testing out the profile button -->
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
-
-    <!-- Testing out the profile button -->
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:text="@string/hello_blank_fragment"
+        android:layout_alignParentLeft="true" />
 
     <Button
         android:id="@+id/settingsBtn"
@@ -20,5 +24,44 @@
         android:layout_centerInParent="true"
         android:backgroundTint="@color/black"
         android:text="Settings" />
+
+    <Button
+        android:id="@+id/test2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="143dp"
+        android:layout_marginLeft="143dp"
+        android:layout_marginTop="160dp"
+        android:text="sendChannel1"
+        android:onClick="sendChannel1"/>
+
+    <Button
+        android:id="@+id/test3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="33dp"
+        android:layout_marginLeft="33dp"
+        android:layout_marginTop="256dp"
+        android:onClick="sendChannel2"
+        android:text="sendChannel2" />
+
+    <Button
+        android:id="@+id/test4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="160dp"
+        android:layout_marginLeft="160dp"
+        android:layout_marginTop="293dp"
+        android:onClick="sendChannel3"
+        android:text="sendChannel3" />
 
 </RelativeLayout>
