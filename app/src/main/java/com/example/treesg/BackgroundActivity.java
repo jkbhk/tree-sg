@@ -1,6 +1,5 @@
 package com.example.treesg;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -8,16 +7,10 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 
-import com.example.treesg.ui.settings.SettingsManager;
-import com.example.treesg.ui.settings.SettingsPrivacy;
-import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.core.utilities.Tree;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.Scanner;
 
@@ -43,6 +36,7 @@ public class BackgroundActivity extends AppCompatActivity {
                 UserManager.instance.setCurrentUserAsync(u.getUid(),()->{
                     Treedebugger.log("user fetching complete, safe to proceed to homepage.");
                     Treedebugger.log("Welcome back " + UserManager.instance.getCurrentUser().getFullName());
+                    startActivity(new Intent(getApplicationContext(),Notification.class));
                     startActivity(new Intent(getApplicationContext(), MainActivity.class));
                 });
             }else{
