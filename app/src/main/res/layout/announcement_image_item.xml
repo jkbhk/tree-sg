@@ -10,6 +10,12 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
+        <ImageView
+            android:id="@+id/imageView8"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            app:srcCompat="@drawable/border_line" />
+
         <TextView
             android:id="@+id/ann_text"
             android:layout_width="362dp"
@@ -26,18 +32,12 @@
 
         <ImageView
             android:id="@+id/image_view_announcement"
-            android:layout_width="match_parent"
-            android:layout_height="303dp"
+            android:layout_width="395dp"
+            android:layout_height="270dp"
             android:layout_gravity="center_horizontal"
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
             android:paddingBottom="20dp" />
-
-        <ImageView
-            android:id="@+id/imageView8"
-            android:layout_width="match_parent"
-            android:layout_height="14dp"
-            app:srcCompat="@drawable/border_line" />
 
 
     </LinearLayout>
