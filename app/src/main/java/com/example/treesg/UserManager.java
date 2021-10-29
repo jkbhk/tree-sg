@@ -11,9 +11,6 @@ public class UserManager {
 
 
     //login will call setCurrentUser, which will start populating the userCache
-    //for testing
-    private static String current_user_id = "BO3xSIaihJjyxr3xvlPn";
-
 
     private static User currentUser;
 
@@ -26,16 +23,6 @@ public class UserManager {
 
         instance = this;
 
-    }
-
-    @RequiresApi(api = Build.VERSION_CODES.N)
-    public void getUserByIDAsync(String userid, Consumer<User> callback){
-
-        if(userCache.containsKey(userid)){
-            callback.accept(userCache.get(userid));
-        }else{
-            UserDao.retrieveUser(userid,callback);
-        }
     }
 
     public User getUserByID(String userid){
@@ -106,7 +93,14 @@ public class UserManager {
     public void updateUserAsync(String userid){
         User u = userCache.get(userid);
         if(u != null)
-            UserDao.updateUser(u);
+            UserDao.updateUser(u, null);
+    }
+
+    // called to update a single user object in firebase
+    public void updateUserAsync(String userid, Runnable r){
+        User u = userCache.get(userid);
+        if(u != null)
+            UserDao.updateUser(u,  r);
     }
 
     public void createUserAsync(String userid, String email, String fullName, String phone, Boolean isAdmin, Runnable callback){

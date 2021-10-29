@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -15,13 +16,15 @@ import com.google.firebase.database.core.utilities.Tree;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.ViewHolder> {
 
     Context context;
     String[] mostTrendingTags;
-    ArrayList<Post> currentBundle;
+    ArrayList<Post> currentBundle = null;
+
 
     public ExploreAdapter(String[] trendingTags){
 
@@ -49,7 +52,8 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.ViewHold
     @Override
     public void onBindViewHolder(@NonNull @NotNull ViewHolder holder, int position) {
 
-        currentBundle = ExploreController.instance.getBundle(mostTrendingTags[position]);
+        if(mostTrendingTags.length > 0)
+            currentBundle = ExploreController.instance.getBundle(mostTrendingTags[position]);
 
 
         if(currentBundle != null) {
@@ -72,6 +76,7 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.ViewHold
 
     }
 
+
     @Override
     public int getItemCount() {
         return mostTrendingTags.length;
@@ -83,6 +88,7 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.ViewHold
         ImageView mid;
         ImageView bot;
         TextView hashtag;
+
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);

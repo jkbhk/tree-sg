@@ -45,33 +45,33 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.110000014"
+        app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/logo" />
 
     <ImageView
         android:id="@+id/imageView2"
         android:layout_width="match_parent"
         android:layout_height="570dp"
-        android:layout_marginTop="272dp"
+        android:layout_marginTop="228dp"
         app:layout_constraintTop_toTopOf="@+id/ivTopBgRect"
         app:srcCompat="@drawable/rectangle_beige_sharp_corners"
-        tools:layout_editor_absoluteX="16dp" />
+        tools:layout_editor_absoluteX="0dp" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/logout1"
         android:layout_width="wrap_content"
         android:layout_height="100dp"
+        android:background="@drawable/rectangle_beige"
         android:fontFamily="@font/roboto_medium"
         android:text="CONFIRM LOG OUT"
-        android:background="@drawable/rectangle_beige"
         android:textColor="@color/black"
         android:textSize="30dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.493"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.679" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView"
+        app:layout_constraintVertical_bias="0.36" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -57,26 +57,8 @@
             android:name=".Register"
             android:exported="true" />
         <activity
-            android:name=".MainActivity"
-            android:label="@string/app_name" />
-        <activity
-            android:name=".ui.settings.SettingsLogOut"
-            android:exported="true" />
-        <activity
-            android:name=".ui.settings.SettingsManager"
-            android:exported="true" />
-        <activity
-            android:name=".ui.settings.SettingsNotification"
-            android:exported="true" />
-        <activity
-            android:name=".ui.settings.SettingsPrivacy"
-            android:exported="true" />
-        <activity
-            android:name=".ui.settings.SettingsProfileDetails"
-            android:exported="true" />
-        <activity
-            android:name=".UserAnnouncement"
-            android:exported="true" />
+            android:name=".MainActivity" />
+      
 
         <meta-data
             android:name="preloaded_fonts"
