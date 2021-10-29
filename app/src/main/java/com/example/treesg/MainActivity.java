@@ -80,11 +80,7 @@ public class MainActivity extends AppCompatActivity {
          */
 
     }
-    public void Logout(View view){
-        FirebaseAuth.getInstance().signOut();
-        startActivity(new Intent(getApplicationContext(), login.class));
-        finish();
-    }
+    
 
     public void sendChannel1(View v){
         String textTitle = "Someone liked your post!";
