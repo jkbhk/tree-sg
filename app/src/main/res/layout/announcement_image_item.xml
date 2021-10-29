@@ -11,21 +11,26 @@
 
         <TextView
             android:id="@+id/ann_text"
-            android:layout_width="322dp"
-            android:layout_height="94dp"
+            android:layout_width="362dp"
+            android:layout_height="75dp"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
             android:gravity="center|top"
+            android:inputType="textMultiLine|textNoSuggestions"
+            android:scrollHorizontally="false"
             android:text="Name"
             android:textColor="@android:color/black"
-            android:textSize="20sp" />
+            android:textSize="16sp" />
 
         <ImageView
             android:id="@+id/image_view_announcement"
             android:layout_width="match_parent"
-            android:layout_height="398dp"
-            android:layout_gravity="center_horizontal" />
+            android:layout_height="303dp"
+            android:layout_gravity="center_horizontal"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:paddingBottom="20dp" />
 
     </LinearLayout>
 

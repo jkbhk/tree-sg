@@ -7,11 +7,14 @@
 
     <ImageView
         android:id="@+id/ivTopBgRect"
-        android:layout_width="410dp"
-        android:layout_height="291dp"
+        android:layout_width="413dp"
+        android:layout_height="301dp"
+        android:layout_marginBottom="4dp"
         android:contentDescription="topBg"
+        app:layout_constraintBottom_toTopOf="@+id/tvAnnHeader"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/top_bg_rect_green"
         tools:ignore="ImageContrastCheck" />
 
@@ -19,12 +22,14 @@
         android:id="@+id/ivTopBgCircle1"
         android:layout_width="195dp"
         android:layout_height="180dp"
-        android:layout_marginEnd="276dp"
-        android:layout_marginRight="276dp"
-        android:layout_marginBottom="204dp"
+        android:layout_marginEnd="300dp"
+        android:layout_marginRight="300dp"
+        android:layout_marginBottom="160dp"
         android:alpha="0.56"
         app:layout_constraintBottom_toBottomOf="@+id/ivTopBgRect"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@drawable/circle_bg"
         tools:ignore="ImageContrastCheck" />
 
@@ -32,12 +37,14 @@
         android:id="@+id/ivTopBgCircle2"
         android:layout_width="195dp"
         android:layout_height="180dp"
-        android:layout_marginEnd="200dp"
-        android:layout_marginRight="200dp"
-        android:layout_marginBottom="228dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginBottom="120dp"
         android:alpha="0.56"
         app:layout_constraintBottom_toBottomOf="@+id/ivTopBgRect"
-        app:layout_constraintEnd_toEndOf="@+id/ivTopBgRect"
+        app:layout_constraintEnd_toStartOf="@+id/ivTopBgRect"
+        app:layout_constraintHorizontal_bias="0.48"
+        app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@drawable/circle_bg"
         tools:ignore="ImageContrastCheck" />
 
@@ -45,20 +52,17 @@
         android:id="@+id/imageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="60dp"
+        android:layout_marginBottom="24dp"
         android:src="@drawable/rectangle_beige"
         app:layout_constraintBottom_toBottomOf="@+id/ivTopBgRect"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/tvLeaderboardTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="136dp"
-        android:layout_marginLeft="136dp"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="8dp"
         android:capitalize="none"
         android:fontFamily="@font/roboto_medium"
         android:text="Leaderboard"
@@ -67,33 +71,33 @@
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/imageView"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         tools:ignore="TouchTargetSizeCheck" />
 
-    <ImageView
-        android:id="@+id/imageView7"
-        android:layout_width="255dp"
-        android:layout_height="184dp"
-        android:layout_marginBottom="4dp"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/ann_recycler_view1"
+        android:layout_width="407dp"
+        android:layout_height="402dp"
+        android:layout_marginBottom="32dp"
+        android:paddingBottom="30dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.512"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ivTopBgRect"
-        app:layout_constraintVertical_bias="0.325"
-        app:srcCompat="@drawable/main_page_announcement" />
+        app:layout_constraintStart_toStartOf="parent" />
 
-    <Button
-        android:id="@+id/annPostButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="228dp"
-        android:text="Announcements"
+    <TextView
+        android:id="@+id/tvAnnHeader"
+        android:layout_width="186dp"
+        android:layout_height="26dp"
+        android:layout_marginBottom="8dp"
+        android:gravity="center"
+        android:text="Announcement"
+        android:textAllCaps="true"
         android:textColor="#000000"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/ann_recycler_view1"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ivTopBgRect"
-        app:layout_constraintVertical_bias="0.109" />
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
