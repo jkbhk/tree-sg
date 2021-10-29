@@ -3,9 +3,13 @@ package com.example.treesg;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -15,57 +19,53 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
 
-public class UserAnnouncement extends AppCompatActivity {
+public class UserAnnouncement extends Fragment {
 
     private RecyclerView mRecyclerView;
     private AnnouncementAdapter mAdapter;
 
-    //private DatabaseReference mDatabaseRef;
+
     private ArrayList<Announcement> mAnns = null;
     FirebaseFirestore db;
     ProgressDialog progressDialog;
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_user_announcement);
+    public static UserAnnouncement newInstance() {
+        return new UserAnnouncement();
+    }
 
-        progressDialog = new ProgressDialog(this);
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
+
+        return inflater.inflate(R.layout.activity_user_announcement, container, false);
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull @NotNull View view, @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        progressDialog = new ProgressDialog(getContext());
         progressDialog.setCancelable(false);
         progressDialog.setMessage("Fetching Data...");
         progressDialog.show();
-        mRecyclerView = findViewById(R.id.ann_recycler_view);
+        mRecyclerView = (RecyclerView) view.findViewById(R.id.ann_recycler_view);
         mRecyclerView.setHasFixedSize(true);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         db = FirebaseFirestore.getInstance();
         mAnns = new ArrayList<Announcement>();
-        mAdapter = new AnnouncementAdapter(UserAnnouncement.this, mAnns);
+        mAdapter = new AnnouncementAdapter(getContext(), mAnns);
 
         mRecyclerView.setAdapter(mAdapter);
 
         EventChangeListener();
-        /*
-        mDatabaseRef = FirebaseDatabase.getInstance().getReference("Announcement");
-
-        mDatabaseRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot postSnapshot : snapshot.getChildren()){
-                    Announcement announcement = postSnapshot.getValue(Announcement.class);
-                    mAnns.add(announcement);
-                }
-                mAdapter = new AnnouncementAdapter(UserAnnouncement.this, mAnns);
-
-                mRecyclerView.setAdapter(mAdapter);
-            };
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(UserAnnouncement.this, error.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });*/
     }
 
     private void EventChangeListener() {

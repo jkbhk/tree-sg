@@ -1,6 +1,5 @@
 package com.example.treesg.ui.home;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,8 +10,8 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.treesg.MainActivity;
 import com.example.treesg.R;
-import com.example.treesg.UserAnnouncement;
 import com.example.treesg.databinding.FragmentHomeBinding;
 
 public class HomeFragment extends Fragment {
@@ -48,7 +47,7 @@ public class HomeFragment extends Fragment {
         annButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getActivity(), UserAnnouncement.class));
+                MainActivity.navigationController.navigate(R.id.navigation_userAnnouncement);
             }
         });
     }

@@ -38,4 +38,10 @@
         android:name="com.example.treesg.ExploreFragment"
         android:label="Explore"
         tools:layout="@layout/fragment_explore" />
+
+    <fragment
+        android:id="@+id/navigation_userAnnouncement"
+        android:name="com.example.treesg.UserAnnouncement"
+        android:label="UserAnnouncement"
+        tools:layout="@layout/activity_user_announcement" />
 </navigation>
