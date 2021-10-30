@@ -20,6 +20,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class ProfileFragment extends Fragment {
 
+    Button rewardBtn;
     Button settingsBtn;
 
     @Override
@@ -28,7 +29,6 @@ public class ProfileFragment extends Fragment {
         // Inflate the layout for this fragment
         View v;
         v = inflater.inflate(R.layout.fragment_profile, container, false);
-
         return v;
     }
 
@@ -36,8 +36,19 @@ public class ProfileFragment extends Fragment {
     public void onViewCreated(@NonNull @NotNull View view, @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        rewardBtn = getView().findViewById(R.id.rewardBtn);
         settingsBtn = getView().findViewById(R.id.settingsBtn);
 
+        rewardBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                MainActivity.navigationController.navigate(R.id.navigation_reward);
+
+                //replaceFragment(new RewardFragment());
+            }
+        });
+      
         settingsBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -46,4 +57,5 @@ public class ProfileFragment extends Fragment {
         });
 
     }
+
 }

@@ -8,11 +8,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import com.example.treesg.databinding.RewardListBinding;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -26,11 +28,16 @@ import com.google.firebase.database.core.utilities.Tree;
 public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
+    //RewardListBinding rewardListBinding;
     public static NavController navigationController;
     public static FragmentManager fragmentManager;
+
+    public static androidx.fragment.app.FragmentManager fragmentSupportManager;
     private static NotificationManagerCompat notificationManager1;
     private noti noti;
     //private AppManager appManager;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,9 +48,15 @@ public class MainActivity extends AppCompatActivity {
         //appManager = new AppManager();
         //appManager.initialize();
         fragmentManager = getFragmentManager();
+
+        fragmentSupportManager = getSupportFragmentManager();
+
         notificationManager1 = NotificationManagerCompat.from(this);
+      
         binding = ActivityMainBinding.inflate(getLayoutInflater());
+        //rewardListBinding = RewardListBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        //setContentView(rewardListBinding.getRoot());
 
         BottomNavigationView navView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
@@ -122,6 +135,7 @@ public class MainActivity extends AppCompatActivity {
                 .setAutoCancel(true)
                 .setOnlyAlertOnce(true)
                 .build();
+
 
         notificationManager1.notify(2, notification);
     }

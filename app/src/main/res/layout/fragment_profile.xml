@@ -1,67 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ProfileFragment">
-
-    <!-- TODO: Update blank fragment layout -->
-
-    <!-- Testing out the profile button -->
+    android:background="@drawable/register"
+    tools:context=".Register">
 
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
+        android:id="@+id/textView"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:text="@string/hello_blank_fragment"
-        android:layout_alignParentLeft="true" />
+        tools:layout_editor_absoluteX="155dp"
+        tools:layout_editor_absoluteY="171dp" />
 
-    <Button
+    <ImageView
         android:id="@+id/settingsBtn"
-        android:layout_width="150dp"
-        android:layout_height="60dp"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:src="@drawable/settings"
+        app:layout_constraintBottom_toBottomOf="@+id/textView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.958"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.014" />
+
+    <Button
+        android:id="@+id/rewardBtn"
+        android:layout_width="75dp"
+        android:layout_height="30dp"
         android:layout_centerInParent="true"
-        android:backgroundTint="@color/black"
-        android:text="Settings" />
+        android:backgroundTint="#f3fbf1"
+        android:text="Rewards"
+        android:textColor="@color/black"
+        android:textSize="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/textView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.848"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.014" />
 
-    <Button
-        android:id="@+id/test2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="143dp"
-        android:layout_marginLeft="143dp"
-        android:layout_marginTop="160dp"
-        android:text="sendChannel1"
-        android:onClick="sendChannel1"/>
 
-    <Button
-        android:id="@+id/test3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="33dp"
-        android:layout_marginLeft="33dp"
-        android:layout_marginTop="256dp"
-        android:onClick="sendChannel2"
-        android:text="sendChannel2" />
-
-    <Button
-        android:id="@+id/test4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="160dp"
-        android:layout_marginLeft="160dp"
-        android:layout_marginTop="293dp"
-        android:onClick="sendChannel3"
-        android:text="sendChannel3" />
-
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -117,6 +117,18 @@
                       </LayoutPositions>
                     </value>
                   </entry>
+                  <entry key="navigation_reward">
+                  <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="257" />
+                            <option name="y" value="359" />
+                            </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
                   <entry key="navigation_settings_pri">
                     <value>
                       <LayoutPositions>
@@ -124,25 +136,35 @@
                           <Point>
                             <option name="x" value="-623" />
                             <option name="y" value="694" />
-
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="navigation_rewardShop">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="475" />
+                            <option name="y" value="14" />
                           </Point>
                         </option>
                       </LayoutPositions>
                     </value>
                   </entry>
                   <entry key="navigation_trending">
-                    <value>
+                  <value>
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
                             <option name="x" value="256" />
                             <option name="y" value="12" />
-                          </Point>
+                            </Point>
                         </option>
                       </LayoutPositions>
                     </value>
                   </entry>
-
                   <entry key="profile">
                     <value>
                       <LayoutPositions>
