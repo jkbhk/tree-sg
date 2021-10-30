@@ -78,17 +78,23 @@ public class RewardRecyclerView extends RecyclerView.Adapter<RewardRecyclerView.
             rewardContainer.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Treedebugger.log(""+rewardName.getText().toString());
-                    openDialog(reward);
+
+
+                    if (UserManager.instance.getCurrentUser().getPoints() < reward.pointsRequired)
+                    {
+                        RewardErrorDialog rewardErrorDialog = new RewardErrorDialog(reward);
+                        rewardErrorDialog.show(MainActivity.fragmentSupportManager, "reward error dialog");
+                    }
+                    else
+                    {
+                        Treedebugger.log(""+rewardName.getText().toString());
+                        RewardDialog rewardDialog = new RewardDialog(reward);
+                        rewardDialog.show(MainActivity.fragmentSupportManager, "reward dialog");
+                    }
                 }
             });
         }
     }
 
-    public void openDialog(Reward reward){
-        RewardDialog rewardDialog = new RewardDialog();
-        rewardDialog.setReward(reward);
-        rewardDialog.show(MainActivity.fragmentSupportManager, "reward dialog");
-    }
 
 }

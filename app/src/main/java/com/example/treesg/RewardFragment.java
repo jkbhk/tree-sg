@@ -22,7 +22,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.treesg.databinding.ActivityMainBinding;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -35,8 +34,8 @@ public class RewardFragment extends Fragment {
     final Random random = new Random();
     int degree = 0;
     boolean isSpinning = false;
-    Integer tempPoint = 100;
-    Integer tempSpin = 7;
+    //Integer tempPoint = UserManager.instance.getCurrentUser().getPoints();
+    //Integer tempSpin = UserManager.instance.getCurrentUser().getSpins();
     static Button spinBtn;
     ImageView rewardShopBtn;
     TextView pointHolder1;
@@ -64,24 +63,27 @@ public class RewardFragment extends Fragment {
         rewardShopBtn = view.findViewById(R.id.rewardShopBtn);
 
         pointHolder1 = view.findViewById(R.id.pointHolder1);
-        pointHolder1.setText(tempPoint.toString());
+        pointHolder1.setText(""+UserManager.instance.getCurrentUser().getPoints());
 
         spinHolder = view.findViewById(R.id.spinNumber);
-        spinHolder.setText(tempSpin.toString());
+        spinHolder.setText(""+UserManager.instance.getCurrentUser().getSpins());
 
         shopTitle = view.findViewById(R.id.shopTitle);
 
         getDegreeForSectors();
 
+        if (UserManager.instance.getCurrentUser().getSpins() == 0)
+            spinBtn.setEnabled(false);
 
         spinBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (!isSpinning && tempSpin > 0)
+                if (!isSpinning && UserManager.instance.getCurrentUser().getSpins() > 0)
                 {
-                    spinBtn.setEnabled(true);
+                    //spinBtn.setEnabled(true);
+                    UserManager.instance.incrementSpinsAsync(-1, null);
                     spin();
-                    pointHolder1.setText(tempPoint.toString());
+                    pointHolder1.setText(""+UserManager.instance.getCurrentUser().getPoints());
                     isSpinning = true;
                 }
                 else
@@ -110,9 +112,8 @@ public class RewardFragment extends Fragment {
     private void spin()
     {
         degree = random.nextInt(sectors.length-1);
-        if (tempSpin > 0)
-            tempSpin--;
-        spinHolder.setText(""+tempSpin);
+
+        spinHolder.setText(""+UserManager.instance.getCurrentUser().getSpins());
 
         RotateAnimation rotateAnimation = new RotateAnimation(0, (360 * sectors.length) + sectorDegrees[degree],
                 RotateAnimation.RELATIVE_TO_SELF, 0.5f, RotateAnimation.RELATIVE_TO_SELF, 0.5f);
@@ -134,9 +135,8 @@ public class RewardFragment extends Fragment {
                 isSpinning = false;
                 String result = sectors[sectors.length - (degree+1)];
                 showResult(result);
-                //Treedebugger.log(result);
 
-                if (tempSpin <= 0)
+                if (UserManager.instance.getCurrentUser().getSpins() <= 0)
                     spinBtn.setEnabled(false);
                 else
                     spinBtn.setEnabled(true);
@@ -156,8 +156,8 @@ public class RewardFragment extends Fragment {
         if (result == "1")
         {
             Toast.makeText(getActivity().getApplicationContext(), "Congratulations! You've gained 1 spins", Toast.LENGTH_SHORT).show();
-            tempSpin = tempSpin + 1;
-            spinHolder.setText(tempSpin.toString());
+            UserManager.instance.incrementSpinsAsync(1, null);
+            spinHolder.setText(""+UserManager.instance.getCurrentUser().getSpins());
         }
         else if (result == "2")
         {
@@ -170,8 +170,8 @@ public class RewardFragment extends Fragment {
         else if (result == "4")
         {
             Toast.makeText(getActivity().getApplicationContext(), "Congratulations! You've gained 2 spins", Toast.LENGTH_SHORT).show();
-            tempSpin = tempSpin + 2;
-            spinHolder.setText(tempSpin.toString());
+            UserManager.instance.incrementSpinsAsync(2, null);
+            spinHolder.setText(""+UserManager.instance.getCurrentUser().getSpins());
         }
         else if (result == "5")
         {
@@ -186,4 +186,5 @@ public class RewardFragment extends Fragment {
             Toast.makeText(getActivity().getApplicationContext(), "Better Luck Next Time!", Toast.LENGTH_SHORT).show();
         }
     }
+
 }

@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -21,7 +22,7 @@ import org.jetbrains.annotations.NotNull;
 public class ProfileFragment extends Fragment {
 
     Button rewardBtn;
-    Button settingsBtn;
+    ImageView settingsBtn;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -55,6 +56,8 @@ public class ProfileFragment extends Fragment {
                 MainActivity.navigationController.navigate(R.id.navigation_settings);
             }
         });
+
+
 
     }
 
