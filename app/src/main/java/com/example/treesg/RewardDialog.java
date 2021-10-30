@@ -13,10 +13,14 @@ import androidx.appcompat.app.AppCompatDialogFragment;
 public class RewardDialog extends AppCompatDialogFragment {
     TextView dialogText;
     Reward reward;
+    TextView pointHolder2;
+    int currentPoints = UserManager.instance.getCurrentUser().getPoints();
 
-    public void setReward(Reward reward){
+    public RewardDialog(Reward reward)
+    {
         this.reward = reward;
     }
+
 
     public Dialog onCreateDialog (Bundle savedInstancedState){
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
@@ -33,7 +37,16 @@ public class RewardDialog extends AppCompatDialogFragment {
         }).setPositiveButton("confirm", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
+                Treedebugger.log(""+UserManager.instance.getCurrentUser().getPoints());
+                reward.applyContract();
+                //currentPoints = currentPoints - reward.pointsRequired;
+                //UserManager.instance.getCurrentUser().setPoints(currentPoints);
+                Treedebugger.log(""+UserManager.instance.getCurrentUser().getPoints());
+                UserManager.instance.updateUserAsync(UserManager.instance.getCurrentUser().getUserID(), ()->{
+                    String toUpdate = "" + UserManager.instance.getCurrentUser().getPoints();
+                    RewardShopFragment.pointHolder2.setText(toUpdate)
 
+                    ;});
             }
         });
 
@@ -42,9 +55,7 @@ public class RewardDialog extends AppCompatDialogFragment {
         return builder.create();
     }
 
-    public interface RewardDialogListener{
-        void applyText(String question, int price);
-    }
+
 
 
 }

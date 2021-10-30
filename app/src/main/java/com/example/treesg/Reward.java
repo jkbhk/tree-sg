@@ -1,12 +1,14 @@
 package com.example.treesg;
 
+import java.util.ArrayList;
+
 public class Reward {
 
     String itemName;
     String ID;
     String description;
     int pointsRequired;
-    //private int quantity;
+    ArrayList<IContractBehaviour> behaviours;
 
     public Reward(String itemName, String ID, String description, int pointsRequired)
     {
@@ -14,6 +16,14 @@ public class Reward {
         this.ID = ID;
         this.description = description;
         this.pointsRequired = pointsRequired;
-        //this.quantity = quantity;
+        behaviours = new ArrayList<IContractBehaviour>();
+    }
+
+    public void applyContract(){
+        for (IContractBehaviour b : behaviours)
+        {
+            Treedebugger.log("executed");
+            b.execute();
+        }
     }
 }
