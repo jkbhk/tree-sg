@@ -79,16 +79,12 @@ public class RewardRecyclerView extends RecyclerView.Adapter<RewardRecyclerView.
                 @Override
                 public void onClick(View view) {
                     Treedebugger.log(""+rewardName.getText().toString());
-                    openDialog(reward);
+                    RewardDialog rewardDialog = new RewardDialog(reward);
+                    rewardDialog.show(MainActivity.fragmentSupportManager, "reward dialog");
                 }
             });
         }
     }
 
-    public void openDialog(Reward reward){
-        RewardDialog rewardDialog = new RewardDialog();
-        rewardDialog.setReward(reward);
-        rewardDialog.show(MainActivity.fragmentSupportManager, "reward dialog");
-    }
 
 }

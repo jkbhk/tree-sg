@@ -35,7 +35,7 @@ public class RewardFragment extends Fragment {
     final Random random = new Random();
     int degree = 0;
     boolean isSpinning = false;
-    Integer tempPoint = 100;
+    Integer tempPoint = UserManager.instance.getCurrentUser().getPoints();
     Integer tempSpin = 7;
     static Button spinBtn;
     ImageView rewardShopBtn;
