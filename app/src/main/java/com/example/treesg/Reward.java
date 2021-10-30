@@ -2,10 +2,18 @@ package com.example.treesg;
 
 public class Reward {
 
-    private String itemName;
-    private String ID;
-    private String description;
-    private int pointsRequired;
-    private int quantity;
+    String itemName;
+    String ID;
+    String description;
+    int pointsRequired;
+    //private int quantity;
 
+    public Reward(String itemName, String ID, String description, int pointsRequired)
+    {
+        this.itemName = itemName;
+        this.ID = ID;
+        this.description = description;
+        this.pointsRequired = pointsRequired;
+        //this.quantity = quantity;
+    }
 }

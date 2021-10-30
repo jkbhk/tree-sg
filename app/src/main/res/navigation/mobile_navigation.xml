@@ -44,4 +44,10 @@
         android:name="com.example.treesg.RewardFragment"
         android:label="Reward"
         tools:layout="@layout/fragment_reward" />
+
+    <fragment
+        android:id="@+id/navigation_rewardShop"
+        android:name="com.example.treesg.RewardShopFragment"
+        android:label="RewardShop"
+        tools:layout="@layout/fragment_reward_shop" />
 </navigation>

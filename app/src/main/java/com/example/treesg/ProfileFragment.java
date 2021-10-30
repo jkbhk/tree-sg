@@ -28,7 +28,6 @@ public class ProfileFragment extends Fragment {
         // Inflate the layout for this fragment
         View v;
         v = inflater.inflate(R.layout.fragment_profile, container, false);
-
         return v;
     }
 
@@ -49,4 +48,5 @@ public class ProfileFragment extends Fragment {
         });
 
     }
+
 }

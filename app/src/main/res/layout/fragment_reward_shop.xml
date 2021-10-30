@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/ivTopBgRect"
+        android:layout_width="match_parent"
+        android:layout_height="291dp"
+        android:contentDescription="topBg"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/top_bg_rect_green"
+        tools:ignore="ImageContrastCheck" />
+
+    <ImageView
+        android:id="@+id/ivTopBgCircle1"
+        android:layout_width="195dp"
+        android:layout_height="180dp"
+        android:layout_marginEnd="276dp"
+        android:layout_marginRight="276dp"
+        android:layout_marginBottom="204dp"
+        android:alpha="0.56"
+        app:layout_constraintBottom_toBottomOf="@+id/ivTopBgRect"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/circle_bg"
+        tools:ignore="ImageContrastCheck" />
+
+    <ImageView
+        android:id="@+id/ivTopBgCircle2"
+        android:layout_width="195dp"
+        android:layout_height="180dp"
+        android:layout_marginEnd="200dp"
+        android:layout_marginRight="200dp"
+        android:layout_marginBottom="228dp"
+        android:alpha="0.56"
+        app:layout_constraintBottom_toBottomOf="@+id/ivTopBgRect"
+        app:layout_constraintEnd_toEndOf="@+id/ivTopBgRect"
+        app:srcCompat="@drawable/circle_bg"
+        tools:ignore="ImageContrastCheck" />
+
+    <ImageView
+        android:id="@+id/rewardShopIcon"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:src="@drawable/reward_shop"
+        app:layout_constraintBottom_toBottomOf="@+id/ivTopBgRect"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/ivTopBgRect"
+        app:layout_constraintVertical_bias="0.113" />
+
+    <ImageView
+        android:id="@+id/rewardRectangle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/long_rectangle_reward_spin"
+        app:layout_constraintBottom_toBottomOf="@+id/ivTopBgRect"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.49"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.9" />
+
+    <TextView
+        android:id="@+id/pointTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:fontFamily="@font/roboto_medium"
+        android:text="POINTS"
+        android:textAllCaps="true"
+        android:textColor="#000000"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.507"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/rewardRectangle"/>
+
+    <TextView
+        android:id="@+id/pointHolder2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="48dp"
+        android:fontFamily="@font/roboto_medium"
+        android:text="(placeholder)"
+        android:textAllCaps="true"
+        android:textColor="#000000"
+        android:textSize="17sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/rewardRectangle"
+        app:layout_constraintHorizontal_bias="0.503"
+        app:layout_constraintStart_toStartOf="@+id/rewardRectangle"
+        app:layout_constraintTop_toTopOf="@+id/rewardRectangle" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/ivTopBgRect">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/listView"
+            android:layout_width="wrap_content"
+            android:layout_height="330dp"/>
+
+
+    </LinearLayout>
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -45,24 +46,51 @@
         android:id="@+id/rewardRectangle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="120dp"
         android:src="@drawable/long_rectangle_reward_spin"
         app:layout_constraintBottom_toBottomOf="@+id/ivTopBgRect"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.49"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.233" />
 
     <ImageView
         android:id="@+id/spinRectangle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="40dp"
-        android:layout_marginLeft="250dp"
         android:src="@drawable/small_rectangle_beige"
         app:layout_constraintBottom_toBottomOf="@+id/ivTopBgRect"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.916"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/ivTopBgRect"
+        app:layout_constraintVertical_bias="0.622" />
+
+    <ImageView
+        android:id="@+id/luckySpin"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:src="@drawable/lucky_wheel1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.591">
+
+    </ImageView>
+
+    <ImageView
+        android:id="@+id/selected"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/selected"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/ivTopBgRect"
+        app:layout_constraintVertical_bias="0.33" />
 
     <TextView
         android:id="@+id/pointTitle"
@@ -81,12 +109,12 @@
         app:layout_constraintTop_toTopOf="@+id/rewardRectangle"/>
 
     <TextView
-        android:id="@+id/pointHolder"
+        android:id="@+id/pointHolder1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="48dp"
         android:fontFamily="@font/roboto_medium"
-        android:text="TOBEINSERTED"
+        android:text="(placeholder)"
         android:textAllCaps="true"
         android:textColor="#000000"
         android:textSize="17sp"
@@ -100,41 +128,74 @@
         android:id="@+id/spinHolder"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
         android:fontFamily="@font/roboto_medium"
         android:text="Spin:"
         android:textAllCaps="true"
         android:textColor="#000000"
         android:textSize="16dp"
         android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/spinRectangle"
         app:layout_constraintEnd_toEndOf="@+id/spinRectangle"
-        app:layout_constraintHorizontal_bias="0.3"
+        app:layout_constraintHorizontal_bias="0.316"
         app:layout_constraintStart_toStartOf="@+id/spinRectangle"
         app:layout_constraintTop_toTopOf="@+id/spinRectangle" />
 
     <TextView
-        android:id="@+id/spinsText"
+        android:id="@+id/spinNumber"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
         android:fontFamily="@font/roboto_medium"
-        android:text="3.."
+        android:text="()"
         android:textAllCaps="true"
         android:textColor="#000000"
         android:textSize="16dp"
         android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/spinRectangle"
         app:layout_constraintEnd_toEndOf="@+id/spinRectangle"
-        app:layout_constraintHorizontal_bias="0.8"
+        app:layout_constraintHorizontal_bias="0.752"
         app:layout_constraintStart_toStartOf="@+id/spinRectangle"
         app:layout_constraintTop_toTopOf="@+id/spinRectangle" />
+
 
     <Button
         android:id="@+id/spinButton"
         android:layout_width="100dp"
         android:layout_height="60dp"
+        android:layout_marginBottom="68dp"
         android:backgroundTint="@color/green_back"
         android:text="SPIN"
-        app:layout_constraintStart_toStartOf="@+id/spinRectangle"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
         tools:ignore="MissingConstraints" />
+
+
+    <ImageView
+        android:id="@+id/rewardShopBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/small_rectangle_beige"
+        app:layout_constraintBottom_toBottomOf="@+id/ivTopBgRect"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.08"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.622"/>
+
+    <TextView
+        android:id="@+id/shopTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto_medium"
+        android:text="SHOP"
+        android:textColor="#000000"
+        android:textSize="16dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/rewardShopBtn"
+        app:layout_constraintEnd_toEndOf="@+id/rewardShopBtn"
+        app:layout_constraintStart_toStartOf="@+id/rewardShopBtn"
+        app:layout_constraintTop_toTopOf="@+id/rewardShopBtn" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
