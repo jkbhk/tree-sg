@@ -92,7 +92,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         holder.likeImage.setImageResource(current.isLiked() ? R.drawable.heart : R.drawable.like);
 
         holder.messageButton.setVisibility(View.INVISIBLE);
-        holder.shareButton.setVisibility(View.INVISIBLE);
+        //holder.shareButton.setVisibility(View.INVISIBLE);
     }
 
     @Override
@@ -189,6 +189,8 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
                 public void onClick(View v) {
 
                     Treedebugger.log("sharing this message");
+
+                    //UserDao.updatePropertiesForAll();
 
                     // keep for reference, use this implementation for creating posts
                     /*FirebaseStorage.getInstance().getReference("uploads/simu_liu.png").getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
