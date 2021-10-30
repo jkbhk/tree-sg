@@ -52,7 +52,8 @@ public class PostDao {
             @Override
             public void onSuccess(DocumentReference documentReference) {
                 Treedebugger.log("post created in server.");
-                callback.run();
+                if(callback != null)
+                    callback.run();
             }
 
         });
