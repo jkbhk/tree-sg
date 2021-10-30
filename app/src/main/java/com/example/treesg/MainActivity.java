@@ -27,6 +27,8 @@ import com.google.firebase.database.core.utilities.Tree;
 
 public class MainActivity extends AppCompatActivity {
 
+    public static MainActivity instance;
+
     private ActivityMainBinding binding;
     //RewardListBinding rewardListBinding;
     public static NavController navigationController;
@@ -47,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
         // intitialize app manager
         //appManager = new AppManager();
         //appManager.initialize();
+        instance = this;
         fragmentManager = getFragmentManager();
 
         fragmentSupportManager = getSupportFragmentManager();

@@ -79,7 +79,7 @@
         app:layout_constraintHorizontal_bias="0.975"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/ivTopBgRect"
-        app:layout_constraintVertical_bias="0.049" />
+        app:layout_constraintVertical_bias="0.06" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
@@ -112,6 +112,7 @@
         android:layout_height="wrap_content"
         android:paddingTop="10dp"
         android:text="username placeholder"
+        android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="@+id/ivTopBgRect"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -124,6 +125,7 @@
         android:layout_height="wrap_content"
         android:paddingTop="5dp"
         android:text="description placeholder"
+        android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="@+id/ivTopBgRect"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.503"

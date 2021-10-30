@@ -20,7 +20,7 @@
     <fragment
         android:id="@+id/navigation_notifications"
         android:name="com.example.treesg.ui.notifications.NotificationsFragment"
-        android:label="@string/title_notifications"
+        android:label="Information"
         tools:layout="@layout/fragment_notifications" />
     <fragment
         android:id="@+id/navigation_profile"
