@@ -128,15 +128,47 @@ public class AdminAnnouncement extends AppCompatActivity {
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                             post_progress.setVisibility(View.INVISIBLE);
                             Toast.makeText(AdminAnnouncement.this, "Upload Successful", Toast.LENGTH_LONG).show();
-                            Announcement announcement = new Announcement(post_text.getText().toString().trim(),
-                                    taskSnapshot.getStorage().getDownloadUrl().toString());
+                            fileReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                @Override
+                                public void onSuccess(Uri uri) {
+                                    String url = uri.toString();
+                                    //Upload upload = new Upload(et_localization, url);
+                                   // String uploadId = mDataBaseRef.push().getKey();
+                                    //mDataBaseRef.child(uploadId).setValue(upload);
+                                    Announcement announcement = new Announcement(post_text.getText().toString().trim(),
+                                            url);
+                                    String uploadId = databaseRef.push().getKey();
+                                    String getAnnouncement = announcement.getAnnouncementPost().toString();
+                                    String getUrl = announcement.getImageURL().toString();
+                                    HashMap<String, Object> hashMap =  new HashMap<>();
+                                    hashMap.put("announcementPost", getAnnouncement);
+                                    hashMap.put("imageURL", getUrl);
+                                    FirebaseFirestore.getInstance().collection("Announcement")
+                                            .document(uploadId)
+                                            .set(hashMap)
+                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                @Override
+                                                public void onSuccess(Void unused) {
+                                                    Log.d("databaseAUploadS", "Successful upload");
+                                                }
+                                            })
+                                            .addOnFailureListener(new OnFailureListener() {
+                                                @Override
+                                                public void onFailure(@NonNull Exception e) {
+                                                    Log.d("databaseAUploadF", "Unsuccessful upload");
+                                                }
+                                            });
+                                }
+                            });
+                            /*Announcement announcement = new Announcement(post_text.getText().toString().trim(),
+                                    taskSnapshot.getStorage().getDownloadUrl().getResult().toString());
                             String uploadId = databaseRef.push().getKey();
                             String getAnnouncement = announcement.getAnnouncementPost().toString();
-                            String getUrl = announcement.getImageURL().toString();
-
+                            String getUrl = announcement.getImageURL().toString();*/
+                            /*
                             HashMap<String, Object> hashMap =  new HashMap<>();
-                            hashMap.put("Announcement", getAnnouncement);
-                            hashMap.put("Image URL", getUrl);
+                            hashMap.put("announcementPost", getAnnouncement);
+                            hashMap.put("imageURL", getUrl);
                             FirebaseFirestore.getInstance().collection("Announcement")
                                     .document(uploadId)
                                     .set(hashMap)
@@ -151,7 +183,7 @@ public class AdminAnnouncement extends AppCompatActivity {
                                         public void onFailure(@NonNull Exception e) {
                                             Log.d("databaseAUploadF", "Unsuccessful upload");
                                         }
-                                    });
+                                    });*/
                             final Handler handler = new Handler();
                             handler.postDelayed(new Runnable() {
                                 @Override

@@ -100,6 +100,7 @@
         android:layout_width="250dp"
         android:layout_height="250dp"
         android:hint="Post.."
+        android:isScrollContainer="false"
         app:counterEnabled="true"
         app:counterMaxLength="300"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -107,18 +108,22 @@
         app:layout_constraintHorizontal_bias="0.74"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.81">
+        app:layout_constraintVertical_bias="0.81"
+        >
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/textInputEditAnnouncement"
             android:layout_width="250dp"
             android:layout_height="250dp"
             android:background="#83D58F"
+            android:ellipsize="end"
             android:fontFamily="@font/roboto_medium"
+            android:freezesText="false"
             android:gravity="top|left"
             android:includeFontPadding="false"
-            android:inputType="textLongMessage"
+            android:inputType="text|textMultiLine"
             android:maxLength="300"
+            android:maxLines="100"
             tools:ignore="TextContrastCheck" />
     </com.google.android.material.textfield.TextInputLayout>
 
