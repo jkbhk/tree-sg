@@ -41,10 +41,7 @@ public class ProfileFragment extends Fragment {
         settingsBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 MainActivity.navigationController.navigate(R.id.navigation_settings);
-
-                //replaceFragment(new RewardFragment());
             }
         });
 
