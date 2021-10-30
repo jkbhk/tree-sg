@@ -37,9 +37,16 @@ public class RewardDialog extends AppCompatDialogFragment {
         }).setPositiveButton("confirm", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                currentPoints = currentPoints - reward.pointsRequired;
-                UserManager.instance.getCurrentUser().setPoints(currentPoints);
-                UserManager.instance.updateUserAsync(UserManager.instance.getCurrentUser().getUserID(), ()->{RewardShopFragment.pointHolder2.setText(""+currentPoints);});
+                Treedebugger.log(""+UserManager.instance.getCurrentUser().getPoints());
+                reward.applyContract();
+                //currentPoints = currentPoints - reward.pointsRequired;
+                //UserManager.instance.getCurrentUser().setPoints(currentPoints);
+                Treedebugger.log(""+UserManager.instance.getCurrentUser().getPoints());
+                UserManager.instance.updateUserAsync(UserManager.instance.getCurrentUser().getUserID(), ()->{
+                    String toUpdate = "" + UserManager.instance.getCurrentUser().getPoints();
+                    RewardShopFragment.pointHolder2.setText(toUpdate)
+
+                    ;});
             }
         });
 
@@ -48,9 +55,6 @@ public class RewardDialog extends AppCompatDialogFragment {
         return builder.create();
     }
 
-    public interface RewardDialogListener{
-        void applyText(String question, int price);
-    }
 
 
 

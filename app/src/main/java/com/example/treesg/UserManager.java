@@ -107,4 +107,30 @@ public class UserManager {
         UserDao.createUser(userid, email,fullName,phone,isAdmin,callback);
     }
 
+    public void incrementPoints(int param){
+        int temp = currentUser.getPoints();
+        temp += param;
+        currentUser.setPoints(temp);
+
+    }
+
+    public void incrementSpins(int param){
+        int temp = currentUser.getSpins();
+        temp += param;
+        currentUser.setSpins(temp);
+    }
+
+    public void incrementPointsAsync(int param, Runnable r){
+        int temp = currentUser.getPoints();
+        temp += param;
+        currentUser.setPoints(temp);
+        updateUserAsync(currentUser.getUserID(), r);
+    }
+
+    public void incrementSpinsAsync(int param, Runnable r){
+        int temp = currentUser.getSpins();
+        temp += param;
+        currentUser.setSpins(temp);
+        updateUserAsync(currentUser.getUserID(), r);
+    }
 }
