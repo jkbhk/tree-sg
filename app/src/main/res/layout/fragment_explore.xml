@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
@@ -8,45 +8,75 @@
     android:layout_gravity="bottom"
     tools:context=".ExploreFragment">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+
+
+        <ImageView
+            android:id="@+id/ivTopBgRect"
             android:layout_width="match_parent"
-            android:layout_height="190dp">
+            android:layout_height="240dp"
+            android:contentDescription="topBg"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/top_bg_rect_green"
+            tools:ignore="ImageContrastCheck" />
+
+        <ImageView
+            android:id="@+id/ivTopBgCircle1"
+            android:layout_width="195dp"
+            android:layout_height="180dp"
+            android:layout_marginEnd="300dp"
+            android:layout_marginRight="300dp"
+            android:layout_marginBottom="108dp"
+            android:alpha="0.56"
+            app:layout_constraintBottom_toBottomOf="@+id/ivTopBgRect"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:srcCompat="@drawable/circle_bg"
+            tools:ignore="ImageContrastCheck" />
 
 
-                <ImageView
-                    android:id="@+id/ivTopBgRectExplore"
-                    android:layout_width="match_parent"
+        <ImageView
+            android:id="@+id/ivTopBgCircle2"
+            android:layout_width="195dp"
+            android:layout_height="180dp"
+            android:layout_marginEnd="184dp"
+            android:layout_marginRight="184dp"
+            android:layout_marginBottom="148dp"
+            android:alpha="0.56"
+            app:layout_constraintBottom_toBottomOf="@+id/ivTopBgRect"
+            app:layout_constraintEnd_toEndOf="@+id/ivTopBgRect"
+            app:srcCompat="@drawable/circle_bg"
+            tools:ignore="ImageContrastCheck" />
+
+
+        <androidx.appcompat.widget.SearchView
+            android:id="@+id/sv_explore"
+            android:layout_width="300dp"
+            android:layout_height="35dp"
+            android:layout_marginHorizontal="70dp"
+            android:layout_marginVertical="80dp"
+            android:background="@drawable/round_button"
+            app:layout_constraintBottom_toBottomOf="@+id/ivTopBgRect"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.495"
+            app:layout_constraintStart_toStartOf="@+id/ivTopBgRect"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0"
+            app:queryHint="eg. #nature, #fun"></androidx.appcompat.widget.SearchView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/ivTopBgRect"
+            tools:layout_editor_absoluteX="44dp">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_explore_fragment"
+                    android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="50dp">
 
-                    android:src="@drawable/flatbg"
-                    android:scaleType="fitXY"
-                    tools:ignore="ImageContrastCheck"
+                </androidx.recyclerview.widget.RecyclerView>
 
-                    />
-
-
-                <androidx.appcompat.widget.SearchView
-                    android:id="@+id/sv_explore"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginHorizontal="70dp"
-                    android:layout_marginVertical="80dp"
-                    app:queryHint="eg. #nature, #fun"
-                    android:background="@drawable/round_button"
-                    tools:layout_editor_absoluteX="70dp"
-                    tools:layout_editor_absoluteY="80dp"></androidx.appcompat.widget.SearchView>
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:layout_marginTop="50dp"
-            android:id="@+id/rv_explore_fragment"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            >
-
-        </androidx.recyclerview.widget.RecyclerView>
-
-
-</LinearLayout>
+        </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
