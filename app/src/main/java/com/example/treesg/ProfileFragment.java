@@ -21,6 +21,7 @@ import org.jetbrains.annotations.NotNull;
 public class ProfileFragment extends Fragment {
 
     Button rewardBtn;
+    Button settingsBtn;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -36,6 +37,7 @@ public class ProfileFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         rewardBtn = getView().findViewById(R.id.rewardBtn);
+        settingsBtn = getView().findViewById(R.id.settingsBtn);
 
         rewardBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -44,6 +46,13 @@ public class ProfileFragment extends Fragment {
                 MainActivity.navigationController.navigate(R.id.navigation_reward);
 
                 //replaceFragment(new RewardFragment());
+            }
+        });
+      
+        settingsBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                MainActivity.navigationController.navigate(R.id.navigation_settings);
             }
         });
 

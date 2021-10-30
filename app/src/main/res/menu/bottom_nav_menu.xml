@@ -8,9 +8,9 @@
         android:title="@string/title_home" />
 
     <item
-        android:id="@+id/navigation_dashboard"
+        android:id="@+id/navigation_map"
         android:icon="@drawable/map_button"
-        android:title="@string/title_dashboard" />
+        android:title="Map" />
 
     <item
         android:id="@+id/navigation_notifications"

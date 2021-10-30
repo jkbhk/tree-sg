@@ -12,10 +12,10 @@
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/navigation_dashboard"
-        android:name="com.example.treesg.ui.dashboard.DashboardFragment"
-        android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
+        android:id="@+id/navigation_map"
+        android:name="com.example.treesg.MapFragment"
+        android:label="Map"
+        tools:layout="@layout/fragment_map" />
 
     <fragment
         android:id="@+id/navigation_notifications"
@@ -50,4 +50,35 @@
         android:name="com.example.treesg.RewardShopFragment"
         android:label="RewardShop"
         tools:layout="@layout/fragment_reward_shop" />
+  
+    <fragment
+        android:id="@+id/navigation_settings"
+        android:name="com.example.treesg.SettingsFragment"
+        android:label="Settings"
+        tools:layout="@layout/fragment_settings" />
+
+    <fragment
+        android:id="@+id/navigation_settings_logout"
+        android:name="com.example.treesg.SettingsLogOut"
+        android:label="Logout"
+        tools:layout="@layout/fragment_settings_logout" />
+
+    <fragment
+        android:id="@+id/navigation_settings_pf"
+        android:name="com.example.treesg.SettingsProfileDetails"
+        android:label="Profile Details"
+        tools:layout="@layout/fragment_settings_profiledetails" />
+
+    <fragment
+        android:id="@+id/navigation_settings_pri"
+        android:name="com.example.treesg.SettingsPrivacy"
+        android:label="Privacy"
+        tools:layout="@layout/fragment_settings_privacy" />
+
+    <fragment
+        android:id="@+id/navigation_settings_noti"
+        android:name="com.example.treesg.SettingsNotification"
+        android:label="Notifications"
+        tools:layout="@layout/fragment_settings_notifications" />
+
 </navigation>
