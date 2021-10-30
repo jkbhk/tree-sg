@@ -123,7 +123,7 @@ public class MapFragment extends Fragment implements MapboxMap.OnMapClickListene
 
                         CameraPosition zoomedPosition  = new CameraPosition.Builder()
                                 .target(new LatLng(1.3485, 103.7156))
-                                .zoom(17f)
+                                .zoom(18f)
                                 .build();
 
                         mapboxMap.animateCamera(CameraUpdateFactory.newCameraPosition(zoomedPosition), 7000);
@@ -147,6 +147,10 @@ public class MapFragment extends Fragment implements MapboxMap.OnMapClickListene
         } catch (JSONException e) {
             e.printStackTrace();
         }
+        float[] distanceFromUser = {0};
+        Location.distanceBetween(point.getLatitude(), point.getLongitude(), 1.3485, 103.7156, distanceFromUser);
+
+        Treedebugger.log(String.valueOf(distanceFromUser[0]));
 
 
 
@@ -162,7 +166,12 @@ public class MapFragment extends Fragment implements MapboxMap.OnMapClickListene
 
             // Ensure the feature has properties defined
             if (feature.properties() != null) {
-                int j = 0;
+                int j = 1;
+                if (distanceFromUser[0] < 80) {
+                    args.putBoolean("WithinRange", true);
+                } else {
+                    args.putBoolean("WithinRange", false);
+                }
                 for (Map.Entry<String, JsonElement> entry : feature.properties().entrySet()) {
                     j += 1;
                     // Log all the properties
@@ -173,6 +182,7 @@ public class MapFragment extends Fragment implements MapboxMap.OnMapClickListene
                         String species_id = String.valueOf(entry.getValue());
                         species_id = species_id.substring(1, species_id.length() - 2);
                         int id = Integer.parseInt(species_id);
+
                         for (int i = id; i < 33626; i++) {
                             JSONObject o = null;
                             try {
@@ -190,7 +200,7 @@ public class MapFragment extends Fragment implements MapboxMap.OnMapClickListene
                     }
                     args.putString(entry.getKey(), String.valueOf(entry.getValue()));
                 }
-                if (j == 10) {
+                if (j == 11) {
                     TreeDialog dialog = new TreeDialog();
                     dialog.setArguments(args);
                     dialog.setTargetFragment(MapFragment.this, 1);
@@ -215,7 +225,7 @@ public class MapFragment extends Fragment implements MapboxMap.OnMapClickListene
                     .elevation(5)
                     .pulseEnabled(true)
                     .pulseAlpha(Color.BLUE)
-                    .pulseMaxRadius(200)
+                    .pulseMaxRadius(250)
                     .accuracyAlpha(.0f)
                     .build();
 
