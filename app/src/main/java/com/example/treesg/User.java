@@ -17,10 +17,11 @@ public class User {
     private boolean isNew;
     private String userDescription;
     private boolean notifications;
+    private int spins;
 
     public User(){}
 
-    public User(String profilePic, String userID, String email, String fullName, String phone, Boolean isAdmin, String username, int points,HashSet<String> likedPosts, boolean isNew, String description, Boolean notifications){
+    public User(String profilePic, String userID, String email, String fullName, String phone, Boolean isAdmin, String username, int points,HashSet<String> likedPosts, boolean isNew, String description, Boolean notifications,int spins){
         this.profilePic = profilePic;
         this.userID = userID;
         this.email = email;
@@ -33,6 +34,7 @@ public class User {
         this.isNew = isNew;
         this.userDescription = description;
         this.notifications = notifications;
+        this.spins = spins;
     }
 
     public String getProfilePic() {
@@ -127,6 +129,14 @@ public class User {
 
     public void setNotifications(Boolean val){
         this.notifications = val;
+    }
+
+    public int getSpins(){
+        return this.spins;
+    }
+
+    public void setSpins(int val){
+        this.spins = val;
     }
 
 

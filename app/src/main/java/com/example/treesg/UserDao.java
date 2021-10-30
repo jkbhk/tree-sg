@@ -50,6 +50,7 @@ public class UserDao {
         map.put("userDescription", "");
         map.put("isNew", true);
         map.put("notifications",true);
+        map.put("spins", 0);
 
         // create the actual user object in the collection, using the fAuthID as the userID
        FirebaseFirestore.getInstance().collection(DatabaseManager.USERS_COLLECTION).document(fAuthID).set(map).addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -110,9 +111,10 @@ public class UserDao {
                                 Boolean isNew = d.getBoolean("isNew");
                                 String userDescription = d.getString("userDescription");
                                 Boolean notifications = d.getBoolean("notifications");
+                                int spins = d.getLong("spins").intValue();
 
 
-                                User u = new User(profilePic,d.getId(),email,fullname,phone,isAdmin,username,points,hs,isNew,userDescription,notifications);
+                                User u = new User(profilePic,d.getId(),email,fullname,phone,isAdmin,username,points,hs,isNew,userDescription,notifications,spins);
                                 users.put(d.getId(),u);
 
                             }
@@ -155,7 +157,8 @@ public class UserDao {
                 "username", u.getUsername(),
                 "userDescription", u.getUserDescription(),
                 "isNew", u.isNew(),
-                "notifications", u.getNotifications()
+                "notifications", u.getNotifications(),
+                "spins", u.getSpins()
         ).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void unused) {
@@ -191,7 +194,7 @@ public class UserDao {
 
                                 // add new properties here
                                 d.getReference().update(
-                                        "notifications", true
+                                        "spins", 0
                                 );
 
                             }

@@ -12,14 +12,18 @@
             android:layout_width="match_parent"
             android:layout_height="190dp">
 
+
                 <ImageView
                     android:id="@+id/ivTopBgRectExplore"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:src="@drawable/top_bg_rect_green"
+
+                    android:src="@drawable/flatbg"
+                    android:scaleType="fitXY"
                     tools:ignore="ImageContrastCheck"
 
                     />
+
 
                 <androidx.appcompat.widget.SearchView
                     android:id="@+id/sv_explore"
