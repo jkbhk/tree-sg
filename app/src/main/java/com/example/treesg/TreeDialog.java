@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import android.util.Log;
+import android.widget.Button;
 import android.widget.TextView;
 
 
@@ -31,6 +32,7 @@ public class TreeDialog extends DialogFragment {
         TextView girth = view.findViewById(R.id.girth);
         TextView height = view.findViewById(R.id.height);
         TextView commonName = view.findViewById(R.id.common_name);
+        Button hugTree = view.findViewById(R.id.hug_tree);
 
 
         Bundle mArgs = getArguments();
@@ -39,10 +41,14 @@ public class TreeDialog extends DialogFragment {
         String TreeHeight = mArgs.getString("height");
         String TreeAge = mArgs.getString("age");
         String TreeGirth = mArgs.getString("girth");
+        Boolean withinRange = mArgs.getBoolean("WithinRange");
         speciesName.setText(TreeName);
         age.setText(TreeAge);
         height.setText(TreeHeight);
         girth.setText(TreeGirth);
+        if (!withinRange) {
+            hugTree.setVisibility(View.GONE);
+        }
         if (TreeCommonName != null) {
             commonName.setText("Common name: " + TreeCommonName);
         }
