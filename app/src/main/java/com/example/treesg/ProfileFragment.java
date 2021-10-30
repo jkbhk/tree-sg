@@ -15,14 +15,22 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.bumptech.glide.Glide;
 
 import org.jetbrains.annotations.NotNull;
 
 
 public class ProfileFragment extends Fragment {
 
-    Button rewardBtn;
+    ImageView rewardBtn;
     ImageView settingsBtn;
+    ImageView postBtn;
+    ImageView profileImage;
+    TextView usernameText;
+    TextView descriptionText;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -39,6 +47,15 @@ public class ProfileFragment extends Fragment {
 
         rewardBtn = getView().findViewById(R.id.rewardBtn);
         settingsBtn = getView().findViewById(R.id.settingsBtn);
+        postBtn = getView().findViewById(R.id.tv_profile_postBtn);
+
+        profileImage = getView().findViewById(R.id.tv_profile_profileimage);
+        usernameText = getView().findViewById(R.id.tv_profile_username);
+        descriptionText = getView().findViewById(R.id.tv_profile_description);
+
+        Glide.with(getContext()).load(UserManager.instance.getCurrentUser().getProfilePic()).placeholder(R.drawable.default_profile).into(profileImage);
+        usernameText.setText(""+UserManager.instance.getCurrentUser().getUsername());
+        descriptionText.setText(""+UserManager.instance.getCurrentUser().getUserDescription());
 
         rewardBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -54,6 +71,15 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 MainActivity.navigationController.navigate(R.id.navigation_settings);
+            }
+        });
+
+        postBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //PostDataManager.instance.createNewPost(UserManager.instance.getCurrentUser(), "pog you #pog", "asdf", "jurong", ()->{
+                    //Toast.makeText(getActivity(), "Created Post", Toast.LENGTH_SHORT).show();
+                //});
             }
         });
 

@@ -46,29 +46,90 @@
         android:id="@+id/settingsBtn"
         android:layout_width="25dp"
         android:layout_height="25dp"
+        android:layout_marginTop="10dp"
         android:src="@drawable/settings"
         app:layout_constraintBottom_toBottomOf="@+id/ivTopBgRect"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.958"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/rewardBtn"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.014" />
+        app:layout_constraintVertical_bias="0.023" />
 
-    <Button
+
+    <ImageView
         android:id="@+id/rewardBtn"
-        android:layout_width="75dp"
-        android:layout_height="30dp"
+        android:layout_width="36dp"
+        android:layout_height="28dp"
         android:layout_centerInParent="true"
-        android:backgroundTint="#f3fbf1"
-        android:text="Rewards"
-        android:textColor="@color/black"
-        android:textSize="8dp"
+        android:layout_marginTop="10dp"
+        android:src="@drawable/reward"
         app:layout_constraintBottom_toBottomOf="@+id/ivTopBgRect"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.848"
+        app:layout_constraintHorizontal_bias="0.861"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.014" />
+        app:layout_constraintVertical_bias="0.011" />
+
+    <ImageView
+        android:id="@+id/tv_profile_postBtn"
+        android:layout_width="36dp"
+        android:layout_height="28dp"
+        android:src="@drawable/post"
+        app:layout_constraintBottom_toBottomOf="@+id/ivTopBgRect"
+        app:layout_constraintEnd_toStartOf="@+id/rewardBtn"
+        app:layout_constraintHorizontal_bias="0.975"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/ivTopBgRect"
+        app:layout_constraintVertical_bias="0.049" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="500dp"
+        app:layout_constraintBottom_toBottomOf="@+id/ivTopBgRect"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/ivTopBgRect"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+        <ImageView
+            android:id="@+id/tv_profile_profileimage"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            app:layout_constraintBottom_toBottomOf="@+id/ivTopBgRect"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="@+id/ivTopBgRect"
+            app:layout_constraintTop_toTopOf="@+id/ivTopBgRect"
+            app:layout_constraintVertical_bias="0.439" />
+
+    </androidx.cardview.widget.CardView>
+
+
+    <TextView
+        android:id="@+id/tv_profile_username"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="10dp"
+        android:text="username placeholder"
+        app:layout_constraintBottom_toBottomOf="@+id/ivTopBgRect"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardView"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/tv_profile_description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="5dp"
+        android:text="description placeholder"
+        app:layout_constraintBottom_toBottomOf="@+id/ivTopBgRect"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.503"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_profile_username"
+        app:layout_constraintVertical_bias="0.0" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
