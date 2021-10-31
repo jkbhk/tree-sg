@@ -263,9 +263,6 @@ public class MapFragment extends Fragment implements MapboxMap.OnMapClickListene
 
 
 
-
-
-
         } else {
             permissionsManager = new PermissionsManager(this);
             permissionsManager.requestLocationPermissions(getActivity());
