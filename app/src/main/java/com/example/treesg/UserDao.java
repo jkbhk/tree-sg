@@ -110,11 +110,12 @@ public class UserDao {
 
                                 Boolean isNew = d.getBoolean("isNew");
                                 String userDescription = d.getString("userDescription");
-                                Boolean notifications = d.getBoolean("notifications");
-                                int spins = d.getLong("spins").intValue();
+                                //Boolean notifications = d.getBoolean("notifications");
+                                //int spins = d.getLong("spins").intValue();
 
 
-                                User u = new User(profilePic,d.getId(),email,fullname,phone,isAdmin,username,points,hs,isNew,userDescription,notifications,spins);
+                                //User u = new User(profilePic,d.getId(),email,fullname,phone,isAdmin,username,points,hs,isNew,userDescription,notifications,0);
+                                User u = new User(profilePic, d.getId(),email,fullname,phone,isAdmin,username,points,hs, isNew,userDescription,true,3);
                                 users.put(d.getId(),u);
 
                             }

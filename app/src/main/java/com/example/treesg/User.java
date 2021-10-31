@@ -21,7 +21,7 @@ public class User {
 
     public User(){}
 
-    public User(String profilePic, String userID, String email, String fullName, String phone, Boolean isAdmin, String username, int points,HashSet<String> likedPosts, boolean isNew, String description, Boolean notifications,int spins){
+    public User(String profilePic, String userID, String email, String fullName, String phone, Boolean isAdmin, String username, int points,HashSet<String> likedPosts, boolean isNew, String description, boolean notifications,int spins){
         this.profilePic = profilePic;
         this.userID = userID;
         this.email = email;
@@ -123,11 +123,11 @@ public class User {
         this.userDescription = description;
     }
 
-    public Boolean getNotifications(){
+    public boolean getNotifications(){
         return this.notifications;
     }
 
-    public void setNotifications(Boolean val){
+    public void setNotifications(boolean val){
         this.notifications = val;
     }
 
