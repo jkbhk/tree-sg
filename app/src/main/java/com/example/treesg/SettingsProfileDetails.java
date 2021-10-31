@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.treesg.Treedebugger;
 import com.example.treesg.User;
 import com.example.treesg.UserManager;
@@ -79,7 +80,8 @@ public class SettingsProfileDetails extends Fragment {
 
         String imageUri = user.getProfilePic();
         temp = Uri.parse(imageUri);
-        Picasso.get().load(imageUri).into(ProfilePic);
+        //Picasso.get().load(imageUri).into(ProfilePic);
+        Glide.with(getContext()).load(UserManager.instance.getCurrentUser().getProfilePic()).placeholder(R.drawable.default_profile).into(ProfilePic);
 
         textName.setText(user.getFullName());
         textUsername.setText(user.getUsername());
@@ -151,7 +153,8 @@ public class SettingsProfileDetails extends Fragment {
                     @Override
                     public void onSuccess(Uri uri) {
                         temp = uri;
-                        Picasso.get().load(uri).into(ProfilePic);
+                        //Picasso.get().load(uri).into(ProfilePic);
+                        Glide.with(getContext()).load(temp).placeholder(R.drawable.default_profile).into(ProfilePic);
                     }
                 });
             }

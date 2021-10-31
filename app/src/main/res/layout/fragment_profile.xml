@@ -81,29 +81,17 @@
         app:layout_constraintTop_toTopOf="@+id/ivTopBgRect"
         app:layout_constraintVertical_bias="0.06" />
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cardView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:cardCornerRadius="500dp"
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/tv_profile_profileimage"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:src="@drawable/default_profile"
         app:layout_constraintBottom_toBottomOf="@+id/ivTopBgRect"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="@+id/ivTopBgRect"
-        app:layout_constraintTop_toTopOf="parent">
-
-
-        <ImageView
-            android:id="@+id/tv_profile_profileimage"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            app:layout_constraintBottom_toBottomOf="@+id/ivTopBgRect"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
-            app:layout_constraintStart_toStartOf="@+id/ivTopBgRect"
-            app:layout_constraintTop_toTopOf="@+id/ivTopBgRect"
-            app:layout_constraintVertical_bias="0.439" />
-
-    </androidx.cardview.widget.CardView>
+        app:layout_constraintTop_toTopOf="@+id/ivTopBgRect"
+        app:layout_constraintVertical_bias="0.439"/>
 
 
     <TextView
@@ -116,7 +104,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/ivTopBgRect"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cardView"
+        app:layout_constraintTop_toBottomOf="@+id/tv_profile_profileimage"
         app:layout_constraintVertical_bias="0.0" />
 
     <TextView
@@ -133,5 +121,17 @@
         app:layout_constraintTop_toBottomOf="@+id/tv_profile_username"
         app:layout_constraintVertical_bias="0.0" />
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/ivTopBgRect">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_profile_recyclerview"
+            android:layout_width="wrap_content"
+            android:layout_height="330dp"
+            />
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
