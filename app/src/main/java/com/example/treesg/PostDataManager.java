@@ -32,6 +32,35 @@ public class PostDataManager {
         });
     }
 
+    public Post[] getPostArrayByUser(User u){
+
+        ArrayList<Post> tempList = new ArrayList<>();
+        for(Post p : posts){
+            if(u.getUserID() == p.getFrom()){
+                tempList.add(p);
+            }
+        }
+
+        Post[] temp = new Post[tempList.size()];
+
+        for(int i = 0; i < temp.length; i++){
+            temp[i] = tempList.get(i);
+        }
+
+        return temp;
+    }
+
+    public Post[] getPostArray(){
+
+        Post[] temp = new Post[posts.size()];
+
+        for(int i = 0; i < posts.size(); i++){
+            temp[i] = posts.get(i);
+        }
+
+        return temp;
+    }
+
     public void incrementLikes(String postID, int increment){
 
         PostDao.incrementPostLikes(postID,increment);
