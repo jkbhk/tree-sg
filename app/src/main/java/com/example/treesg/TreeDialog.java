@@ -61,7 +61,9 @@ public class TreeDialog extends DialogFragment {
 
     private TextView mActionCancel;
     StorageReference storagePost;
-    static Uri imageUri;
+    Uri imageUri;
+    Uri temp;
+
 
 
 
@@ -152,7 +154,8 @@ public class TreeDialog extends DialogFragment {
         upload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                PostDataManager.instance.createNewPost(UserManager.instance.getCurrentUser(), postDescription.getText().toString(), imageUri.toString(), "Jurong", null);
+                Treedebugger.log(temp.toString());
+                PostDataManager.instance.createNewPost(UserManager.instance.getCurrentUser(), postDescription.getText().toString(), temp.toString(), "Jurong", null);
                 //Toast.makeText(getContext(), "Post Uploading..." , Toast.LENGTH_SHORT).show();
                 dialogText.setText("Post Uploaded! You have been awarded an additional 3 points.");
                 UserManager.instance.incrementPointsAsync(3,null);
@@ -173,8 +176,6 @@ public class TreeDialog extends DialogFragment {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 1000 && resultCode == Activity.RESULT_OK && null != data) {
             Uri selectedImage = data.getData();
-            imageUri = selectedImage;
-            //ProfilePic.setImageURI(selectedImage);
             uploadImageToFirebase(selectedImage);
         }
     }
@@ -187,7 +188,7 @@ public class TreeDialog extends DialogFragment {
 
     private void uploadImageToFirebase(Uri imageUri) {
         Treedebugger.log(imageUri.toString());
-        StorageReference fileRef = storagePost.child("users/" + "1." + getFileExtension(imageUri)); //UUID.randomUUID().toString()
+        StorageReference fileRef = storagePost.child("uploads/" + UUID.randomUUID() + getFileExtension(imageUri)); //UUID.randomUUID().toString()
             fileRef.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
@@ -195,7 +196,8 @@ public class TreeDialog extends DialogFragment {
                     fileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                         @Override
                         public void onSuccess(Uri uri) {
-
+                            temp = uri;
+                            Treedebugger.log(temp.toString());
                         }
                     });
                 }

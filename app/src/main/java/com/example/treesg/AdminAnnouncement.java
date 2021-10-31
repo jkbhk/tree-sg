@@ -22,8 +22,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.Timestamp;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
@@ -32,6 +34,8 @@ import com.google.firebase.storage.StorageTask;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 
 
@@ -44,6 +48,7 @@ public class AdminAnnouncement extends AppCompatActivity {
     ImageView tree_image_view;
     ProgressBar post_progress;
     Uri imageUri;
+    Calendar calendar;
 
     StorageReference storageRef;
     DatabaseReference databaseRef;
@@ -143,6 +148,7 @@ public class AdminAnnouncement extends AppCompatActivity {
                                     HashMap<String, Object> hashMap =  new HashMap<>();
                                     hashMap.put("announcementPost", getAnnouncement);
                                     hashMap.put("imageURL", getUrl);
+                                    hashMap.put("notificationDate", Timestamp.now().toDate());
                                     FirebaseFirestore.getInstance().collection("Announcement")
                                             .document(uploadId)
                                             .set(hashMap)
