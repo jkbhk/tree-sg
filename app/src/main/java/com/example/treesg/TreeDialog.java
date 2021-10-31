@@ -1,7 +1,9 @@
 package com.example.treesg;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.support.annotation.ColorInt;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,9 +12,12 @@ import android.view.ViewGroup;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import androidx.fragment.app.DialogFragment;
+
+import com.google.firebase.database.collection.LLRBNode;
 
 import org.w3c.dom.Text;
 
@@ -33,6 +38,8 @@ public class TreeDialog extends DialogFragment {
         TextView height = view.findViewById(R.id.height);
         TextView commonName = view.findViewById(R.id.common_name);
         Button hugTree = view.findViewById(R.id.hug_tree);
+        Button makePost = view.findViewById(R.id.make_post);
+        TextView pointsEarned = view.findViewById(R.id.points_earned);
 
 
         Bundle mArgs = getArguments();
@@ -62,8 +69,19 @@ public class TreeDialog extends DialogFragment {
             }
         });
 
+        hugTree.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                hugTree.setBackgroundColor(Color.GRAY);
+                hugTree.setEnabled(false);
+                pointsEarned.setVisibility(View.VISIBLE);
+                makePost.setVisibility(View.VISIBLE);
+            }
+        });
 
         return view;
+
+
     }
 
 

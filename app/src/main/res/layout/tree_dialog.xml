@@ -121,6 +121,13 @@
         </LinearLayout>
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_weight="1">
+
+
     <Button
         android:id="@+id/hug_tree"
         android:layout_width="wrap_content"
@@ -130,5 +137,32 @@
         android:layout_gravity="center_horizontal"
         android:background="@drawable/common_google_signin_btn_icon_light"
         android:textColor="@color/white"/>
+
+
+
+     <TextView
+         android:id="@+id/points_earned"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:padding="10dp"
+         android:layout_marginTop="10dp"
+         android:text="You have earned 20 points!"
+         android:textSize="20sp"
+         android:textColor="@color/green_back"
+         android:visibility="invisible"
+         android:layout_gravity="center"/>
+
+    <Button
+        android:id="@+id/make_post"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Make Post"
+        android:layout_marginTop="25dp"
+        android:visibility="gone"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/common_google_signin_btn_icon_light"
+        android:textColor="@color/white"/>
+
+    </LinearLayout>
 
 </LinearLayout>
