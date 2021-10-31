@@ -69,18 +69,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.011" />
 
-    <ImageView
-        android:id="@+id/tv_profile_postBtn"
-        android:layout_width="36dp"
-        android:layout_height="28dp"
-        android:src="@drawable/post"
-        app:layout_constraintBottom_toBottomOf="@+id/ivTopBgRect"
-        app:layout_constraintEnd_toStartOf="@+id/rewardBtn"
-        app:layout_constraintHorizontal_bias="0.975"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/ivTopBgRect"
-        app:layout_constraintVertical_bias="0.06" />
-
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/tv_profile_profileimage"
         android:layout_width="150dp"

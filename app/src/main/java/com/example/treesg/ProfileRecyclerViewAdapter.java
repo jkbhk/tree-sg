@@ -20,7 +20,6 @@ public class ProfileRecyclerViewAdapter extends RecyclerView.Adapter<ProfileRecy
 
     Context context;
     Post[] postArray;
-    ImageView postPic;
 
     public ProfileRecyclerViewAdapter(Post[] postArray){
         this.postArray = postArray;
@@ -29,7 +28,7 @@ public class ProfileRecyclerViewAdapter extends RecyclerView.Adapter<ProfileRecy
     @Override
     public ProfileRecyclerViewAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        if (context != null){
+        if (context == null){
             context = parent.getContext();
         }
 
@@ -44,16 +43,19 @@ public class ProfileRecyclerViewAdapter extends RecyclerView.Adapter<ProfileRecy
     public void onBindViewHolder(@NonNull ProfileRecyclerViewAdapter.ViewHolder holder, int position) {
         //holder.postPic.setImageResource(postList.get(position).getPostImage());
         //Glide.with(context).load(PostDataManager.instance.placeholder(R.drawable.default_profile).into(profileImage);
-        //Glide.with(context).load(PostDataManager.instance.posts).into(postPic);
+        Treedebugger.log(""+postArray[position].getPostImage());
+        holder.post = postArray[position];
+        Glide.with(context).load(postArray[position].getPostImage()).placeholder(R.drawable.nature_placeholder).into(holder.postPic);
 
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
         ImageView postPic;
+        Post post;
 
         public ViewHolder (View itemView){
             super(itemView);
-            postPic = (ImageView) itemView.findViewById(R.id.cv_profile_post_image);
+            postPic = itemView.findViewById(R.id.cv_profile_post_image);
 
         }
     }
