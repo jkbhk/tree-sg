@@ -97,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
 
-            FirebaseFirestore.getInstance().collection(DatabaseManager.USERS_COLLECTION).addSnapshotListener(new EventListener<QuerySnapshot>() {
+            FirebaseFirestore.getInstance().collection(DatabaseManager.POSTS_COLLECTION).addSnapshotListener(new EventListener<QuerySnapshot>() {
                 @Override
                 public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
                     if (error != null) {
@@ -105,7 +105,10 @@ public class MainActivity extends AppCompatActivity {
                         return;
                     }
                     for (DocumentChange dc : value.getDocumentChanges()) {
-                        if (dc.getType() == DocumentChange.Type.MODIFIED) sendChannel1(findViewById(android.R.id.content).getRootView());
+                        if (dc.getType() == DocumentChange.Type.MODIFIED){
+                            if(user.getUserID() == dc.getDocument().getString("post_creator"))
+                            sendChannel1(findViewById(android.R.id.content).getRootView());
+                        }
                     }
                 }
             });
