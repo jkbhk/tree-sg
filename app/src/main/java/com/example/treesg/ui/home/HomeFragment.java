@@ -119,16 +119,16 @@ public class HomeFragment extends Fragment {
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @Override
                     public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
-                        for (DocumentChange dc: value.getDocumentChanges()){
-                            if (dc.getType() == DocumentChange.Type.ADDED){
-                                Points p = new Points(dc.getDocument().getString("username"),
-                                        Math.toIntExact(dc.getDocument().getLong("points")));
-                                mPoints.add(p);
+                        if(value!=null) {
+                            for (DocumentChange dc : value.getDocumentChanges()) {
+                                if (dc.getType() == DocumentChange.Type.ADDED) {
+                                    Points p = new Points(dc.getDocument().getString("username"), Math.toIntExact(dc.getDocument().getLong("points")));
+                                    mPoints.add(p);
+                                }
+                                pointsAdapter.notifyDataSetChanged();
                             }
-
-                            pointsAdapter.notifyDataSetChanged();
+                            pointsAdapter.sorting(mPoints);
                         }
-                        pointsAdapter.sorting(mPoints);
                     }
                 });
     }
