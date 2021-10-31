@@ -154,29 +154,30 @@ public class TreeDialog extends DialogFragment {
         upload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Treedebugger.log(temp.toString());
-                PostDataManager.instance.createNewPost(UserManager.instance.getCurrentUser(), postDescription.getText().toString(), temp.toString(), "Jurong", null);
-                //Toast.makeText(getContext(), "Post Uploading..." , Toast.LENGTH_SHORT).show();
-                dialogText.setText("Post Uploaded! You have been awarded an additional 3 points.");
-                UserManager.instance.incrementPointsAsync(3,null);
                 postDescription.setVisibility(View.GONE);
                 imageButton.setVisibility(View.GONE);
                 upload.setVisibility(View.GONE);
+                uploadImageToFirebase(()->{
+                    PostDataManager.instance.createNewPost(UserManager.instance.getCurrentUser(), postDescription.getText().toString(), something.toString(), "Jurong", null);
+                    dialogText.setText("Post Uploaded! You have been awarded an additional 3 points.");
+                    UserManager.instance.incrementPointsAsync(3,null);
+                });
+                //Toast.makeText(getContext(), "Post Uploading..." , Toast.LENGTH_SHORT).show();
+
 
             }
         });
 
-
-
         return view;
     }
-
+    private Uri something;
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 1000 && resultCode == Activity.RESULT_OK && null != data) {
             Uri selectedImage = data.getData();
-            uploadImageToFirebase(selectedImage);
+            something = selectedImage;
+            //uploadImageToFirebase(selectedImage);
         }
     }
 
@@ -186,18 +187,18 @@ public class TreeDialog extends DialogFragment {
         return mime.getExtensionFromMimeType(cR.getType(uri));
     }
 
-    private void uploadImageToFirebase(Uri imageUri) {
-        Treedebugger.log(imageUri.toString());
-        StorageReference fileRef = storagePost.child("uploads/" + UUID.randomUUID() + getFileExtension(imageUri)); //UUID.randomUUID().toString()
-            fileRef.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+    private void uploadImageToFirebase(Runnable callback) {
+        Treedebugger.log(something.toString());
+        StorageReference fileRef = storagePost.child("uploads/" + UUID.randomUUID() + getFileExtension(something)); //UUID.randomUUID().toString()
+            fileRef.putFile(something).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                     Toast.makeText(getActivity(), "Image Uploaded", Toast.LENGTH_SHORT).show();
                     fileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                         @Override
                         public void onSuccess(Uri uri) {
-                            temp = uri;
-                            Treedebugger.log(temp.toString());
+                            something = uri;
+                            callback.run();
                         }
                     });
                 }
