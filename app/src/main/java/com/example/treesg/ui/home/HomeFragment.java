@@ -16,6 +16,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.treesg.Announcement;
 import com.example.treesg.AnnouncementAdapter;
+import com.example.treesg.Points;
+import com.example.treesg.PointsAdapter;
 import com.example.treesg.R;
 import com.example.treesg.databinding.FragmentHomeBinding;
 import com.google.firebase.firestore.DocumentChange;
@@ -32,11 +34,11 @@ public class HomeFragment extends Fragment {
 
     private HomeViewModel homeViewModel;
     private FragmentHomeBinding binding;
-    private RecyclerView mRecyclerView;
+    private RecyclerView mRecyclerView, pRV;
     private AnnouncementAdapter mAdapter;
-
-
+    private PointsAdapter pointsAdapter;
     private ArrayList<Announcement> mAnns = null;
+    private ArrayList<Points> mPoints = null;
     FirebaseFirestore db;
     ProgressDialog progressDialog;
     @Override
@@ -75,13 +77,18 @@ public class HomeFragment extends Fragment {
         mRecyclerView = (RecyclerView) view.findViewById(R.id.ann_recycler_view1);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        pRV = (RecyclerView) view.findViewById(R.id.leaderboard_rv);
+        pRV.setHasFixedSize(true);
+        pRV.setLayoutManager(new LinearLayoutManager(getContext()));
 
         db = FirebaseFirestore.getInstance();
         mAnns = new ArrayList<Announcement>();
         mAdapter = new AnnouncementAdapter(getContext(), mAnns);
+        mPoints = new ArrayList<Points>();
+        pointsAdapter = new PointsAdapter(getContext(), mPoints);
 
         mRecyclerView.setAdapter(mAdapter);
-
+        pRV.setAdapter(pointsAdapter);
         EventChangeListener();
     }
 
@@ -106,6 +113,22 @@ public class HomeFragment extends Fragment {
                             if (progressDialog.isShowing())
                                 progressDialog.dismiss();
                         }
+                    }
+                });
+        db.collection("user_test")
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                        for (DocumentChange dc: value.getDocumentChanges()){
+                            if (dc.getType() == DocumentChange.Type.ADDED){
+                                Points p = new Points(dc.getDocument().getString("username"),
+                                        Math.toIntExact(dc.getDocument().getLong("points")));
+                                mPoints.add(p);
+                            }
+
+                            pointsAdapter.notifyDataSetChanged();
+                        }
+                        pointsAdapter.sorting(mPoints);
                     }
                 });
     }
