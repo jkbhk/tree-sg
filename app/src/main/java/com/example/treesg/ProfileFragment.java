@@ -19,8 +19,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.google.firebase.database.core.utilities.Tree;
+import com.squareup.picasso.Picasso;
 
 import org.jetbrains.annotations.NotNull;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 
 public class ProfileFragment extends Fragment {
@@ -28,7 +32,7 @@ public class ProfileFragment extends Fragment {
     ImageView rewardBtn;
     ImageView settingsBtn;
     ImageView postBtn;
-    ImageView profileImage;
+    CircleImageView profileImage;
     TextView usernameText;
     TextView descriptionText;
 
@@ -47,7 +51,6 @@ public class ProfileFragment extends Fragment {
 
         rewardBtn = getView().findViewById(R.id.rewardBtn);
         settingsBtn = getView().findViewById(R.id.settingsBtn);
-        postBtn = getView().findViewById(R.id.tv_profile_postBtn);
 
         profileImage = getView().findViewById(R.id.tv_profile_profileimage);
         usernameText = getView().findViewById(R.id.tv_profile_username);
@@ -57,13 +60,22 @@ public class ProfileFragment extends Fragment {
         usernameText.setText(""+UserManager.instance.getCurrentUser().getUsername());
         descriptionText.setText(""+UserManager.instance.getCurrentUser().getUserDescription());
 
+        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.rv_profile_recyclerview);
+
+        PostDataManager.instance.retreiveAllPosts(()->{
+            Post[] temp = PostDataManager.instance.getPostArrayByUser(UserManager.instance.getCurrentUser());
+            Treedebugger.log(""+temp.length);
+            ProfileRecyclerViewAdapter profileRecyclerViewAdapter = new ProfileRecyclerViewAdapter(temp);
+            recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
+            recyclerView.setAdapter(profileRecyclerViewAdapter);
+        });
+
         rewardBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
                 MainActivity.navigationController.navigate(R.id.navigation_reward);
 
-                //replaceFragment(new RewardFragment());
             }
         });
       
@@ -73,17 +85,6 @@ public class ProfileFragment extends Fragment {
                 MainActivity.navigationController.navigate(R.id.navigation_settings);
             }
         });
-
-        postBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //PostDataManager.instance.createNewPost(UserManager.instance.getCurrentUser(), "pog you #pog", "asdf", "jurong", ()->{
-                    //Toast.makeText(getActivity(), "Created Post", Toast.LENGTH_SHORT).show();
-                //});
-            }
-        });
-
-
 
     }
 

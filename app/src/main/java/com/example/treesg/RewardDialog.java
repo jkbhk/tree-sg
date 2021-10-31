@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatDialogFragment;
 
@@ -37,15 +38,11 @@ public class RewardDialog extends AppCompatDialogFragment {
         }).setPositiveButton("confirm", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                Treedebugger.log(""+UserManager.instance.getCurrentUser().getPoints());
+                Toast.makeText(getContext(), "Successful Purchase!", Toast.LENGTH_SHORT).show();
                 reward.applyContract();
-                //currentPoints = currentPoints - reward.pointsRequired;
-                //UserManager.instance.getCurrentUser().setPoints(currentPoints);
-                Treedebugger.log(""+UserManager.instance.getCurrentUser().getPoints());
                 UserManager.instance.updateUserAsync(UserManager.instance.getCurrentUser().getUserID(), ()->{
                     String toUpdate = "" + UserManager.instance.getCurrentUser().getPoints();
                     RewardShopFragment.pointHolder2.setText(toUpdate)
-
                     ;});
             }
         });
