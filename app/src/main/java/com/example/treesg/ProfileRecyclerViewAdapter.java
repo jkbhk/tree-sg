@@ -12,18 +12,18 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
 public class ProfileRecyclerViewAdapter extends RecyclerView.Adapter<ProfileRecyclerViewAdapter.ViewHolder> {
 
     Context context;
-    List<Post> postList;
+    Post[] postArray;
     ImageView postPic;
 
-    public ProfileRecyclerViewAdapter(Context context, List<Post> postList){
-        this.context = context;
-        this.postList = postList;
+    public ProfileRecyclerViewAdapter(Post[] postArray){
+        this.postArray = postArray;
     }
 
     @Override
@@ -44,7 +44,8 @@ public class ProfileRecyclerViewAdapter extends RecyclerView.Adapter<ProfileRecy
     public void onBindViewHolder(@NonNull ProfileRecyclerViewAdapter.ViewHolder holder, int position) {
         //holder.postPic.setImageResource(postList.get(position).getPostImage());
         //Glide.with(context).load(PostDataManager.instance.placeholder(R.drawable.default_profile).into(profileImage);
-        Glide.with(context).load(PostDataManager.instance.posts).into(postPic);
+        //Glide.with(context).load(PostDataManager.instance.posts).into(postPic);
+
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
@@ -59,6 +60,6 @@ public class ProfileRecyclerViewAdapter extends RecyclerView.Adapter<ProfileRecy
 
     @Override
     public int getItemCount() {
-        return postList.size();
+        return postArray.length;
     }
 }

@@ -60,10 +60,13 @@ public class ProfileFragment extends Fragment {
         usernameText.setText(""+UserManager.instance.getCurrentUser().getUsername());
         descriptionText.setText(""+UserManager.instance.getCurrentUser().getUserDescription());
 
+        Post[] p = new Post[0];
+
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.rv_profile_recyclerview);
-        ProfileRecyclerViewAdapter profileRecyclerViewAdapter = new ProfileRecyclerViewAdapter(getContext(), PostDataManager.instance.posts);
+
+        ProfileRecyclerViewAdapter profileRecyclerViewAdapter = new ProfileRecyclerViewAdapter(p);
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
-        //recyclerView.setAdapter(profileRecyclerViewAdapter);
+        recyclerView.setAdapter(profileRecyclerViewAdapter);
 
         rewardBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -85,9 +88,9 @@ public class ProfileFragment extends Fragment {
         postBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                PostDataManager.instance.createNewPost(UserManager.instance.getCurrentUser(), "pog you #pog", "asdf", "jurong", ()->{
-                    Toast.makeText(getActivity(), "Created Post", Toast.LENGTH_SHORT).show();
-                });
+                //PostDataManager.instance.createNewPost(UserManager.instance.getCurrentUser(), "pog you #pog", "asdf", "jurong", ()->{
+                    //Toast.makeText(getActivity(), "Created Post", Toast.LENGTH_SHORT).show();
+                //});
             }
         });
 

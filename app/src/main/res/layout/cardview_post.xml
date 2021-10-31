@@ -10,7 +10,6 @@
 
         <ImageView
             android:id="@+id/cv_profile_post_image"
-            android:src="@drawable/default_profile"
             android:layout_width="match_parent"
             android:layout_height="137dp"
             android:scaleType="centerCrop"
