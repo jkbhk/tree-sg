@@ -36,11 +36,11 @@ public class PostDataManager {
 
         ArrayList<Post> tempList = new ArrayList<>();
         for(Post p : posts){
-            if(u.getUserID() == p.getFrom()){
+            if(u.getUserID().equals(p.getFrom())){
                 tempList.add(p);
             }
-        }
 
+        }
         Post[] temp = new Post[tempList.size()];
 
         for(int i = 0; i < temp.length; i++){
