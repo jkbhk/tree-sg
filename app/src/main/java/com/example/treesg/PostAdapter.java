@@ -92,7 +92,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         holder.likeImage.setImageResource(current.isLiked() ? R.drawable.heart : R.drawable.like);
 
         holder.messageButton.setVisibility(View.INVISIBLE);
-        //holder.shareButton.setVisibility(View.INVISIBLE);
+        holder.shareButton.setVisibility(View.INVISIBLE);
     }
 
     @Override
