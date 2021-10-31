@@ -40,6 +40,7 @@ public class SettingsLogOut extends Fragment {
                 FirebaseAuth.getInstance().signOut();
                 Intent intent = new Intent(getActivity(), login.class);
                 startActivity(intent);
+                getActivity().finish();
             }
         });
     }
