@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.google.firebase.database.core.utilities.Tree;
 
@@ -66,6 +67,7 @@ public class ExploreFragment extends Fragment {
 
         androidx.appcompat.widget.SearchView sview = (androidx.appcompat.widget.SearchView)(view.findViewById(R.id.sv_explore));
         sview.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+
             @Override
             public boolean onQueryTextSubmit(String query) {
                 rerenderBundles(query);
@@ -89,6 +91,15 @@ public class ExploreFragment extends Fragment {
         });
 
 
+        Button exploreLatestBtn = (Button)(view.findViewById(R.id.btn_exploreFragment_exploreLatest));
+
+        exploreLatestBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TrendingFragment.filterBy = "";
+                MainActivity.navigationController.navigate(R.id.navigation_trending);
+            }
+        });
 
         RecyclerView rview = (RecyclerView) (view.findViewById(R.id.rv_explore_fragment));
         rview.setHasFixedSize(true);
