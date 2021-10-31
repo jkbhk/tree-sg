@@ -136,13 +136,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:id="@+id/Dialog_text"
             android:text="Make Post"
+            android:textAlignment="center"
             android:textSize="20sp"
             android:textColor="@color/green_back"/>
 
         <EditText
             android:layout_width="match_parent"
             android:layout_height="40dp"
+            android:id="@+id/ET_postDescription"
             android:background="@color/white"
             android:layout_margin="10dp"
             android:hint="Enter Description here"/>
@@ -150,6 +153,7 @@
 
         <ImageButton
             android:layout_width="30dp"
+            android:id="@+id/imageButton"
             android:layout_height="30dp"
             android:layout_marginEnd="10dp"
             android:minWidth="48dp"
@@ -157,6 +161,11 @@
             android:layout_gravity="end"
             android:src="@drawable/image_button"
             android:layout_marginRight="10dp" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/IV_treeDialog_photoToPost"/>
 
         <Button
             android:id="@+id/upload"
@@ -198,7 +207,7 @@
          android:layout_height="wrap_content"
          android:padding="10dp"
          android:layout_marginTop="10dp"
-         android:text="You have earned 20 points!"
+         android:text="You have earned 2 points!"
          android:textSize="20sp"
          android:textColor="@color/green_back"
          android:visibility="invisible"
