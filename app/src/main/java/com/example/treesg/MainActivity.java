@@ -34,6 +34,8 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -46,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
     public static androidx.fragment.app.FragmentManager fragmentSupportManager;
     private static NotificationManagerCompat notificationManager1;
     private noti noti;
+    private Calendar calendar;
     //private AppManager appManager;
 
 
@@ -91,8 +94,16 @@ public class MainActivity extends AppCompatActivity {
                         Treedebugger.log("Listen Failed");
                         return;
                     }
+                    Calendar calendar = Calendar.getInstance();
+                    calendar.add(Calendar.MINUTE, -1);
+                    Date before = calendar.getTime();
+                    Calendar calendar1 = Calendar.getInstance();
+                    Date until = calendar1.getTime();
                     for (DocumentChange dc : value.getDocumentChanges()) {
-                        if (dc.getType() == DocumentChange.Type.ADDED) sendChannel3(findViewById(android.R.id.content).getRootView());
+                        Date test = dc.getDocument().getDate("notificationDate");
+                        if (dc.getType() == DocumentChange.Type.ADDED) {
+                            if (!before.after(test) && !until.before(test)) sendChannel3(findViewById(android.R.id.content).getRootView());
+                        }
                     }
                 }
             });
@@ -106,8 +117,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                     for (DocumentChange dc : value.getDocumentChanges()) {
                         if (dc.getType() == DocumentChange.Type.MODIFIED){
-                            if(user.getUserID() == dc.getDocument().getString("post_creator"))
-                            sendChannel1(findViewById(android.R.id.content).getRootView());
+                            if(user.getUserID() == dc.getDocument().getString("post_creator")) sendChannel1(findViewById(android.R.id.content).getRootView());
                         }
                     }
                 }
