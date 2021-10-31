@@ -11,6 +11,7 @@ import android.view.View;
 import com.example.treesg.databinding.RewardListBinding;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
 import androidx.fragment.app.Fragment;
@@ -24,16 +25,24 @@ import androidx.core.app.NotificationManagerCompat;
 import com.example.treesg.databinding.ActivityMainBinding;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.core.utilities.Tree;
+import com.google.firebase.firestore.DocumentChange;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
     public static MainActivity instance;
-
     private ActivityMainBinding binding;
     //RewardListBinding rewardListBinding;
     public static NavController navigationController;
     public static FragmentManager fragmentManager;
-
+    private User user;
     public static androidx.fragment.app.FragmentManager fragmentSupportManager;
     private static NotificationManagerCompat notificationManager1;
     private noti noti;
@@ -46,16 +55,14 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         noti noti = new noti(this);
         noti.createNotificationChannels();
+        user = UserManager.instance.getCurrentUser();
         // intitialize app manager
         //appManager = new AppManager();
         //appManager.initialize();
         instance = this;
         fragmentManager = getFragmentManager();
-
         fragmentSupportManager = getSupportFragmentManager();
-
         notificationManager1 = NotificationManagerCompat.from(this);
-      
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         //rewardListBinding = RewardListBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
@@ -74,27 +81,35 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         navigationController = navController;
+        user = UserManager.instance.getCurrentUser();
 
-        /*
-        while (user.notiON)
-        {
-            When someone like post
-                {
-                sendChannel1;
+        if(user.getNotifications()){
+            FirebaseFirestore.getInstance().collection("Announcement").addSnapshotListener(new EventListener<QuerySnapshot>() {
+                @Override
+                public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                    if (error != null) {
+                        Treedebugger.log("Listen Failed");
+                        return;
+                    }
+                    for (DocumentChange dc : value.getDocumentChanges()) {
+                        if (dc.getType() == DocumentChange.Type.ADDED) sendChannel3(findViewById(android.R.id.content).getRootView());
+                    }
                 }
+            });
 
-             When someone follow you
-                {
-                sendChannel2;
+            FirebaseFirestore.getInstance().collection(DatabaseManager.USERS_COLLECTION).addSnapshotListener(new EventListener<QuerySnapshot>() {
+                @Override
+                public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                    if (error != null) {
+                        Treedebugger.log("Listen Failed");
+                        return;
+                    }
+                    for (DocumentChange dc : value.getDocumentChanges()) {
+                        if (dc.getType() == DocumentChange.Type.MODIFIED) sendChannel1(findViewById(android.R.id.content).getRootView());
+                    }
                 }
-
-             When new announcement
-                {
-                sendChannel3;
-                }
-         }
-         */
-
+            });
+        }
     }
     
 
@@ -120,7 +135,7 @@ public class MainActivity extends AppCompatActivity {
         notificationManager1.notify(1, notification);
     }
 
-    public void sendChannel2(View v){
+    /*public void sendChannel2(View v){
         String textTitle = "Someone just followed you!";
         String textContent = "Click here to see!";
 
@@ -141,7 +156,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         notificationManager1.notify(2, notification);
-    }
+    }*/
 
     public void sendChannel3(View v){
         String textTitle = "There is a new announcement!";
