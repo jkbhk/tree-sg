@@ -8,4 +8,7 @@ public class DatabaseManager {
     public static final String POSTS_COLLECTION = "posts";
     //public static final String POSTS_COLLECTION = "posts";
 
+    public static final String REWARDS_COLLECTION = "rewards";
+    //public static final String REWARDS_COLLECTION = "rewards";
+
 }

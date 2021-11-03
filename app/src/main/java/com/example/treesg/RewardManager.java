@@ -3,19 +3,36 @@ package com.example.treesg;
 import com.google.firebase.database.core.utilities.Tree;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 
 public class RewardManager {
     public static RewardManager instance;
 
     public RewardManager(){
         instance = this;
-        initialiseRewards();
+        //initialiseRewards();
+        RewardDao.retrieveRewards((ArrayList<Reward> retrieved)->{
+            rewardArrayList = retrieved;
+            rewardArrayList.sort(new Comparator<Reward>() {
+                @Override
+                public int compare(Reward reward, Reward t1) {
+                    int a = Integer.parseInt(reward.ID);
+                    int b = Integer.parseInt(t1.ID);
+                    if (a > b)
+                        return 1;
+                    else
+                        return -1;
+                }
+            });
+            Treedebugger.log("can't believe it works"+retrieved.size());});
     }
 
     ArrayList<Reward> rewardArrayList = new ArrayList<Reward>();
 
+
     public void initialiseRewards()
     {
+        /*
         Reward r1 = new Reward("1 Spin", "001", "Purchase 1 spin", 200);
         r1.behaviours.add(new AddSpinBehaviour(1));
         r1.behaviours.add(new DeductPointBehaviour(200));
@@ -45,6 +62,8 @@ public class RewardManager {
         Reward r7 = new Reward("Plant Tree Opportunity", "007", "An opportunity to plant your own personal tree in Singapore and call it yours! Includes a $50 general coupon!", 2000);
         r7.behaviours.add(new DeductPointBehaviour(2000));
         rewardArrayList.add(r7);
+
+         */
     }
 
     public ArrayList<Reward> getRewardArrayList()
