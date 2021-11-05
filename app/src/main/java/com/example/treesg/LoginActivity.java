@@ -24,12 +24,11 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.core.utilities.Tree;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-public class login extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity {
     EditText mEmail, mPassword;
     Button mLoginBtn;
     TextView mCreateBtn, forgotTextLink;
@@ -82,14 +81,14 @@ public class login extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
-                            Toast.makeText(login.this, "Logged in successfully.", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(LoginActivity.this, "Logged in successfully.", Toast.LENGTH_SHORT).show();
 
                             // start all controller entities
                             AppManager.instance.initialize();
 
                             checkUserAccessLevel(fAuth.getCurrentUser().getUid());
                         }else{
-                            Toast.makeText(login.this, "Error! " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(LoginActivity.this, "Error! " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
@@ -121,12 +120,12 @@ public class login extends AppCompatActivity {
                         fAuth.sendPasswordResetEmail(mail).addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void unused) {
-                                Toast.makeText(login.this, "Reset link is sent to your email.", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(LoginActivity.this, "Reset link is sent to your email.", Toast.LENGTH_SHORT).show();
                             }
                         }).addOnFailureListener(new OnFailureListener() {
                             @Override
                             public void onFailure(@NonNull Exception e) {
-                                Toast.makeText(login.this, "Error! Reset link is not sent" + e.getMessage(), Toast.LENGTH_SHORT).show();
+                                Toast.makeText(LoginActivity.this, "Error! Reset link is not sent" + e.getMessage(), Toast.LENGTH_SHORT).show();
                             }
                         });
 
@@ -165,12 +164,12 @@ public class login extends AppCompatActivity {
                     if(UserManager.instance.getCurrentUser().isAdmin()){
 
                         //user is admin
-                        startActivity(new Intent(getApplicationContext(), com.example.treesg.Admin.class));
+                        startActivity(new Intent(getApplicationContext(), AdminActivity.class));
                         finish();
                     }else{
 
                         if(UserManager.instance.getCurrentUser().isNew()){
-                            startActivity(new Intent(getApplicationContext(), com.example.treesg.setUser.class));
+                            startActivity(new Intent(getApplicationContext(), SetUserActivity.class));
                             finish();
                         }else{
                             startActivity(new Intent(getApplicationContext(), MainActivity.class));

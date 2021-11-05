@@ -1,7 +1,6 @@
 package com.example.treesg;
 
 import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.app.Notification;
 import android.app.PendingIntent;
 import android.content.Intent;
@@ -13,8 +12,6 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -22,17 +19,12 @@ import androidx.navigation.ui.NavigationUI;
 import androidx.core.app.NotificationManagerCompat;
 
 import com.example.treesg.databinding.ActivityMainBinding;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.core.utilities.Tree;
 import com.google.firebase.firestore.DocumentChange;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QuerySnapshot;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -46,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
     private User user;
     public static androidx.fragment.app.FragmentManager fragmentSupportManager;
     private static NotificationManagerCompat notificationManager1;
-    private noti noti;
+    private NotificationChannelController NotificationChannelController;
     private Calendar calendar;
     //private AppManager appManager;
 
@@ -55,8 +47,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        noti noti = new noti(this);
-        noti.createNotificationChannels();
+        NotificationChannelController NotificationChannelController = new NotificationChannelController(this);
+        NotificationChannelController.createNotificationChannels();
         user = UserManager.instance.getCurrentUser();
         // intitialize app manager
         //appManager = new AppManager();
@@ -133,7 +125,7 @@ public class MainActivity extends AppCompatActivity {
         MainIntent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         PendingIntent pending1 = PendingIntent.getActivity(this,0,MainIntent,0);
 
-        Notification notification = new NotificationCompat.Builder(this, noti.CHANNEL_1_ID)
+        Notification notification = new NotificationCompat.Builder(this, NotificationChannelController.CHANNEL_1_ID)
                 .setSmallIcon(R.drawable.like)
                 .setContentTitle(textTitle)
                 .setContentText(textContent)
@@ -178,7 +170,7 @@ public class MainActivity extends AppCompatActivity {
 
         PendingIntent pending1 = PendingIntent.getActivity(this,0,MainIntent,0);
         MainIntent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-        Notification notification = new NotificationCompat.Builder(this, noti.CHANNEL_3_ID)
+        Notification notification = new NotificationCompat.Builder(this, NotificationChannelController.CHANNEL_3_ID)
                 .setSmallIcon(R.drawable.trending_button)
                 .setContentTitle(textTitle)
                 .setContentText(textContent)

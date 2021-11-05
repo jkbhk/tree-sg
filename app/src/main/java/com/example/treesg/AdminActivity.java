@@ -9,7 +9,7 @@ import android.widget.Button;
 
 import com.google.firebase.auth.FirebaseAuth;
 
-public class Admin extends AppCompatActivity {
+public class AdminActivity extends AppCompatActivity {
     Button regBtn;
     Button annBtn;
     Button logBtn;
@@ -27,21 +27,21 @@ public class Admin extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 FirebaseAuth.getInstance().signOut();
-                startActivity(new Intent(getApplicationContext(), login.class));
+                startActivity(new Intent(getApplicationContext(), LoginActivity.class));
             }
         });
 
         regBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(), AdminRegisteredUsers.class));
+                startActivity(new Intent(getApplicationContext(), AdminRegisteredUsersActivity.class));
             }
         });
 
         annBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(), AdminAnnouncement.class));
+                startActivity(new Intent(getApplicationContext(), AdminAnnouncementActivity.class));
             }
         });
 

@@ -9,16 +9,13 @@ import android.content.Intent;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
-import com.example.treesg.R;
-import com.example.treesg.login;
 import com.google.firebase.auth.FirebaseAuth;
 
 import org.jetbrains.annotations.NotNull;
 
-public class SettingsLogOut extends Fragment {
+public class SettingsLogOutFragment extends Fragment {
     Button logout;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -38,7 +35,7 @@ public class SettingsLogOut extends Fragment {
             @Override
             public void onClick(View v) {
                 FirebaseAuth.getInstance().signOut();
-                Intent intent = new Intent(getActivity(), login.class);
+                Intent intent = new Intent(getActivity(), LoginActivity.class);
                 startActivity(intent);
                 getActivity().finish();
             }

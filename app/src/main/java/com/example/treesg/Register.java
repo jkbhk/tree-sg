@@ -80,7 +80,7 @@ public class Register extends AppCompatActivity {
                             Toast.makeText(Register.this, "User Created.", Toast.LENGTH_SHORT).show();
 
                             UserDao.createUser(fAuth.getCurrentUser().getUid(),email,fullName,phone,false,()->{
-                                startActivity(new Intent(getApplicationContext(), login.class));
+                                startActivity(new Intent(getApplicationContext(), LoginActivity.class));
                             });
 /*
                             userID = fAuth.getCurrentUser().getUid();
@@ -115,7 +115,7 @@ public class Register extends AppCompatActivity {
         mLoginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(), login.class));
+                startActivity(new Intent(getApplicationContext(), LoginActivity.class));
             }
         });
 

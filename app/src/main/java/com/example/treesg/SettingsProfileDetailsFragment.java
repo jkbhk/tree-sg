@@ -41,7 +41,7 @@ import org.jetbrains.annotations.NotNull;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class SettingsProfileDetails extends Fragment {
+public class SettingsProfileDetailsFragment extends Fragment {
     Button Save,ChangePP;
     EditText textName, textUsername, textDescription;
     CircleImageView ProfilePic;

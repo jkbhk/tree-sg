@@ -42,7 +42,7 @@ public class BackgroundActivity extends AppCompatActivity {
                 // This is where the app starts.
                 // For now we will start at login activity.
                 // Change login.class to the your desired starting activity here.
-                startActivity(new Intent(getApplicationContext(), login.class));
+                startActivity(new Intent(getApplicationContext(), LoginActivity.class));
             }
         }else{
 

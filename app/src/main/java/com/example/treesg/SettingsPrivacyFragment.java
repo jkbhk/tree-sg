@@ -1,6 +1,5 @@
 package com.example.treesg;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -13,25 +12,17 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
-import com.example.treesg.AppManager;
-import com.example.treesg.R;
-import com.example.treesg.Treedebugger;
-import com.example.treesg.UserManager;
-import com.example.treesg.login;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.core.utilities.Tree;
 
 import org.jetbrains.annotations.NotNull;
 
-public class SettingsPrivacy extends Fragment {
+public class SettingsPrivacyFragment extends Fragment {
     EditText Curr, New, Confirm;
     Button ConfirmButton;
     private FirebaseUser user;

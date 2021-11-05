@@ -25,7 +25,6 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.Timestamp;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
@@ -35,11 +34,10 @@ import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
 import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 
 
-public class AdminAnnouncement extends AppCompatActivity {
+public class AdminAnnouncementActivity extends AppCompatActivity {
     private static final int PICK_IMAGE_REQUEST = 1;
     Button back_button;
     Button post_button;
@@ -75,7 +73,7 @@ public class AdminAnnouncement extends AppCompatActivity {
         back_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(), Admin.class));
+                startActivity(new Intent(getApplicationContext(), AdminActivity.class));
             }
         });
 
@@ -90,7 +88,7 @@ public class AdminAnnouncement extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (uploadPost != null && uploadPost.isInProgress()) {
-                    Toast.makeText(AdminAnnouncement.this, "Upload in progress", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AdminAnnouncementActivity.this, "Upload in progress", Toast.LENGTH_SHORT).show();
                 } else {
                     uploadFile();
                 }
@@ -132,7 +130,7 @@ public class AdminAnnouncement extends AppCompatActivity {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                             post_progress.setVisibility(View.INVISIBLE);
-                            Toast.makeText(AdminAnnouncement.this, "Upload Successful", Toast.LENGTH_LONG).show();
+                            Toast.makeText(AdminAnnouncementActivity.this, "Upload Successful", Toast.LENGTH_LONG).show();
                             fileReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                                 @Override
                                 public void onSuccess(Uri uri) {
@@ -195,7 +193,7 @@ public class AdminAnnouncement extends AppCompatActivity {
                                 @Override
                                 public void run() {
                                     // Do something after 5s = 5000ms
-                                    startActivity(new Intent(getApplicationContext(), Admin.class));
+                                    startActivity(new Intent(getApplicationContext(), AdminActivity.class));
                                 }
                             }, 500);
                         }
@@ -204,7 +202,7 @@ public class AdminAnnouncement extends AppCompatActivity {
                         @Override
                         public void onFailure(@NonNull Exception e) {
                             post_progress.setVisibility(View.INVISIBLE);
-                            Toast.makeText(AdminAnnouncement.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(AdminAnnouncementActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     })
                     .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {

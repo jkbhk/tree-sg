@@ -11,16 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import com.example.treesg.databinding.ActivityMainBinding;
-import com.example.treesg.databinding.RewardListBinding;
-
-import java.util.ArrayList;
 
 
 public class RewardShopFragment extends Fragment {
@@ -46,9 +37,9 @@ public class RewardShopFragment extends Fragment {
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.listView);
         recyclerView.setHasFixedSize(false);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        RewardRecyclerView rewardRecyclerView = new RewardRecyclerView(RewardManager.instance.getRewardArray());
+        RewardShopAdapter rewardShopAdapter = new RewardShopAdapter(RewardManager.instance.getRewardArray());
 
-        recyclerView.setAdapter(rewardRecyclerView);
+        recyclerView.setAdapter(rewardShopAdapter);
     }
 
 }

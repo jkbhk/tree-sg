@@ -10,7 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-public class setUser extends AppCompatActivity {
+public class SetUserActivity extends AppCompatActivity {
     EditText setUser;
     Button confirmBtn;
     TextView welcomeMsg;

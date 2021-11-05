@@ -12,13 +12,13 @@ import androidx.core.app.NotificationManagerCompat;
 
 import com.google.firebase.database.core.utilities.Tree;
 
-public class noti{
+public class NotificationChannelController {
     public static final String CHANNEL_1_ID = "channel1";
     public static final String CHANNEL_2_ID = "channel2";
     public static final String CHANNEL_3_ID = "channel3";
     Context mContext;
 
-    public noti(Context mContext) {
+    public NotificationChannelController(Context mContext) {
         this.mContext = mContext;
     }
     public void createNotificationChannels() {

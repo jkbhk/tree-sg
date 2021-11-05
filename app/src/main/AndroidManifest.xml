@@ -17,7 +17,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TREESG">
         <activity
-            android:name=".setUser"
+            android:name=".SetUserActivity"
             android:exported="false" />
         <activity
             android:name=".BackgroundActivity"
@@ -40,19 +40,19 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyA9oOYdOk9hfpgojd7l5JwqyMX-lOHWR7k" />
 
-        <activity android:name=".AdminAnnouncement" />
+        <activity android:name=".AdminAnnouncementActivity" />
         <activity
-            android:name=".AdminRegisteredUsers"
+            android:name=".AdminRegisteredUsersActivity"
             android:exported="true" />
         <activity
-            android:name=".Admin"
+            android:name=".AdminActivity"
             android:exported="true" />
         <activity
             android:name=".navigation_bar"
             android:exported="true"
             android:label="@string/title_activity_navigation_bar" />
         <activity
-            android:name=".login"
+            android:name=".LoginActivity"
             android:exported="true" />
         <activity
             android:name=".Register"

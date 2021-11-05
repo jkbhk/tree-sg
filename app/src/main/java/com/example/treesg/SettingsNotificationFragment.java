@@ -16,7 +16,7 @@ import com.example.treesg.R;
 
 import org.jetbrains.annotations.NotNull;
 
-public class SettingsNotification extends Fragment {
+public class SettingsNotificationFragment extends Fragment {
     Button on, off;
     private User user;
     @Override

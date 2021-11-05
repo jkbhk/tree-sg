@@ -59,25 +59,25 @@
 
     <fragment
         android:id="@+id/navigation_settings_logout"
-        android:name="com.example.treesg.SettingsLogOut"
+        android:name="com.example.treesg.SettingsLogOutFragment"
         android:label="Logout"
         tools:layout="@layout/fragment_settings_logout" />
 
     <fragment
         android:id="@+id/navigation_settings_pf"
-        android:name="com.example.treesg.SettingsProfileDetails"
+        android:name="com.example.treesg.SettingsProfileDetailsFragment"
         android:label="Profile Details"
         tools:layout="@layout/fragment_settings_profiledetails" />
 
     <fragment
         android:id="@+id/navigation_settings_pri"
-        android:name="com.example.treesg.SettingsPrivacy"
+        android:name="com.example.treesg.SettingsPrivacyFragment"
         android:label="Privacy"
         tools:layout="@layout/fragment_settings_privacy" />
 
     <fragment
         android:id="@+id/navigation_settings_noti"
-        android:name="com.example.treesg.SettingsNotification"
+        android:name="com.example.treesg.SettingsNotificationFragment"
         android:label="Notifications"
         tools:layout="@layout/fragment_settings_notifications" />
 
